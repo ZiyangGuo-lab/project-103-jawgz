@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.template import loader
 
 # Create your views here.
 
 
 def login(request):
-    return HttpResponse('<h1>Log In Page</h1>')
+    return HttpResponse('<h1>Login Page</h1>')
 
 
 def find(request):

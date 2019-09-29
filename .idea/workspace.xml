@@ -2,9 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97132da6-756e-48aa-b399-e272dc7e35c3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/hoos_riding/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hoosRiding/templates/hoosRiding/find_ride.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hoosRiding/templates/hoosRiding/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hoosRiding/templates/hoosRiding/post_ride.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hoosRiding/templates/hoosRiding/profile.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hoos_riding/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/hoos_riding/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hoos_riding/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/hoosRiding/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hoos_riding/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/hoosRiding/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hoos_riding/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/hoosRiding/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hoos_riding/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/hoosRiding/migrations/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hoos_riding/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/hoosRiding/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hoos_riding/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/hoosRiding/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hoos_riding/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/hoosRiding/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hoos_riding/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/hoosRiding/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jawgz/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/jawgz/urls.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
