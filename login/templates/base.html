@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Login</title>
+  </head>
+  <body>
+    View login info of user
+      <form action="/login/enterLogin" method="GET">
+          {% csrf_token %}
+          username:<br>
+          <input type="text" name="username">
+          <br>
+          password:<br>
+          <input type="text" name="password">
+          <br><br>
+          <input type="submit" value="Submit">
+      </form>
+    <br>
+    create new user
+      <form action="/login/enterLogin" method="POST">
+          {% csrf_token %}
+          name:<br>
+          <input type="text" name="name">
+          <br>
+          username:<br>
+          <input type="text" name="username">
+          <br>
+          password:<br>
+          <input type="text" name="password">
+          <br><br>
+          <input type="submit" value="Submit">
+      </form>
+  </body>
+</html>
