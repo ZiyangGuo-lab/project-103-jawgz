@@ -2,13 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97132da6-756e-48aa-b399-e272dc7e35c3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/hoosRiding/static/hoosRiding/main.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hoosRiding/templates/hoosRiding/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hoosRiding/templates/hoosRiding/find_ride.html" beforeDir="false" afterPath="$PROJECT_DIR$/hoosRiding/templates/hoosRiding/find_ride.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hoosRiding/templates/hoosRiding/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/hoosRiding/templates/hoosRiding/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hoosRiding/templates/hoosRiding/post_ride.html" beforeDir="false" afterPath="$PROJECT_DIR$/hoosRiding/templates/hoosRiding/post_ride.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hoosRiding/templates/hoosRiding/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/hoosRiding/templates/hoosRiding/profile.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hoosRiding/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/hoosRiding/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jawgz/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/jawgz/settings.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
