@@ -28,6 +28,11 @@ ul {
   font-weight: 500;
 }
 
+.footer-text {
+    color: #ffffff;
+    text-align: center;
+}
+
 .content-section {
   background: #ffffff;
   padding: 10px 20px;
