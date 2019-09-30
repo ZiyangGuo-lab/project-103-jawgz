@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97132da6-756e-48aa-b399-e272dc7e35c3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/hoosRiding/static/hoosRiding/favicon.ico" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hoosRiding/static/hoosRiding/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/hoosRiding/static/hoosRiding/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hoosRiding/templates/hoosRiding/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/hoosRiding/templates/hoosRiding/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jawgz/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/jawgz/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jawgz/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/jawgz/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/login/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/post/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_profile/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/user_profile/urls.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,6 +24,13 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/hoosRiding/static/hoosRiding" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/user_profile/templates/user_profile" />
+      <recent name="$PROJECT_DIR$/post/templates/post" />
+      <recent name="$PROJECT_DIR$/login/templates/login" />
+      <recent name="$PROJECT_DIR$/find/templates/find" />
+      <recent name="$PROJECT_DIR$/hoosRiding/static/hoosRiding" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/hoosRiding/static/hoosRiding" />
     </key>
