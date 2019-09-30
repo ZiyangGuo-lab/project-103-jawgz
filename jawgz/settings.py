@@ -31,7 +31,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'hoosRiding.apps.HoosRidingConfig',
+    'find.apps.FindConfig',
+    'post.apps.PostConfig',
+    'user_profile.apps.UserProfileConfig',
+    'login.apps.LoginConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
