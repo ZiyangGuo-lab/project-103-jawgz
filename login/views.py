@@ -10,11 +10,12 @@ from django.http import HttpResponseRedirect
 class loginPage(CreateView):
     model = User
     fields = ('username', 'password')
-    template_name = 'loginPage.html'
+    template_name = 'login.html'
 
 
 def enterLogin(request):
     if(request.method == 'GET'):
+        print("here with " + request.GET['username'] + " " + request.GET['password'])
         query = User.objects.filter(username=request.GET['username'], password=request.GET['password'])
         if(query.count() > 0):
             match = query[0]

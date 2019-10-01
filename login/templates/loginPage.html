@@ -1,8 +1,0 @@
-{% extends '/login/base.html' %}
-
-{% block main %}
-<form  action="/polls/submitsug" method="post">
-    {% csrf_token %}
-    <button  type="submit"  class="btn btn-success">Submit</button>
-</form>
-{% endblock %}
