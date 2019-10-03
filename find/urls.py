@@ -2,6 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.find, name='find-ride')
+    path('', views.findView.as_view(), name='find-ride')
 ]
 

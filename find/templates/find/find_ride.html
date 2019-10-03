@@ -1,6 +1,24 @@
 {% extends "hoosRiding/base.html" %}
 {% block content %}
 
-<h1>Find a Ride Page</h1>
+<center>
+{% if postings_list %}
+    <ul>
+    {% for Posting in postings_list %}
+          <div class="card text-white bg-primary mb-3" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{ Posting.time }}</h5>
+                <p class="card-title">To: {{ Posting.location_to }}</p>
+                <p class="card-title">From: {{ Posting.location_from }}</p>
+                <p class="card-text">Driver Name: {{ Posting.driver_name }}</p>
+                  <a href="{% url 'user-profile' %}" class="btn btn-primary">Contact User</a>
+            </div>
+</div>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No postings are available.</p>
+{% endif %}
+</center>
 
 {% endblock content %}
