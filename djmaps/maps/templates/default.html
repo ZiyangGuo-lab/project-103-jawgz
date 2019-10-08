@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Interactive maps for Django web apps</title>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet' />
+  </head>
+  <body>
+   <h1>Map time!</h1>
+   <div id='map' width="100%" style='height:400px'></div>
+   <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZ2FycmV0dGxldnkiLCJhIjoiY2sxZHY4MTdiMGNlbzNtcDZnMXZmZGJpaSJ9.lNp8bdsLIlgg2qC00oBj3A';
+    var map = new mapboxgl.Map({
+     container: 'map',
+     style: 'mapbox://styles/mapbox/streets-v10',
+     center: [-77.03, 38.91],
+     zoom: 9,
+    });
+   </script>
+  </body>
+
+
+<head>
+    <title>Interactive2 maps for Django web apps</title>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet' />
+  </head>
+  <body>
+   <h1>Map time!</h1>
+   <div id='map2' width="100%" style='height:400px'></div>
+   <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZ2FycmV0dGxldnkiLCJhIjoiY2sxZHY4MTdiMGNlbzNtcDZnMXZmZGJpaSJ9.lNp8bdsLIlgg2qC00oBj3A';
+    var map = new mapboxgl.Map({
+     container: 'map',
+     style: 'mapbox://styles/mapbox/streets-v10',
+     center: [-77.03, 38.91],
+     zoom: 9,
+    });
+   </script>
+  </body>
+</html>
