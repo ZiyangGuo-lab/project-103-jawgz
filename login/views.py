@@ -6,11 +6,17 @@ from django.views import generic
 from django.views.generic import CreateView
 from .models import User
 from django.http import HttpResponseRedirect
+from django.shortcuts import render
+
+
 
 class loginPage(CreateView):
     model = User
     fields = ('username', 'password')
     template_name = 'login.html'
+
+    def index(request):
+        return render('login.html')
 
 
 def enterLogin(request):
@@ -25,9 +31,10 @@ def enterLogin(request):
         return HttpResponseRedirect('/login')
     elif request.method == 'POST':
         newUser = User()
-        newUser.name = request.POST['name']
+        newUser.name = "test"#request.POST['name']
         newUser.username = request.POST['username']
         newUser.password = request.POST['password']
+        newUser.uid = hash(newUser.name + newUser.username + newUser.name[::-1])
         newUser.save()
 
         return HttpResponseRedirect('/login')

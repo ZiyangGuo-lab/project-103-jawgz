@@ -19,7 +19,11 @@ class Posting(models.Model):
     location_to = models.CharField(max_length=200)
     location_from = models.CharField(max_length=200)
     date = models.DateTimeField(default=default_datetime)
+    price = models.CharField(max_length=200)
     # rating = models.IntegerField(choices=ONE_TO_FIVE_RATING_CHOICES)
+
+    driver_id = models.CharField(max_length=200, default='0000000')
+    uid = models.CharField(max_length=200, default='0000000')
 
     def __str__(self):
         return self.driver_name
