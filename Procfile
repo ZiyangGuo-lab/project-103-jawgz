@@ -1,1 +1,1 @@
-web: gunicorn project-103-jawgz.wsgi
+web: gunicorn jawgz.wsgi
