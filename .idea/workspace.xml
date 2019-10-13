@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="97132da6-756e-48aa-b399-e272dc7e35c3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hoosRiding/templates/hoosRiding/signin.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/login/static/login/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/login/static/login/login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login/templates/login/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/login/templates/login/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hoosRiding/static/hoosRiding/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/hoosRiding/static/hoosRiding/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hoosRiding/static/hoosRiding/output-onlinepngtools.png" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,11 +22,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/hoosRiding/static/hoosRiding" />
       <recent name="$PROJECT_DIR$/login/static/login" />
       <recent name="$PROJECT_DIR$/user_profile/templates/user_profile" />
       <recent name="$PROJECT_DIR$/post/templates/post" />
       <recent name="$PROJECT_DIR$/login/templates/login" />
-      <recent name="$PROJECT_DIR$/find/templates/find" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/hoosRiding/static/hoosRiding" />
