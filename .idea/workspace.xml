@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97132da6-756e-48aa-b399-e272dc7e35c3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/hoosRiding/static/hoosRiding/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hoosRiding/static/hoosRiding/tab-logo.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hoosRiding/static/hoosRiding/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/hoosRiding/static/hoosRiding/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hoosRiding/templates/hoosRiding/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/hoosRiding/templates/hoosRiding/base.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,11 +18,19 @@
   <component name="ProjectId" id="1RWUePrsdmJLpLggs8M0AQ1i4US" />
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/hoosRiding/static/hoosRiding" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/hoosRiding/static/hoosRiding" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/hoosRiding/static/hoosRiding" />
+      <recent name="$PROJECT_DIR$/login/static/login" />
+      <recent name="$PROJECT_DIR$/user_profile/templates/user_profile" />
+      <recent name="$PROJECT_DIR$/post/templates/post" />
+      <recent name="$PROJECT_DIR$/login/templates/login" />
     </key>
   </component>
   <component name="RunDashboard">
