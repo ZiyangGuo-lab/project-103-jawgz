@@ -3,45 +3,24 @@
 
 <h1>Post Your Ride</h1>
 
-<!-- <form action="/your-name/" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit">
-</form> -->
  <div class="card text-black mb-4" style="width: 40rem; background: light; border: px solid #FF860E; outline-color: 6px solid #CCC873">
-<!-- <form action="/your-name/" method="post">
-    <label for="location_to">To: </label>
-    <input id="location_to" type="text" name="location_to" value="{{ current_name }}">
-    <label for="location_from">From: </label>
-    <input id="location_from" type="text" name="location_from" value="{{ current_name }}">
-     <label for="driver_name">Driver Name: </label>
-    <input id="driver_name" type="text" name="driver_name" value="{{ current_name }}">
-     <label for="vehicle_model">vehicel_model: </label>
-    <input id="vehicel_model" type="text" name="vehicle_model" value="{{ current_name }}">
-    <input type="submit" value="submit">
-</form> -->
-
-<!-- <form action="/your-name/" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit">
-</form> -->
+</form>
 <style> .indented { padding-left: 100pt; padding-right: 50pt; } </style>
 
 
 <form action="."   method="post">
 {% csrf_token %}
-    <p><label for="location_to">To: </label></p>
+    <p><label for="location_to" style = "margin-left:5%;">To: </label></p>
     <p><input id="location_to" type="text" style = "margin-left:5%;" name="location_to" value="{{ current_name }}"></p>
-    <p><label for="location_from">From:   </label></p>
+    <p><label for="location_from" style = "margin-left:5%;">From:   </label></p>
     <p><input id="location_from" type="text" style = "margin-left:5%;" name="location_from" value="{{ current_name }}"></p>
-    <p> <label for="driver_name">Driver Name: </label></p>
+    <p> <label for="driver_name" style = "margin-left:5%;">Driver Name: </label></p>
     <p><input id="driver_name" type="text" style = "margin-left:5%;" name="driver_name" value="{{ current_name }}"></p>
-     <p><label for="vehicle_model">Vehicel_model: </label></p>
+     <p><label for="vehicle_model" style = "margin-left:5%;">Vehicel_model: </label></p>
     <p><input id="vehicel_model" type="text" style = "margin-left:5%;" name="vehicle_model" value="{{ current_name }}"></p>
-    <p><label for="price">Price: </label></p>
+    <p><label for="price" style = "margin-left:5%;">Price: </label></p>
     <p><input id="price" type="integer" style = "margin-left:5%;" name="price" value="{{ current_name }}"></p>
-    <p><input type="submit" value="submit"></p>
+    <p><input style = "margin-left:5%;" type="submit" value="submit"></p>
 
 </form>
 
