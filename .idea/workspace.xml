@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97132da6-756e-48aa-b399-e272dc7e35c3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hoosRiding/static/hoosRiding/tab-logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hoosRiding/templates/hoosRiding/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/hoosRiding/templates/hoosRiding/base.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,15 +22,15 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/hoosRiding/static/hoosRiding" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/hoosRiding/static/hoosRiding" />
       <recent name="$PROJECT_DIR$/login/static/login" />
       <recent name="$PROJECT_DIR$/user_profile/templates/user_profile" />
       <recent name="$PROJECT_DIR$/post/templates/post" />
       <recent name="$PROJECT_DIR$/login/templates/login" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/hoosRiding/static/hoosRiding" />
     </key>
   </component>
   <component name="RunDashboard">
