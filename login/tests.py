@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+from django.test import TestCase
+
+# Create your tests here.
+=======
 
 # Create your tests here.
 from django.test import TestCase
@@ -30,3 +35,4 @@ class LoginTestCase(TestCase):
     def tearDown(self):
         query = User.objects.filter(username=self.newUser.username, password=self.newUser.password)
         query.delete()
+>>>>>>> 6f91319546b813bd00251c2cac2a9cdfd98975e9
