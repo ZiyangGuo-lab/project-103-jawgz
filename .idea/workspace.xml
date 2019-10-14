@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97132da6-756e-48aa-b399-e272dc7e35c3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/user_profile/templates/user_profile/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/user_profile/templates/user_profile/profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hoosRiding/static/hoosRiding/tab-logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/login/tests.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
