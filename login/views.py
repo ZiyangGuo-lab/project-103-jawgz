@@ -22,7 +22,7 @@ def enterLogin(request):
             print("found match!" + "\nname: " + match.name + "\nusername: " + match.username + "\npassword " + match.password)
         else:
             print("no match found...")
-        return HttpResponseRedirect('/login')
+        return HttpResponseRedirect('/')
     elif request.method == 'POST':
         newUser = User()
         newUser.name = request.POST['name']
@@ -30,4 +30,5 @@ def enterLogin(request):
         newUser.password = request.POST['password']
         newUser.save()
 
-        return HttpResponseRedirect('/login')
+        return HttpResponseRedirect('/')
+
