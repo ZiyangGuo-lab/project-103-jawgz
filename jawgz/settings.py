@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'user_profile.apps.UserProfileConfig',
     'login.apps.LoginConfig',
     'hoosRiding.apps.HoosRidingConfig',
+    'signup.apps.SignupConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
