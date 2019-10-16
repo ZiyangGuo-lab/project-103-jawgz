@@ -1,6 +1,9 @@
 {% extends "hoosRiding/base.html" %}
 {% block content %}
 
-<p>Profile Page</p>
+<p>Profile Page for {{user.first_name}} {{user.last_name}}</p>
+
+<p>Email {{user.email}} {{user.username}} {{user}}</p>
+
 
 {% endblock content %}

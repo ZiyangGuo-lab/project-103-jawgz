@@ -1,60 +1,31 @@
-{% extends "hoosRiding/base.html" %}
+
 {% load static %}
 {% block content %}
-<!doctype html>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content=" ">
-    <meta name="generator" content="Jekyll v3.8.5">
+<div style="padding-top: 10%; width:96%">
 
-    <!-- <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/sign-in/"> -->
+  <ul style="list-style-type:none; text-align: center;">
+    <li>
+    <img style="height: 200px;" src= "{% static 'hoosRiding/tab-logo.png' %}">
+    </li>
+    <li>
+      <h3>Find your ride with Hoos Riding</h3>
+    </li>
+    <li>
+      <div class="btn white darken-4 col s10 m4">
+     <a href="{% url 'social:begin' 'google-oauth2' %}" style="text-transform:none">
+         <div style="display:inline-block">
+             <img style="padding-top:7px; padding-right:4px" width="20px" alt="Google &quot;G&quot; Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
+         </div>
+       Login with Google
+     </a>
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
+</div></li>
+  </ul>
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" type="text/css" href="{% static 'login/login.css' %}">
-  </head>
-  <body class="text-center">
-    <form class="form-signin" action="/login/enterLogin" method="GET">
-      <!-- <img class="mb-4" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"> -->
-      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-      <label for="inputEmail" class="sr-only"></label>
-      <input name="username" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-      <label for="inputPassword" class="sr-only"></label>
-      <input name = "password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
-      </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      <p class="mt-5 mb-3 text-muted">&copy; 2019</p>
-  </form>
+</div>
+
 </body>
-
-
-
-<a class="btn btn-primary" href="{% url 'social:begin' 'google-oauth2' %}">
-        Login
-      </a>
-</html>
 
 {% endblock content %}

@@ -3,6 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!--If user is not authenticated, go to login-->
+    {% if not user.is_authenticated %}
+        <script>
+            window.location.href = "{% url 'login' %}";
+        </script>
+    {% endif %}
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -36,20 +43,13 @@
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
-              <a class="nav-item nav-link" href="{% url 'user-profile' %}">Profile</a>
+
               <a class="nav-item nav-link" href="{% url 'find-ride' %}">Find A Ride</a>
               <a class="nav-item nav-link" href="{% url 'post-ride' %}">Post A Ride</a>
+                <a class="nav-item nav-link" href="{% url 'user-profile' %}">Profile</a>
+                <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
 
-                {% if user.is_authenticated %}
-                  <p>Logged as {{ user.first_name }}</p>
-                  <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
-                {% else %}
-                  <a class="btn btn-primary" href="{% url 'social:begin' 'google-oauth2' %}">
-                    Login
-                  </a>
-                {% endif %}
 
-              <!--<a class="nav-item nav-link" href="{% url 'login' %}">Logout</a>-->
 
             </div>
           </div>
