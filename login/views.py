@@ -6,6 +6,7 @@ from django.views import generic
 from django.views.generic import CreateView
 from .models import User
 from django.http import HttpResponseRedirect
+from django.contrib.auth import logout
 
 class loginPage(CreateView):
     model = User
@@ -22,7 +23,8 @@ def enterLogin(request):
             print("found match!" + "\nname: " + match.name + "\nusername: " + match.username + "\npassword " + match.password)
         else:
             print("no match found...")
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/login')
+
     elif request.method == 'POST':
         newUser = User()
         newUser.name = request.POST['name']
@@ -30,5 +32,10 @@ def enterLogin(request):
         newUser.password = request.POST['password']
         newUser.save()
 
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/login')
+
+def userLogOut(request):
+    print(request.user.first_name)
+    logout(request)
+    return HttpResponseRedirect('/login')
 
