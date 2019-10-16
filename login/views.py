@@ -23,8 +23,12 @@ def enterLogin(request):
             print("found match!" + "\nname: " + match.name + "\nusername: " + match.username + "\npassword " + match.password)
         else:
             print("no match found...")
+<<<<<<< HEAD
         return HttpResponseRedirect('/login')
 
+=======
+        return HttpResponseRedirect('/')
+>>>>>>> 015aa2de8b810b6144f73a35e142f06201f05e1b
     elif request.method == 'POST':
         newUser = User()
         newUser.name = request.POST['name']
@@ -32,9 +36,14 @@ def enterLogin(request):
         newUser.password = request.POST['password']
         newUser.save()
 
+<<<<<<< HEAD
         return HttpResponseRedirect('/login')
 
 def userLogOut(request):
     print(request.user.first_name)
     logout(request)
     return HttpResponseRedirect('/login')
+=======
+        return HttpResponseRedirect('/')
+
+>>>>>>> 015aa2de8b810b6144f73a35e142f06201f05e1b
