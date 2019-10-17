@@ -28,6 +28,15 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '569624625325-24d3uvi2m79h6f3mvc2etbdjul0bqpgk.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '06HeNGhqjrk0X4VP0aq_ZYlP'
+
+LOGIN_URL = '/auth/login/google-oauth2/'
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -42,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -103,6 +113,11 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 
 # Internationalization
