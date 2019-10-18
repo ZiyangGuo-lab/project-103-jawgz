@@ -1,0 +1,15 @@
+
+language: python
+python:
+- '3.6'
+install:
+- pip install -r requirements-travis.txt
+script:
+- python manage.py test
+deploy:
+  provider: heroku
+  api_key:
+    secure: 983ca286-7395-47b2-8140-7c84e4322461
+  app: project-103-jawgz
+  on:
+    repo: uva-cs3240-f19/project-103-jawgz
