@@ -7,17 +7,36 @@
 </form>
 <style> .indented { padding-left: 100pt; padding-right: 50pt; } </style>
 
+     <!--<select>-->
+         <!--{% for city, state in cities.items %}-->
+            <!--<option value="{{ city }}, {{ state }}">{{ city }}, {{ state }}</option>-->
+         <!--{% endfor %}-->
+    <!--</select>-->
+
+
 
 <form action="."   method="post">
 {% csrf_token %}
  <div class="card text-black mb-4" style="width: 40rem; background: light; border: px solid #FF860E; outline-color: 6px solid #CCC873">
      <div class="card-body">
                 <p class="card-title">From:</p>
-                <p> {{ form.location_from }}</p>
+                <select id="location_from">
+                     {% for city, state in cities.items %}
+                        <option value="location_from" > {{ city }}, {{ state }}</option>
+                     {% endfor %}
+                </select>
                 <p class="card-title">To: </p>
-                <p>{{ form.location_to }}</p>
+
+                <select id="location_to">
+                     {% for city, state in cities.items %}
+                        <option value="location_to" > {{ city }}, {{ state }}</option>
+                     {% endfor %}
+                </select>
+
                 <p class="card-text">Driver Name: </p>
                 <p>{{ form.driver_name }}</p>
+                 <p class="card-text">Vehical Model: </p>
+                <p>{{ form.vehicle_model }}</p>
                  <p class="card-text">Dates:(eg. 2019-10-18 14:00) </p>
                  <p>{{ form.riding_date}}</p>
                 <p class="card-price">Price: </p>
@@ -28,6 +47,9 @@
     <p><input style = "margin-left:5%;" type="submit" value="submit"></p>
 
 </form>
+
+
+
 
 <!-- "location_to", "location_from","driver_name", "vehicle_model","date" -->
 {% endblock content %}

@@ -7,22 +7,31 @@ import time
 
 # Create your views here.
 
+avalible_cities = {'Charlottesville': 'VA', 'Fairfax': 'VA', 'Richmond': 'VA', 'Danville': 'VA',
+                       'Virginia Beach': 'VA', 'Norfolk': 'VA', 'Alexandria': 'VA',
+                       'Lynchburg': 'VA', 'Charlotte': 'NC', 'Raleigh': 'NC', 'Greensboro': 'NC', 'Newark': 'NJ',
+                       'Jersey City': 'NJ', 'New York City': 'NY'}
+
 def post(request):
     form = postRide(request.POST)
-    
+    form.location_from = request.POST.get('location_from')
+    form.location_to = request.POST.get('location_to')
+    print(form.errors)
+
     if form.is_valid():
+        print("form is valid")
         form.save()
-        # print(form['location_to'])
-        # print("valid form")
-    # print(Posting.objects.all())
         template = 'find/find_ride.html'
         context = {
         'postings_list': Posting.objects.all()
         }
 
         return render(request, template,context)
+
     else:
+
         context = {'form': form,
+                    'cities': avalible_cities
         }
         template = 'post/post_ride.html'
         return render(request, template, context)
