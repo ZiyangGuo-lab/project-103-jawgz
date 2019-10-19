@@ -10,18 +10,21 @@
 
 <form action="."   method="post">
 {% csrf_token %}
-    <p><label for="location_to" style = "margin-left:5%;">To: </label></p>
-    <p><input id="location_to" type="text" style = "margin-left:5%;" name="location_to" value="{{ current_name }}"></p>
-    <p><label for="location_from" style = "margin-left:5%;">From:   </label></p>
-    <p><input id="location_from" type="text" style = "margin-left:5%;" name="location_from" value="{{ current_name }}"></p>
-    <p> <label for="driver_name" style = "margin-left:5%;">Driver Name: </label></p>
-    <p><input id="driver_name" type="text" style = "margin-left:5%;" name="driver_name" value="{{ current_name }}"></p>
-     <p><label for="vehicle_model" style = "margin-left:5%;">Vehicel_model: </label></p>
-    <p><input id="vehicel_model" type="text" style = "margin-left:5%;" name="vehicle_model" value="{{ current_name }}"></p>
-    <p><label for="price" style = "margin-left:5%;">Price: </label></p>
-    <p><input id="price" type="integer" style = "margin-left:5%;" name="price" value="{{ current_name }}"></p>
-<!--      <p><label for="date" style = "margin-left:5%;">Date: </label></p>
-    <p><input id="date" type="integer" style = "margin-left:5%;" name="date" value="{{ current_name }}"></p> -->
+ <div class="card text-black mb-4" style="width: 40rem; background: light; border: px solid #FF860E; outline-color: 6px solid #CCC873">
+     <div class="card-body">
+                <p class="card-title">From:</p>
+                <p> {{ form.location_from }}</p>
+                <p class="card-title">To: </p>
+                <p>{{ form.location_to }}</p>
+                <p class="card-text">Driver Name: </p>
+                <p>{{ form.driver_name }}</p>
+                 <p class="card-text">Dates:(eg. 2019-10-18 14:00) </p>
+                 <p>{{ form.riding_date}}</p>
+                <p class="card-price">Price: </p>
+                <p>{{ form.price }}</p>
+            </div>
+        </div>
+
     <p><input style = "margin-left:5%;" type="submit" value="submit"></p>
 
 </form>

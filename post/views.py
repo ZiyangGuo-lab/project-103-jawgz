@@ -9,25 +9,22 @@ import time
 
 def post(request):
     form = postRide(request.POST)
-
+    
     if form.is_valid():
-        # print("hereeee")
-        # newPosting = Posting()
-        # newPosting.location_to = form['location_to']
-        # newPosting.location_from = form['location_from']
-        # newPosting.driver_name = form['driver_name']
-        # newPosting.price = form['price']
-        # newPosting.vehicle_model = form['vehicle_model']
-
-        # newPosting.driver_id = int(round(time.time() * 1000))
-        # newPosting.uid = str(hash(str(newPosting.driver_id) + str(newPosting.location_to) + str(newPosting.location_from)))
-        # newPosting.save()
         form.save()
+        # print(form['location_to'])
         # print("valid form")
     # print(Posting.objects.all())
-    template = 'post/post_ride.html'
+        template = 'find/find_ride.html'
+        context = {
+        'postings_list': Posting.objects.all()
+        }
 
-    context = {
-        'form': form,
-    }
-    return render(request, template, context)
+        return render(request, template,context)
+    else:
+        context = {'form': form,
+        }
+        template = 'post/post_ride.html'
+        return render(request, template, context)
+
+

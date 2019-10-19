@@ -20,6 +20,7 @@ class Posting(models.Model):
     location_from = models.CharField(max_length=200)
     date = models.DateTimeField(default=default_datetime)
     price = models.IntegerField(default = 0)
+    riding_date = models.DateTimeField(default=default_datetime)
     # rating = models.IntegerField(choices=ONE_TO_FIVE_RATING_CHOICES)
 
     def __str__(self):
