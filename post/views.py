@@ -3,6 +3,7 @@ from .forms import *
 from find.models import *
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.contrib.auth.models import User
 import time
 
 # Create your views here.
@@ -16,7 +17,8 @@ def post(request):
     form = postRide(request.POST)
     form.location_from = request.POST.get('location_from')
     form.location_to = request.POST.get('location_to')
-    print(form.errors)
+    form.driver_id = str(request.user)
+    print(request.user)
 
 
 

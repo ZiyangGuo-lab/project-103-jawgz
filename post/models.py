@@ -21,8 +21,7 @@ class Posting(models.Model):
     date = models.DateTimeField(default=default_datetime)
     price = models.IntegerField(default = 0)
     riding_date = models.DateTimeField(default=default_datetime)
-    driver_id = models.IntegerField(max_length=200, default='00000')
-    # rating = models.IntegerField(choices=ONE_TO_FIVE_RATING_CHOICES)
+    driver_id = models.CharField(max_length=200, default='00000')
 
     def __str__(self):
         return self.driver_name
