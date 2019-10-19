@@ -18,6 +18,8 @@ def post(request):
     form.location_to = request.POST.get('location_to')
     print(form.errors)
 
+    filter_by = forms.ChoiceField(choices=FILTER_CHOICES)
+
     if form.is_valid():
         print("form is valid")
         form.save()
@@ -31,7 +33,8 @@ def post(request):
     else:
 
         context = {'form': form,
-                    'cities': avalible_cities
+                    'cities': avalible_cities,
+                   'filter_by' : filter_by
         }
         template = 'post/post_ride.html'
         return render(request, template, context)

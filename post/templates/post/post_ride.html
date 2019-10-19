@@ -20,16 +20,16 @@
  <div class="card text-black mb-4" style="width: 40rem; background: light; border: px solid #FF860E; outline-color: 6px solid #CCC873">
      <div class="card-body">
                 <p class="card-title">From:</p>
-                <select id="location_from">
+                <select name="location_from">
                      {% for city, state in cities.items %}
-                        <option value="location_from" > {{ city }}, {{ state }}</option>
+                        <option value="{{ city }}, {{ state }}" > {{ city }}, {{ state }}</option>
                      {% endfor %}
                 </select>
                 <p class="card-title">To: </p>
 
-                <select id="location_to">
+                <select name="location_to">
                      {% for city, state in cities.items %}
-                        <option value="location_to" > {{ city }}, {{ state }}</option>
+                        <option value="{{ city }}, {{ state }}" > {{ city }}, {{ state }}</option>
                      {% endfor %}
                 </select>
 
