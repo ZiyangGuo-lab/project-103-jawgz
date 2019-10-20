@@ -5,5 +5,10 @@
 
 <p>Email {{user.email}} {{user.username}} {{user}}</p>
 
+{% if id == None %}
+on current user's profile
+{% else %}
+currently on another user's profile: {{id}}
+{% endif %}
 
 {% endblock content %}

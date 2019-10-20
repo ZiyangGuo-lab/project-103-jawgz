@@ -49,12 +49,12 @@ def post(request):
         return render(request, template, context)
 
 def getValidDate(data):
-    str = data.get('date_year') + '-' + data.get('date_month') + "-" + data.get('date_day') + " "
+    s = data.get('date_year') + '-' + data.get('date_month') + "-" + data.get('date_day') + " "
     if data.get('date_time_of_day') == 'AM':
-        str += data.get('date_hour')
+        s += data.get('date_hour')
     else:
-        str += str(int(data.get('date_hour')) + 12)
+        s += str(int(data.get('date_hour')) + 12)
 
-    str += ":" + data.get('date_min')
-    return str
+    s += ":" + data.get('date_min')
+    return s
 
