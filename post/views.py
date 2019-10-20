@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from .forms import *
-from find.models import *
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.models import User
@@ -15,16 +14,24 @@ avalible_cities = {'Charlottesville': 'VA', 'Fairfax': 'VA', 'Richmond': 'VA', '
 
 def post(request):
     form = postRide(request.POST)
-    form.location_from = request.POST.get('location_from')
-    form.location_to = request.POST.get('location_to')
-    form.driver_id = str(request.user)
-    print(request.user)
-
-
 
     if form.is_valid():
         print("form is valid")
-        form.save()
+
+        newPost = Posting()
+        newPost.driver_id = request.user
+        newPost.driver_name = request.user.first_name + " " + request.user.last_name
+        newPost.location_from = request.POST.get('location_from')
+        newPost.location_to = request.POST.get('location_to')
+        newPost.price = request.POST.get('price')
+        newPost.vehicle_model = request.POST.get('vehicle_model')
+        newPost.date = getValidDate(request.POST)
+        newPost.num_passengers = request.POST.get('num_passengers')
+        newPost.save()
+
+
+
+        # form.save()
         template = 'find/find_ride.html'
         context = {
         'postings_list': Posting.objects.all()
@@ -33,11 +40,21 @@ def post(request):
         return render(request, template,context)
 
     else:
-
+        print("form is invalid")
+        print(form.errors)
         context = {'form': form,
                     'cities': avalible_cities,
         }
         template = 'post/post_ride.html'
         return render(request, template, context)
 
+def getValidDate(data):
+    str = data.get('date_year') + '-' + data.get('date_month') + "-" + data.get('date_day') + " "
+    if data.get('date_time_of_day') == 'AM':
+        str += data.get('date_hour')
+    else:
+        str += str(int(data.get('date_hour')) + 12)
+
+    str += ":" + data.get('date_min')
+    return str
 

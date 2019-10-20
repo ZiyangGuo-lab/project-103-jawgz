@@ -21,6 +21,7 @@
                  <p class="card-text">Dates: {{ Posting.riding_date}}</p>
                 <p class="card-price">Price: {{ Posting.price }}</p>
                 <p class="card-id">User id: {{ Posting.driver_id }}</p>
+                <p class="card-id">Number of Passengers: {{ Posting.num_passengers }}</p>
             </div>
               <div class="card-footer">
                   <a href="{% url 'user-profile' %}" class="btn btn-dark" >Contact Driver</a>
