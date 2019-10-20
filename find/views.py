@@ -3,8 +3,6 @@ from .models import Posting
 from django.views import generic
 from datetime import datetime
 
-# def find(request):
-#     return render(request, 'find/find_ride.html', {'title': 'Find'})
 
 class findView(generic.ListView):
     template_name = 'find/find_ride.html'
