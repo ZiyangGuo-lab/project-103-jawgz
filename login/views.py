@@ -38,3 +38,4 @@ def userLogOut(request):
     print(request.user.first_name)
     logout(request)
     return HttpResponseRedirect('/login')
+

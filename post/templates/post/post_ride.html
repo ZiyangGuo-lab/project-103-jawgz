@@ -1,6 +1,71 @@
 {% extends "hoosRiding/base.html" %}
 {% block content %}
 
-<h1>Post a ride page</h1>
 
+
+ <div class="card text-black mb-4" style="width: 40rem; background: light; border: px solid #FF860E; outline-color: 6px solid #CCC873">
+</form>
+<style> .indented { padding-left: 100pt; padding-right: 50pt; } </style>
+
+
+<form action="."   method="post">
+{% csrf_token %}
+ <div class="card text-black mb-4" style="width: 40rem; background: light; border: px solid #FF860E; outline-color: 6px solid #CCC873">
+
+     <div class="card-body">
+        <h3>Post a new ride</h3>
+         <table>
+             <tr>
+                 <td style="padding:20px">Starting point</td>
+                 <td>
+                     <select name="location_from">
+                     {% for city, state in cities.items %}
+                        <option value="{{ city }}, {{ state }}" > {{ city }}, {{ state }}</option>
+                     {% endfor %}
+                    </select>
+                 </td>
+                </tr>
+             <tr>
+                 <td style="padding:20px">Destination</td>
+                 <td><select name="location_to">
+                         {% for city, state in cities.items %}
+                            <option value="{{ city }}, {{ state }}" > {{ city }}, {{ state }}</option>
+                         {% endfor %}
+                    </select>
+                 </td>
+             </tr>
+
+             <tr>
+                 <td style="padding:20px">Date of Ride</td>
+                 <td><input type="text" name="date_month" size="2">/<input type="text" name="date_day" size="2">/<input type="text" name="date_year" size="4"><br>
+                     <input type="text" name="date_hour" size="2">:<input type="text" name="date_min" size="2">
+                     <select name="date_time_of_day">
+                         <option value="AM">AM</option>
+                         <option value="PM">PM</option>
+                     </select> </td>
+             </tr>
+
+             <tr><td style="padding:20px">Vehical Model</td>
+                <td>{{ form.vehicle_model }}</td></tr>
+             <tr>
+                 <td style="padding:20px">Asking price per person</td>
+                 <td>${{ form.price }}</td>
+             </tr>
+             <tr>
+                 <td style="padding:20px">Number of passengers</td>
+                 <td>{{ form.num_passengers }}</td>
+             </tr>
+         </table>
+
+            </div>
+        </div>
+
+    <p><input style = "margin-left:5%;" type="submit" value="submit"></p>
+
+</form>
+
+
+
+
+<!-- "location_to", "location_from","driver_name", "vehicle_model","date" -->
 {% endblock content %}

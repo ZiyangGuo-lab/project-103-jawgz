@@ -1,9 +1,67 @@
 {% extends "hoosRiding/base.html" %}
+{% load static %}
+
 {% block content %}
 
-<p>Profile Page for {{user.first_name}} {{user.last_name}}</p>
+<!-- Style Sheet Import -->
+<link rel="stylesheet" type="text/css" href="{% static 'user_profile/user_profile.css' %}">
 
-<p>Email {{user.email}} {{user.username}} {{user}}</p>
+<h1>Welcome, {{ user.first_name }}! </h1>
 
+<div class="profile">
+<!--    Left Side       -->
+    <div class="left">
+        <img class="avatar" src="https://www.w3schools.com/howto/img_avatar2.png">
+        <br/><br/>
+        <div class="star-rank">
+<!--            use for loop to loop thru stars this person has -->
+            <img class="star" src="https://yakimaymca.org/wp-content/uploads/2018/11/Star.png">
+            <img class="star" src="https://yakimaymca.org/wp-content/uploads/2018/11/Star.png">
+            <img class="star" src="https://yakimaymca.org/wp-content/uploads/2018/11/Star.png">
+            <img class="star" src="https://yakimaymca.org/wp-content/uploads/2018/11/Star.png">
+            <img class="star" src="https://yakimaymca.org/wp-content/uploads/2018/11/Star.png">
+
+<!--            <img class="star" src="https://p7.hiclipart.com/preview/191/610/574/five-pointed-star-outline-symbol-clip-art-star.jpg">-->
+        </div>
+        <br/>
+        <div>
+            <b>Name: </b>
+            {{ user.first_name }} {{ user.last_name }}
+            <br/>
+            <b>Email: </b>
+            {{ user.email }}
+            <br/>
+<!--  The Rest is hard coded until we have a more complex user sign in where we get info! -->
+            <b>Cell: </b>
+            (804) 539-8314
+            <br/>
+            <b>Car:</b>
+            Toyota Rav4
+            <br/>
+            <b>License Plate: </b>
+            UPD-2603
+        </div>
+
+    </div>
+<!--    Right Side      -->
+    <div class="right">
+        <div>
+            <h3>Open Rides</h3>
+        </div>
+        <div>
+            <h3>Past Rides</h3>
+        </div>
+    </div>
+
+</div>
+
+
+
+<!-- Get rid of this later-->
+{% if id == None %}
+on current user's profile
+{% else %}
+currently on another user's profile: {{id}}
+{% endif %}
 
 {% endblock content %}
