@@ -25,7 +25,7 @@ SECRET_KEY = '6msg&vgyu)9dyng#-u24@o8l=&2a$0d-#ou7+$+g6sr6&anq3%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
 
 ALLOWED_HOSTS = ['localhost','127.0.0.1','unchained-102.herokuapp.com']
 
