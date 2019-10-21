@@ -12,7 +12,7 @@ class Posting(models.Model):
     location_to = models.CharField(max_length=200)
     location_from = models.CharField(max_length=200)
     date = models.DateTimeField(default=default_datetime)
-    riding_date = models.DateTimeField(default=default_datetime)
+    # riding_date = models.DateTimeField(default=default_datetime)
     price = models.IntegerField(default=0)
     driver_id = models.CharField(max_length=200)
     num_passengers = models.IntegerField(default=0)
