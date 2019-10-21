@@ -148,11 +148,19 @@ STATIC_URL = '/static/'
 # except ImportError:
 #     found = False
 
-if 'HEROKU' in os.environ:
+try:
     import dj_database_url
     DATABASES['default'] =  dj_database_url.config()
     import django_heroku
     django_heroku.settings(locals())
+except ImportError:
+    found = False
+
+# if 'HEROKU' in os.environ:
+#     import dj_database_url
+#     DATABASES['default'] =  dj_database_url.config()
+#     import django_heroku
+#     django_heroku.settings(locals())
 
 # MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 # MEDIA_URL = '/media/'
