@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 import time
 
+
 # Create your views here.
 
 avalible_cities = {'Charlottesville': 'VA', 'Fairfax': 'VA', 'Richmond': 'VA', 'Danville': 'VA',
