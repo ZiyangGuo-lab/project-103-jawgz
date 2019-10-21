@@ -7,21 +7,35 @@
   <button class="btn mb-3" onclick="filterSelection('posting_list')" style="border-radius: 50%; border: #FF860E">Price</button>
 </div>
 
+
 {% if postings_list %}
     <ul>
     {% for Posting in postings_list %}
           <div class="card text-black mb-4" style="width: 40rem; background: light; border: px solid #FF860E; outline-color: 6px solid #CCC873">
               <div class="card-footer">
-                  <h5 class="card-title">{{ Posting.date }}</h5>
+                  <!-- <h5 class="card-title">{{ Posting.date }}</h5> -->
             </div>
             <div class="card-body">
                 <p class="card-title">From: {{ Posting.location_from }}</p>
                 <p class="card-title">To: {{ Posting.location_to }}</p>
                 <p class="card-text">Driver Name: {{ Posting.driver_name }}</p>
+                 <!-- <p class="card-text">Dates: {{ Posting.riding_date}}</p> -->
+                <p class="card-price">Price: {{ Posting.price }}</p>
+                <p class="card-id">User id: {{ Posting.driver_id }}</p>
+                <p class="card-id">Number of Passengers: {{ Posting.num_passengers }}</p>
+
+                <iframe
+                  width="600"
+                  height="450"
+                  frameborder="0" style="border:0"
+                  src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAcJ9C8vhZqeSsNbZ8hxGGeR8F7s351_8Y&origin={{Posting.location_from}}&destination={{Posting.location_to}}" allowfullscreen>
+                </iframe>
+
             </div>
               <div class="card-footer">
-                  <a href="{% url 'user-profile' %}" class="btn btn-dark" >Contact Driver</a>
+                  <a href="{% url 'user-profile' %}?user={{Posting.driver_id}}" class="btn btn-dark" >Contact Driver</a>
             </div>
+
 </div>
     {% endfor %}
     </ul>
