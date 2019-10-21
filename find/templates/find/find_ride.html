@@ -13,13 +13,13 @@
     {% for Posting in postings_list %}
           <div class="card text-black mb-4" style="width: 40rem; background: light; border: px solid #FF860E; outline-color: 6px solid #CCC873">
               <div class="card-footer">
-                  <h5 class="card-title">{{ Posting.date }}</h5>
+                  <!-- <h5 class="card-title">{{ Posting.date }}</h5> -->
             </div>
             <div class="card-body">
                 <p class="card-title">From: {{ Posting.location_from }}</p>
                 <p class="card-title">To: {{ Posting.location_to }}</p>
                 <p class="card-text">Driver Name: {{ Posting.driver_name }}</p>
-                 <p class="card-text">Dates: {{ Posting.riding_date}}</p>
+                 <!-- <p class="card-text">Dates: {{ Posting.riding_date}}</p> -->
                 <p class="card-price">Price: {{ Posting.price }}</p>
                 <p class="card-id">User id: {{ Posting.driver_id }}</p>
                 <p class="card-id">Number of Passengers: {{ Posting.num_passengers }}</p>
