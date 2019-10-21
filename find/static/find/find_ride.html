@@ -1,0 +1,39 @@
+{% extends "hoosRiding/base.html" %}
+{% block content %}
+
+<div id="myBtnContainer">
+  <button class="btn active mb-3" onclick="filterSelection('posting_list_byDate')" style="border-radius: 50%; border: #FF860E">Date</button>
+  <button class="btn mb-3" onclick="filterSelection('posting_list')" style="border-radius: 50%; border: #FF860E">Rating</button>
+  <button class="btn mb-3" onclick="filterSelection('posting_list')" style="border-radius: 50%; border: #FF860E">Price</button>
+</div>
+
+{% if postings_list %}
+    <ul>
+    {% for Posting in postings_list %}
+          <div class="card text-black mb-4" style="width: 40rem; background: light; border: px solid #FF860E; outline-color: 6px solid #CCC873">
+              <div class="card-footer">
+                  <h5 class="card-title">{{ Posting.date }}</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-title">From: {{ Posting.location_from }}</p>
+                <p class="card-title">To: {{ Posting.location_to }}</p>
+                <p class="card-text">Driver Name: {{ Posting.driver_name }}</p>
+            </div>
+              <div class="card-footer">
+                  <a href="{% url 'user-profile' %}" class="btn btn-dark" >Contact Driver</a>
+            </div>
+</div>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No postings are available.</p>
+{% endif %}
+</center>
+
+<div>
+    <h1> </h1>
+</div>
+
+
+
+{% endblock content %}
