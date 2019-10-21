@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+ALLOWED_HOSTS = ['localhost','127.0.0.1','unchained-102.herokuapp.com']
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '569624625325-24d3uvi2m79h6f3mvc2etbdjul0bqpgk.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '06HeNGhqjrk0X4VP0aq_ZYlP'
@@ -140,9 +141,18 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Activate Django-Heroku.
-try:
-    # Configure Django App for Heroku.
+# try:
+#     # Configure Django App for Heroku.
+#     import django_heroku
+#     django_heroku.settings(locals())
+# except ImportError:
+#     found = False
+
+if 'HEROKU' in os.environ:
+    import dj_database_url
+    DATABASES['default'] =  dj_database_url.config()
     import django_heroku
     django_heroku.settings(locals())
-except ImportError:
-    found = False
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'
