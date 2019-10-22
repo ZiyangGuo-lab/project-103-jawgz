@@ -145,7 +145,7 @@ STATICFILES_DIRS = (
 )
 
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATICFILES_STORAGE = 'jawgz.storage.WhiteNoiseStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.WhiteNoiseStaticFilesStorage'
 
 # Activate Django-Heroku.
 # try:
