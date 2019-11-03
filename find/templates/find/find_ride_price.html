@@ -6,9 +6,8 @@
   <button class="btn mb-3"  style="border-radius: 50%; border: #FF860E">Rating</button>
   <!-- <button class="btn mb-3" style="border-radius: 50%; border: #FF860E"></button> -->
  <button class="btn mb-3" style="border-radius: 50%; border: #FF860E"><a href="{% url 'sortByPrice' %}">price</a></button>
-
-
 </div>
+
 {% if postings_list %}
     <ul>
     {% for Posting in postings_list %}
