@@ -34,7 +34,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '06HeNGhqjrk0X4VP0aq_ZYlP'
 
 LOGIN_URL = '/auth/login/google-oauth2/'
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/login/createNewUser'
 LOGOUT_REDIRECT_URL = '/'
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
@@ -121,6 +121,9 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+SOCIAL_AUTH_GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = {
+    'hd': 'virginia.edu'
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
