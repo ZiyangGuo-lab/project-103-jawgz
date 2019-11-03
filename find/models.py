@@ -1,6 +1,6 @@
 from django.db import models
 from datetime import datetime, timedelta
-import django_filters
+# import django_filters
 
 
 def default_datetime():
