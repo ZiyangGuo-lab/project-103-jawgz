@@ -6,20 +6,18 @@
   <button class="btn mb-3"  style="border-radius: 50%; border: #FF860E">Rating</button>
   <!-- <button class="btn mb-3" style="border-radius: 50%; border: #FF860E"></button> -->
  <button class="btn mb-3" style="border-radius: 50%; border: #FF860E"><a href="{% url 'sortByPrice' %}">price</a></button>
-</div>
 
-<div id = "search">
-<form action="{% url 'search' %}" method="get", value="{{request.GET.q}}">
-  <br> <input name="location_to" type="text" placeholder="location_to" value="{{request.GET.q}}" ></br>
-  <br> <input name="location_from" type="text" placeholder="location_from" value="{{request.GET.q}}" ></br>
-   <tr>
-                 <td style="padding:20px">Date of Ride</td>
-                 <td><input type="text" name="date_month" size="2">/<input type="text" name="date_day" size="2">/<input type="text" name="date_year" size="4"><br>
-             </tr>
-  <br><input type="submit" name="submit" value="Search"/></br>
-</form>
-</div>
 
+</div>
+<!-- <div id="myBtnContainer"> -->
+<!--   <button class="btn active mb-3" id= “sortByPrice” onclick="location.href='{% url 'sortByPrice' %}'" style="border-radius: 50%; border: #FF860E">price</button> -->
+ <!--  <button class="btn active mb-3" id= “sortByPrice” href='{% url 'sortByPrice' %} style="border-radius: 50%; border: #FF860E">price</button>
+
+  <button class="btn mb-3"  style="border-radius: 50%; border: #FF860E">Rating</button> -->
+ <!--  <button class="btn mb-3" id= "sortByDate" onclick="location.href='{% url 'sortByDate' %}'"  style="border-radius: 50%; border: #FF860E">date</button> -->
+<!--   <button class="btn mb-3" type="submit" id= "sortByDate"  href='{% url 'sortByDate' %} style="border-radius: 50%; border: #FF860E">date</button>
+</div>
+ -->
 {% if postings_list %}
     <ul>
     {% for Posting in postings_list %}
