@@ -38,7 +38,7 @@ def post(request):
         'postings_list': Posting.objects.all()
         }
 
-        return render(request, template,context)
+        return render(request, template, context)
 
     else:
         print("form is invalid")
@@ -50,12 +50,7 @@ def post(request):
         return render(request, template, context)
 
 def getValidDate(data):
-    s = data.get('date_year') + '-' + data.get('date_month') + "-" + data.get('date_day') + " "
-    if data.get('date_time_of_day') == 'AM':
-        s += data.get('date_hour')
-    else:
-        s += str(int(data.get('date_hour')) + 12)
+    s = data.get('date') + data.get('time')
 
-    s += ":" + data.get('date_min')
     return s
 

@@ -3,17 +3,18 @@
 
 
 
- <div class="card text-black mb-4" style="width: 40rem; background: light; border: px solid #FF860E; outline-color: 6px solid #CCC873">
-</form>
-<style> .indented { padding-left: 100pt; padding-right: 50pt; } </style>
+<h3> Post a New Ride </h3>
+<div class="description" style="color: red">Post a new ride here by inputting the starting location </div>
+
+<style> .indented { padding-left: 100pt; padding-right: 30pt; } </style>
 
 
 <form action="."   method="post">
 {% csrf_token %}
  <div class="card text-black mb-4" style="width: 40rem; background: light; border: px solid #FF860E; outline-color: 6px solid #CCC873">
-
+    <div class="card-header" style="background:dark">
+        </div>
      <div class="card-body">
-        <h3>Post a new ride</h3>
          <table>
              <tr>
                  <td style="padding:20px">Starting point</td>
@@ -37,32 +38,42 @@
 
              <tr>
                  <td style="padding:20px">Date of Ride</td>
-                 <td><input type="text" name="date_month" size="2">/<input type="text" name="date_day" size="2">/<input type="text" name="date_year" size="4"><br>
-                     <input type="text" name="date_hour" size="2">:<input type="text" name="date_min" size="2">
-                     <select name="date_time_of_day">
-                         <option value="AM">AM</option>
-                         <option value="PM">PM</option>
-                     </select> </td>
+                 <td><input type="datetime-local" name="date"></td>
+
              </tr>
 
-             <tr><td style="padding:20px">Vehical Model</td>
-                <td>{{ form.vehicle_model }}</td></tr>
+
              <tr>
                  <td style="padding:20px">Asking price per person</td>
                  <td>${{ form.price }}</td>
              </tr>
+
              <tr>
                  <td style="padding:20px">Number of passengers</td>
-                 <td>{{ form.num_passengers }}</td>
+                 <td><select name="num_passengers">
+                     <option value="1">1</option>
+                     <option value="2">2</option>
+                     <option value="3">3</option>
+                     <option value="4">4</option>
+                     <option value="5">5</option>
+                     <option value="6">6</option>
+                     <option value="7">7</option>
+                     <option value="8+">8+</option>
+                     </select> </td>
              </tr>
          </table>
 
-            </div>
-        </div>
 
-    <p><input style = "margin-left:5%;" type="submit" value="submit"></p>
+        </div>
+     <div class="card-footer" style="background:dark"
+    <p><input style = "margin-left:5%; size:10" type="submit" value="Post" class="btn btn-dark" ></p>
+            </div>
+     </div>
 
 </form>
+
+
+
 
 
 
