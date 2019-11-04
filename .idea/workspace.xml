@@ -24,15 +24,15 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/hoosRiding/static/hoosRiding" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/hoosRiding/static/hoosRiding" />
       <recent name="$PROJECT_DIR$/login/static/login" />
       <recent name="$PROJECT_DIR$/user_profile/templates/user_profile" />
       <recent name="$PROJECT_DIR$/post/templates/post" />
       <recent name="$PROJECT_DIR$/login/templates/login" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/hoosRiding/static/hoosRiding" />
     </key>
   </component>
   <component name="RunDashboard">
