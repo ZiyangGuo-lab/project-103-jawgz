@@ -53,7 +53,44 @@
                 No license plate provided
             {% endif %}
             <br/>
-            <button data-toggle="modal" data-target="editProfileModal">Edit Profile</button>
+            <button type="button" data-toggle="modal" data-target="editProfileModal">Edit Profile</button>
+
+            <!-- Driver Info Modal -->
+            <div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Driver Information</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p><b>Driver Name: </b> Driver Name </p>
+                            <p><b>Driver Rating: </b> Driver Rating </p>
+                            <p><b>Driver Id: </b> hi </p>
+                            <form action="/your-name/" method="post">
+
+                                <label for="cell"><b>Cell: </b></label>
+                                <input id="cell" type="text" name="cell" value="{{ current_user.username  }}">
+                                <br/>
+                                <label for="car_type"><b>Car Type: </b></label>
+                                <input id="car_type" type="text" name="car_type" value="{{  current_user }}">
+                                <br/>
+                                <label for="license_plate"><b>License Plate:</b></label>
+                                <input id="license_plate" type="text" name="license_plate" value="{{ current_user }}">
+                                <br/>
+                                <input type="submit" value="Save">
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Contact Driver</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 <!--    Right Side      -->
@@ -67,40 +104,4 @@
     </div>
 
 
-<!-- Driver Info Modal -->
-<div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Driver Information</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p><b>Driver Name: </b> Driver Name </p>
-                <p><b>Driver Rating: </b> Driver Rating </p>
-                <p><b>Driver Id: </b> hi </p>
-                <form action="/your-name/" method="post">
-
-                    <label for="cell"><b>Cell: </b></label>
-                    <input id="cell" type="text" name="cell" value="{{ current_user.username  }}">
-                    <br/>
-                    <label for="car_type"><b>Car Type: </b></label>
-                    <input id="car_type" type="text" name="car_type" value="{{  current_user }}">
-                    <br/>
-                    <label for="license_plate"><b>License Plate:</b></label>
-                    <input id="license_plate" type="text" name="license_plate" value="{{ current_user }}">
-                    <br/>
-                    <input type="submit" value="Save">
-                </form>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Contact Driver</button>
-            </div>
-        </div>
-    </div>
-</div>
 {% endblock content %}
