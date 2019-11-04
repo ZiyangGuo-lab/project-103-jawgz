@@ -25,7 +25,6 @@ def post(request):
         newPost.location_from = request.POST.get('location_from')
         newPost.location_to = request.POST.get('location_to')
         newPost.price = request.POST.get('price')
-        newPost.vehicle_model = request.POST.get('vehicle_model')
         newPost.riding_date = getValidDate(request.POST)
         newPost.num_passengers = request.POST.get('num_passengers')
         newPost.save()
@@ -50,7 +49,7 @@ def post(request):
         return render(request, template, context)
 
 def getValidDate(data):
-    s = data.get('date') + data.get('time')
+    s = data.get('date')
 
     return s
 
