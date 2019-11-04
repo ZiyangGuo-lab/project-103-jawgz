@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 import time
 
+
 # Create your views here.
 
 avalible_cities = {'Charlottesville': 'VA', 'Fairfax': 'VA', 'Richmond': 'VA', 'Danville': 'VA',
@@ -25,7 +26,7 @@ def post(request):
         newPost.location_to = request.POST.get('location_to')
         newPost.price = request.POST.get('price')
         newPost.vehicle_model = request.POST.get('vehicle_model')
-        newPost.date = getValidDate(request.POST)
+        newPost.riding_date = getValidDate(request.POST)
         newPost.num_passengers = request.POST.get('num_passengers')
         newPost.save()
 

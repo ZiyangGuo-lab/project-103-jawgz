@@ -1,0 +1,27 @@
+.profile {
+    display: flex;
+    justify-content: space-between;
+}
+
+.avatar {
+    border-radius: 50%;
+    width: 50%;
+}
+
+.star-rank {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.star {
+    width: 30px;
+}
+
+.left {
+
+}
+
+.right {
+
+}
