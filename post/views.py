@@ -38,7 +38,7 @@ def post(request):
         'postings_list': Posting.objects.all()
         }
 
-        return render(request, template,context)
+        return render(request, template, context)
 
     else:
         print("form is invalid")

@@ -19,9 +19,12 @@
 }
 
 .left {
-
+    display: flex;
+    justify-content: left;
 }
 
 .right {
-
+    display: flex;
+    justify-content: right;
+    align: right;
 }

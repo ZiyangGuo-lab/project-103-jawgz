@@ -33,6 +33,7 @@
             {{ user.email }}
             <br/>
             <b>Cell: </b>
+            {{ current_user.cellphone }}
             {% if current_user.cellphone %}
                 current_user.cellphone
             {% else %}
@@ -47,46 +48,41 @@
             {% endif %}
             <br/>
             <b>License Plate: </b>
-            {% if current_user.license_plate %}
-                current_user.license_plate
+            {% if current_user.license_plate  %}
+                {{ current_user.license_plate }}
             {% else %}
                 No license plate provided
             {% endif %}
             <br/>
-            <button type="button" data-toggle="modal" data-target="editProfileModal">Edit Profile</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editProfileModal">Edit Profile</button>
 
-            <!-- Driver Info Modal -->
+            <!-- Edit Profile Modal -->
             <div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Driver Information</h5>
+                            <h3 class="modal-title" id="exampleModalLongTitle">Edit Profile Information</h3>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p><b>Driver Name: </b> Driver Name </p>
-                            <p><b>Driver Rating: </b> Driver Rating </p>
-                            <p><b>Driver Id: </b> hi </p>
-                            <form action="/your-name/" method="post">
-
-                                <label for="cell"><b>Cell: </b></label>
-                                <input id="cell" type="text" name="cell" value="{{ current_user.username  }}">
+                            <form action="." method="updateProfile">
+                                {% csrf_token %}
+                                <label for="cell"><b>Cell Number: </b></label>
+                                <input id="cell" type="text" name="cellphone" placeholder="{{ current_user.cellphone }}" value="{{ current_user.cellphone  }}">
                                 <br/>
                                 <label for="car_type"><b>Car Type: </b></label>
-                                <input id="car_type" type="text" name="car_type" value="{{  current_user }}">
+                                <input id="car_type" type="text" name="car_type" placeholder="{{ current_user.car_type }}" value="{{  current_user.car_type }}">
                                 <br/>
                                 <label for="license_plate"><b>License Plate:</b></label>
-                                <input id="license_plate" type="text" name="license_plate" value="{{ current_user }}">
+                                <input id="license_plate" type="text" name="license_plate" placeholder="{{ current_user.license_plate }}" value="{{ current_user.license_plate }}">
                                 <br/>
-                                <input type="submit" value="Save">
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <input type="submit" value="Save" class="btn btn-primary">
+                                 </div>
                             </form>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Contact Driver</button>
                         </div>
                     </div>
                 </div>
@@ -97,9 +93,74 @@
     <div class="right">
         <div>
             <h3>Open Rides</h3>
+            {% if open_rides %}
+                <ul>
+                {% for Posting in open_rides %}
+                      <div class="card text-black mb-4" style="width: 25rem; background: light; border: px solid #FF860E; outline-color: 6px solid #CCC873">
+                          <div class="card-footer">
+                              <h5 class="card-title">{{ Posting.date }}</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-title">From: {{ Posting.location_from }}</p>
+                            <p class="card-title">To: {{ Posting.location_to }}</p>
+                            <p class="card-text">Driver Name: {{ Posting.driver_name }}</p>
+                            <p class="card-text">Dates: {{ Posting.riding_date}}</p>
+                            <p class="card-price">Price: {{ Posting.price }}</p>
+                            <p class="card-id">User id: {{ Posting.driver_id }}</p>
+                            <p class="card-id">Number of Passengers: {{ Posting.num_passengers }}</p>
+
+                            <iframe
+                              width="300"
+                              height="300"
+                              frameborder="0" style="border:0"
+                              src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAcJ9C8vhZqeSsNbZ8hxGGeR8F7s351_8Y&origin={{Posting.location_from}}&destination={{Posting.location_to}}" allowfullscreen>
+                            </iframe>
+                        </div>
+                          <div class="card-footer">
+<!--                              <a href="{% url 'user-profile' %}?user={{Posting.driver_id}}" class="btn btn-dark" >Contact Driver</a>-->
+                          </div>
+                      </div>
+                    {% endfor %}
+                </ul>
+            {% else %}
+            <p>No open rides are available.</p>
+            {% endif %}
         </div>
         <div>
             <h3>Past Rides</h3>
+              {% if past_rides %}
+                <ul>
+                {% for Posting in past_rides %}
+                      <div class="card text-black mb-4" style="width: 25rem; background: light; border: px solid #FF860E; outline-color: 6px solid #CCC873">
+                          <div class="card-footer">
+                              <h5 class="card-title">{{ Posting.date }}</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-title">From: {{ Posting.location_from }}</p>
+                            <p class="card-title">To: {{ Posting.location_to }}</p>
+                            <p class="card-text">Driver Name: {{ Posting.driver_name }}</p>
+                            <p class="card-text">Dates: {{ Posting.riding_date}}</p>
+                            <p class="card-price">Price: {{ Posting.price }}</p>
+                            <p class="card-id">User id: {{ Posting.driver_id }}</p>
+                            <p class="card-id">Number of Passengers: {{ Posting.num_passengers }}</p>
+
+                            <iframe
+                              width="300"
+                              height="300"
+                              frameborder="0" style="border:0"
+                              src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAcJ9C8vhZqeSsNbZ8hxGGeR8F7s351_8Y&origin={{Posting.location_from}}&destination={{Posting.location_to}}" allowfullscreen>
+                            </iframe>
+                        </div>
+                          <div class="card-footer">
+<!--                              <a href="{% url 'user-profile' %}?user={{Posting.driver_id}}" class="btn btn-dark" >Contact Driver</a>-->
+                          </div>
+                      </div>
+                    {% endfor %}
+                </ul>
+            {% else %}
+            <p>No open rides are available.</p>
+            {% endif %}
+
         </div>
     </div>
 
