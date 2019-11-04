@@ -24,6 +24,7 @@
 <!--            <img class="star" src="https://p7.hiclipart.com/preview/191/610/574/five-pointed-star-outline-symbol-clip-art-star.jpg">-->
         </div>
         <br/>
+<!--        Display Profile -->
         <div>
             <b>Name: </b>
             {{ user.first_name }} {{ user.last_name }}
@@ -31,16 +32,46 @@
             <b>Email: </b>
             {{ user.email }}
             <br/>
-<!--  The Rest is hard coded until we have a more complex user sign in where we get info! -->
             <b>Cell: </b>
-            (804) 539-8314
+            {% if current_user.cellphone %}
+                current_user.cellphone
+            {% else %}
+                No phone number provided
+            {% endif %}
             <br/>
             <b>Car:</b>
-            Toyota Rav4
+            {% if current_user.car_type %}
+                current_user.car_type
+            {% else %}
+                No car type provided
+            {% endif %}
             <br/>
             <b>License Plate: </b>
-            UPD-2603
+            {% if current_user.license_plate %}
+                current_user.license_plate
+            {% else %}
+                No license plate provided
+            {% endif %}
+            <br/>
+            <a href="#">Edit Profile</a>
         </div>
+
+        <form action="/your-name/" method="post">
+
+            <label for="cell"><b>Cell: </b></label>
+            <input id="cell" type="text" name="cell" value="{{ current_user.username  }}">
+            <br/>
+            <label for="car_type"><b>Car Type: </b></label>
+            <input id="car_type" type="text" name="car_type" value="{{  current_user }}">
+                        <br/>
+
+            <label for="license_plate"><b>License Plate:</b></label>
+            <input id="license_plate" type="text" name="license_plate" value="{{ current_user }}">
+                        <br/>
+
+            <input type="submit" value="Save">
+
+        </form>
 
     </div>
 <!--    Right Side      -->
@@ -54,14 +85,5 @@
     </div>
 
 </div>
-
-
-
-<!-- Get rid of this later-->
-{% if id == None %}
-on current user's profile
-{% else %}
-currently on another user's profile: {{id}}
-{% endif %}
 
 {% endblock content %}

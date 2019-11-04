@@ -41,8 +41,8 @@ def userLogOut(request):
     return HttpResponseRedirect('/login')
 
 def createNewUser(request):
-    print("create new user")
     if(Rider.objects.filter(username=request.user).count() == 0):
+        print("create new user")
         newRider = Rider()
         newRider.username = request.user
         newRider.rides_driven = ""
