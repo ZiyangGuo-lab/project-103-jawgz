@@ -1,0 +1,65 @@
+{% extends "hoosRiding/base.html" %}
+{% block content %}
+
+<div id="myBtnContainer">
+  <button class="btn active mb-3"  style="border-radius: 50%; border: #FF860E"><a href="{% url 'sortByDate' %}">Date</a></button>
+  <button class="btn mb-3"  style="border-radius: 50%; border: #FF860E">Rating</button>
+  <!-- <button class="btn mb-3" style="border-radius: 50%; border: #FF860E"></button> -->
+ <button class="btn mb-3" style="border-radius: 50%; border: #FF860E"><a href="{% url 'sortByPrice' %}">price</a></button>
+</div>
+
+<div id = "search">
+<form action="{% url 'search' %}" method="get", value="{{request.GET.q}}">
+  <br> <input name="location_to" type="text" placeholder="location_to" value="{{request.GET.q}}" ></br>
+  <br> <input name="location_from" type="text" placeholder="location_from" value="{{request.GET.q}}" ></br>
+   <tr>
+                 <td style="padding:20px">Date of Ride</td>
+                 <td><input type="text" name="date_month" size="2">/<input type="text" name="date_day" size="2">/<input type="text" name="date_year" size="4"><br>
+             </tr>
+  <br><input type="submit" name="submit" value="Search"/></br>
+</form>
+</div>
+
+{% if postings_list %}
+    <ul>
+    {% for Posting in postings_list %}
+          <div class="card text-black mb-4" style="width: 40rem; background: light; border: px solid #FF860E; outline-color: 6px solid #CCC873">
+              <div class="card-footer">
+                  <h5 class="card-title">{{ Posting.date }}</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-title">From: {{ Posting.location_from }}</p>
+                <p class="card-title">To: {{ Posting.location_to }}</p>
+                <p class="card-text">Driver Name: {{ Posting.driver_name }}</p>
+                 <p class="card-text">Dates: {{ Posting.riding_date}}</p>
+                <p class="card-price">Price: {{ Posting.price }}</p>
+                <p class="card-id">User id: {{ Posting.driver_id }}</p>
+                <p class="card-id">Number of Passengers: {{ Posting.num_passengers }}</p>
+
+                <iframe
+                  width="600"
+                  height="450"
+                  frameborder="0" style="border:0"
+                  src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAcJ9C8vhZqeSsNbZ8hxGGeR8F7s351_8Y&origin={{Posting.location_from}}&destination={{Posting.location_to}}" allowfullscreen>
+                </iframe>
+
+            </div>
+              <div class="card-footer">
+                  <a href="{% url 'user-profile' %}?user={{Posting.driver_id}}" class="btn btn-dark" >Contact Driver</a>
+            </div>
+
+</div>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No postings are available.</p>
+{% endif %}
+</center>
+
+<div>
+    <h1> </h1>
+</div>
+
+
+
+{% endblock content %}
