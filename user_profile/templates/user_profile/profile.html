@@ -33,16 +33,15 @@
             {{ user.email }}
             <br/>
             <b>Cell: </b>
-            {{ current_user.cellphone }}
             {% if current_user.cellphone %}
-                current_user.cellphone
+                {{ current_user.cellphone }}
             {% else %}
                 No phone number provided
             {% endif %}
             <br/>
             <b>Car:</b>
             {% if current_user.car_type %}
-                current_user.car_type
+                {{ current_user.car_type }}
             {% else %}
                 No car type provided
             {% endif %}
@@ -67,7 +66,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="." method="updateProfile">
+                            <form action="" method="get">
                                 {% csrf_token %}
                                 <label for="cell"><b>Cell Number: </b></label>
                                 <input id="cell" type="text" name="cellphone" placeholder="{{ current_user.cellphone }}" value="{{ current_user.cellphone  }}">
