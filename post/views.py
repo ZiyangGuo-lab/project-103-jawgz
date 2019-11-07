@@ -4,7 +4,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.models import User
 import time
-
+from datetime import datetime
+from user_profile.models import Rider
 
 # Create your views here.
 
@@ -28,8 +29,12 @@ def post(request):
         newPost.vehicle_model = request.POST.get('vehicle_model')
         newPost.riding_date = getValidDate(request.POST)
         newPost.num_passengers = request.POST.get('num_passengers')
+        newPost.posting_id = hash(str(datetime.now()) + str(newPost.driver_id) + str(newPost.riding_date) + str(newPost.num_passengers))
         newPost.save()
 
+        riderposting = Rider.objects.filter(username=request.user)[0]
+        riderposting.rides_driven = str(riderposting.rides_driven) + "," + str(newPost.posting_id)
+        riderposting.save()
 
 
         # form.save()
