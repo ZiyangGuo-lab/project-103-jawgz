@@ -1,4 +1,5 @@
 {% extends "hoosRiding/base.html" %}
+{% load request_ride %}
 {% block content %}
 
 <div id="myBtnContainer">
@@ -22,6 +23,9 @@
                 <p class="card-price">Price: {{ Posting.price }}</p>
                 <p class="card-id">User id: {{ Posting.driver_id }}</p>
                 <p class="card-id">Number of Passengers: {{ Posting.num_passengers }}</p>
+                <p class="card-id">Posting id: {{ Posting.posting_id }}</p>
+                <p class="card-id">Passengers requested to join: {{ Posting.riders_requested }}</p>
+                <p class="card-id">Passengers riding: {{ Posting.riders_riding }}</p>
 
                 <iframe
                   width="600"
@@ -33,6 +37,14 @@
             </div>
               <div class="card-footer">
                   <a href="{% url 'user-profile' %}?user={{Posting.driver_id}}" class="btn btn-dark" >Contact Driver</a>
+
+                  {% if user.username in Posting.riders_requested or user.username in Posting.riders_riding %}
+                    <a href="{% url 'joinRide' %}?id={{Posting.posting_id}}"><button class="btn btn-dark" disabled>Request to Join Drive</button></a>
+                  {% else %}
+                    <a href="{% url 'joinRide' %}?id={{Posting.posting_id}}"><button class="btn btn-dark">Request to Join Drive</button></a>
+                  {% endif %}
+
+
             </div>
 
 </div>
