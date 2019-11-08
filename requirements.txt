@@ -2,4 +2,3 @@ Django
 gunicorn
 django-heroku
 social-auth-app-django
-django2-semantic-ui
