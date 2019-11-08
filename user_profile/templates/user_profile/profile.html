@@ -1,22 +1,18 @@
 {% extends "hoosRiding/base.html" %}
 {% load static %}
 {% load request_ride %}
-{% load dsu %}
 {% load split_words %}
 
 {% block content %}
 
-<script src="https://code.jquery.com/jquery-2.2.0.js"></script>
-<script type="text/javascript" src="http://oss.maxcdn.com/semantic-ui/2.1.8/components/accordion.min.js"></script>
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.7/semantic.min.js"></script>-->
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 
 <!-- Style Sheet Import -->
 <link rel="stylesheet" type="text/css" href="{% static 'user_profile/user_profile.css' %}">
-{% dsu_stylesheet_url %}
 
 <h1>Welcome, {{ user.first_name }}! </h1>
-
-
 
 <div class="profile">
 <!--    Left Side       -->
@@ -80,7 +76,6 @@
                     <p>Spots left: {{ Posting.num_passengers }}</p>
                 </div>
               </div>
-
 
 
                 <div class="extra content">
