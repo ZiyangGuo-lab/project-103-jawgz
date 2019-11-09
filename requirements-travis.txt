@@ -1,4 +1,3 @@
 Django
 gunicorn
 social-auth-app-django
-django2-semantic-ui
