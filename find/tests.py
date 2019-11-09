@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 
 
 # from django.test import TestCase
@@ -102,8 +102,4 @@
 
 	# 	def create_Posting(self, location_to="Charlottesville, VA", location_from="FairFax, VA",vehicle_model="Honda", price=20,num_passengers=2,)
 
-=======
-from django.test import TestCase
 
-# Create your tests here.
->>>>>>> parent of 39d5f91... design changes
