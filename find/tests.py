@@ -1,3 +1,4 @@
+
 # from django.test import TestCase
 # from .forms import *
 # from find.models import *
@@ -71,3 +72,15 @@
 # 		self.assertEqual(form1.location_to, "Charlottesville, VA")
 # 		self.assertEqual(form1.num_passengers, 2)
 # 		self.assertEqual(form1.vehicle_model, "Honda")
+
+
+# class searchViewTest(TestCase):
+
+# 	def setUp(self):
+# 		Posting.objects.create(location_to="Charlottesville, VA", location_from="FairFax, VA",vehicle_model="Honda", price=20,num_passengers=2)
+# # Create your tests here.
+
+	# class postingModelTest(TestCase):
+
+	# 	def create_Posting(self, location_to="Charlottesville, VA", location_from="FairFax, VA",vehicle_model="Honda", price=20,num_passengers=2,)
+
