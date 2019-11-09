@@ -25,15 +25,16 @@ SECRET_KEY = '6msg&vgyu)9dyng#-u24@o8l=&2a$0d-#ou7+$+g6sr6&anq3%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
 
+ALLOWED_HOSTS = ['localhost','127.0.0.1','project-103-jawgz.herokuapp.com']
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '569624625325-24d3uvi2m79h6f3mvc2etbdjul0bqpgk.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '06HeNGhqjrk0X4VP0aq_ZYlP'
 
 LOGIN_URL = '/auth/login/google-oauth2/'
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/login/createNewUser'
 LOGOUT_REDIRECT_URL = '/'
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
@@ -62,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'jawgz.urls'
@@ -77,6 +79,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.static',
             ],
         },
     },
@@ -119,6 +122,9 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+SOCIAL_AUTH_GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = {
+    'hd': 'virginia.edu'
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
@@ -136,13 +142,29 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'jawgz.storage.WhiteNoiseStaticFilesStorage'
 
 # Activate Django-Heroku.
-try:
-    # Configure Django App for Heroku.
+# try:
+#     # Configure Django App for Heroku.
+#     import django_heroku
+#     django_heroku.settings(locals())
+# except ImportError:
+#     found = False
+
+
+if 'HEROKU' in os.environ:
+    import dj_database_url
+    DATABASES['default'] =  dj_database_url.config()
     import django_heroku
     django_heroku.settings(locals())
-except ImportError:
-    found = False
+
+# MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+# MEDIA_URL = '/media/'

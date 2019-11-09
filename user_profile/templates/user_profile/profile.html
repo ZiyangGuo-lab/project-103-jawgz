@@ -1,7 +1,13 @@
 {% extends "hoosRiding/base.html" %}
 {% load static %}
+{% load request_ride %}
+{% load split_words %}
 
 {% block content %}
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 
 <!-- Style Sheet Import -->
 <link rel="stylesheet" type="text/css" href="{% static 'user_profile/user_profile.css' %}">
@@ -45,23 +51,182 @@
     </div>
 <!--    Right Side      -->
     <div class="right">
-        <div>
-            <h3>Open Rides</h3>
+
+        {% if viewingPassenger %}
+
+        <div class="ui fluid two item menu">
+          <a class="item active">Passenger</a>
+          <a href="{% url 'switchToDriverView' %}" class="item">Driver</a>
         </div>
-        <div>
-            <h3>Past Rides</h3>
-        </div>
+
+        {% for Posting,status in allRides.items %}
+            <div class="ui fluid raised centered card">
+              <div class="content">
+                  <table style="width:100%;height:100%">
+                      <td><h3>{{ Posting.location_from }} to {{ Posting.location_to }}<i class="car icon"></i></h3></td>
+                      <td style="text-align: right;">
+                          {% calculatetime Posting.date %}
+                      </td>
+                  </table>
+                <div class="meta">{{ Posting.riding_date}} </div>
+                <div class="description">
+                  <p>Asking price: ${{ Posting.price }}</p>
+                    <p>Spots left: {{ Posting.num_passengers }}</p>
+                </div>
+              </div>
+
+
+                <div class="extra content">
+                    Request Status:
+                    {% if status == "accepted" %}
+                     <p style="color:green; display: inline;">accepted</p><i class="green check icon"></i>
+                    {% elif status == "pending" %}
+                    pending<i class="exclamation circle icon"></i>
+                    {% else %}
+                    <p style="color:red; display: inline;">declined</p><i class="red ban icon"></i>
+                    {% endif %}
+                  </div>
+
+                <!--Dropdown of extra info-->
+                <div class="ui styled accordion">
+                    <div class="title">
+                        <i class="dropdown icon"></i>
+                        Details
+                </div>
+                    <div class="content">
+                <p class="transition ">
+                    Riders on trip
+                    {% with Posting.riders_riding|split:"," as request_list %}
+                        {% if request_list %}
+                            <ul>
+                            {% for rider in request_list %}
+                                <li>{{rider}}</li>
+
+                            {% endfor %}
+                            </ul>
+                        {% else %}
+                        <p>None</p>
+                        {% endif %}
+
+                    {% endwith %}
+
+                    <br>
+                    <iframe
+                          width="500"
+                          height="300"
+                          frameborder="0" style="border:0"
+                          src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAcJ9C8vhZqeSsNbZ8hxGGeR8F7s351_8Y&origin={{Posting.location_from}}&destination={{Posting.location_to}}" allowfullscreen>
+                        </iframe>
+                </p>
+                    </div>
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+
+        {% else %}
+
+            <!--view if looking at rides hosting-->
+            <div class="ui fluid two item menu">
+              <a class="item" href="{% url 'switchToPassengerView' %}">Passenger</a>
+              <a class="item active">Driver</a>
+            </div>
+
+
+            <!--The list of cards-->
+            {% for Posting in ridesDriving %}
+            <div class="ui fluid raised centered card">
+              <div class="content">
+                  <table style="width:100%;height:100%">
+                      <td><h3>{{ Posting.location_from }} to {{ Posting.location_to }}<i class="car icon"></i></h3></td>
+                      <td style="text-align: right;">
+                          {% calculatetime Posting.date %}
+                      </td>
+                  </table>
+                <div class="meta">{{ Posting.riding_date}} </div>
+                <div class="description">
+                  <p>Asking price: ${{ Posting.price }}</p>
+                    <p>Spots left: {{ Posting.num_passengers }}</p>
+                </div>
+              </div>
+
+                <!--If any requests for rides, appear here-->
+                {% with Posting.riders_requested|split:"," as request_list %}
+                    {% if request_list %}
+                        <div class="extra content">
+                            <h5>New Requests</h5>
+                        {% for rider in request_list %}
+                            <table style="width:100%">
+                                <td><h6>{{rider}}</h6></td>
+                                <td style="text-align: right;">
+                                    <a href="{% url 'respondToDriverRequest' %}?id={{Posting.posting_id}}&rider={{rider}}&status=accept"><button class="positive ui button">Accept</button></a>
+                                    <a href="{% url 'respondToDriverRequest' %}?id={{Posting.posting_id}}&rider={{rider}}&status=decline"><button class="negative ui button">Decline</button></a>
+                                </td>
+                            </table>
+                        {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+                <!--Dropdown of extra info-->
+                <div class="ui styled accordion">
+                    <div class="title">
+                        <i class="dropdown icon"></i>
+                        Details
+                </div>
+                    <div class="content">
+                <p class="transition ">
+                    Riders on trip
+                    {% with Posting.riders_riding|split:"," as request_list %}
+                        {% if request_list %}
+                            <ul>
+                            {% for rider in request_list %}
+                                <li>{{rider}}</li>
+
+                            {% endfor %}
+                            </ul>
+                        {% else %}
+                        <p>None</p>
+                        {% endif %}
+
+                    {% endwith %}
+
+                    <br>
+                    <iframe
+                          width="500"
+                          height="300"
+                          frameborder="0" style="border:0"
+                          src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAcJ9C8vhZqeSsNbZ8hxGGeR8F7s351_8Y&origin={{Posting.location_from}}&destination={{Posting.location_to}}" allowfullscreen>
+                        </iframe>
+                </p>
+                    </div>
+                </div>
+
+            </div>
+            {%endfor%}
+
+
+        {% endif %}
+
+
+
+
     </div>
 
 </div>
 
+<script>
+    $('.ui.accordion').accordion();
+    $('.teal.button')
+      .popup({
+        on: 'click'
+      });
+    $('input')
+      .popup({
+        on: 'focus'
+      });
+</script>
 
-
-<!-- Get rid of this later-->
-{% if id == None %}
-on current user's profile
-{% else %}
-currently on another user's profile: {{id}}
-{% endif %}
-
-{% endblock content %}
+{% endblock %}

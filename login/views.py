@@ -7,6 +7,8 @@ from django.views.generic import CreateView
 from .models import User
 from django.http import HttpResponseRedirect
 from django.contrib.auth import logout
+from user_profile.models import Rider
+
 
 class loginPage(CreateView):
     model = User
@@ -35,7 +37,16 @@ def enterLogin(request):
         return HttpResponseRedirect('/login')
 
 def userLogOut(request):
-    print(request.user.first_name)
     logout(request)
     return HttpResponseRedirect('/login')
+
+def createNewUser(request):
+    print("create new user")
+    if(Rider.objects.filter(username=request.user).count() == 0):
+        newRider = Rider()
+        newRider.username = request.user
+        newRider.rides_driven = ""
+        newRider.rides_passenger = ""
+        newRider.save()
+    return HttpResponseRedirect('/')
 
