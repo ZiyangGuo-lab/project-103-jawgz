@@ -26,130 +26,44 @@
         <title>Hoos Riding</title>
     {% endif %}
         <link rel="shortcut icon" type="image/png" href="{% static 'hoosRiding/tab-logo.png' %}"/>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
 
 </head>
 
-
+</a>
 <body>
-
-
-
-
-<!--<div class="ui inverted segment">-->
-
-    <!--<img style="display: inline-block" src="/static/hoosRiding/tab-logo2.png" alt="" height="45" width="50">-->
-    <!--<a class="item" style="display: inline-block; padding-left:13px; padding-top:10px">-->
-        <!--<h1 style="display: inline-block; color:white">Hoos Riding</h1>-->
-    <!--</a>-->
-<!--<div class="ui large inverted secondary pointing menu">-->
-
-
-    <!--<a class="item" style="display: inline-block">-->
-        <!--<i class="search icon"></i>-->
-        <!--Find-->
-    <!--</a>-->
-
-    <!--<a class="orange item active" style="display: inline-block">-->
-        <!--<i class="paper plane icon"></i>-->
-        <!--Post-->
-    <!--</a>-->
-
-    <!--<a class="item" style="display: inline-block">-->
-        <!--<i class="car icon"></i>-->
-        <!--My Rides-->
-    <!--</a>-->
-
-    <!--<div class="right menu">-->
-        <!--<a class="item" style="display: inline-block">-->
-            <!--<i class="sign out alternate icon"></i>-->
-          <!--Logout-->
-        <!--</a>-->
-    <!--</div>-->
-
-  <!--</div>-->
-<!--</div>-->
-
-
  <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark bg-blue fixed-top">
+          <img src= "/static/hoosRiding/tab-logo2.png" alt="" height="50" width="50">
 
 
+        <div class="container">
 
+          <a class="navbar-brand mr-4" href="{% url 'find-ride' %}" style="font-size:200%; font-family:sans-serif"> Hoos Riding </a>
 
-        <div class="container" >
-            <img src= "/static/hoosRiding/tab-logo2.png" alt="" height="50" width="50">
-          <a class="navbar-brand mr-4" href="{% url 'find-ride' %}" style="font-size:200%; padding-left:0px"> Hoos Riding </a>
-
-
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+<!--              <a class="nav-item nav-link" href="{% url 'find-ride' %}">Home</a>-->
+<!--              <a class="nav-item nav-link" href="{% url 'post-ride' %}">About</a>-->
+            </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
 
-                <div class="ui large inverted secondary pointing menu">
+              <a class="nav-item nav-link" href="{% url 'find-ride' %}">Find Ride <img src="/static/hoosRiding/search.svg" alt="" height="30" width="30"></a>
 
-                    {% if request.path == '/' %}
-                    <a class="item active" href="{% url 'find-ride' %}" style="display: inline-block">
-                        <i class="search icon"></i>
-                        Find
-                    </a>
-                    {% else %}
-                    <a class="item" href="{% url 'find-ride' %}" style="display: inline-block">
-                        <i class="search icon"></i>
-                        Find
-                    </a>
-                    {% endif %}
-
-                    {% if '/post/' in request.path %}
-                <a class="item active" href="{% url 'post-ride' %}" style="display: inline-block">
-                    <i class="plus icon"></i>
-                    Post
-                </a>
-                    {% else %}
-                    <a class="item" href="{% url 'post-ride' %}" style="display: inline-block">
-                    <i class="plus icon"></i>
-                    Post
-                </a>
-                    {% endif %}
-
-                    {% if '/profile/' in request.path %}
-                <a class="item active" href="{% url 'user-profile' %}" style="display: inline-block">
-                    <i class="car icon"></i>
-                    My Rides
-                </a>
-                    {% else %}
-                    <a class="item" href="{% url 'user-profile' %}" style="display: inline-block">
-                    <i class="car icon"></i>
-                    My Rides
-                </a>
-                    {% endif %}
-
-                <div class="right menu">
-                    <a class="item" href="{% url 'logout' %}" style="display: inline-block">
-                        <i class="sign out alternate icon"></i>
-                      Logout
-                    </a>
-                </div>
-
-              </div>
-
-              <!--<a class="nav-item nav-link" href="{% url 'find-ride' %}">Find Ride <img src="/static/hoosRiding/search.svg" alt="" height="30" width="30"></a>-->
-
-                <!--<a class="nav-item nav-link" href="{% url 'post-ride' %}">Post Ride <img src="/static/hoosRiding/plus.svg" alt="" height="30" width="30"></a>-->
-                <!--<a class="nav-item nav-link" href="{% url 'user-profile' %}">Profile <img src="/static/hoosRiding/profile.svg" alt="" height="30" width="30"></a>-->
-                <!--<a class="nav-item nav-link" href="{% url 'logout' %}">Logout <img src="/static/hoosRiding/logout.svg" alt="" height="30" width="30"></a>-->
+                <a class="nav-item nav-link" href="{% url 'post-ride' %}">Post Ride <img src="/static/hoosRiding/plus.svg" alt="" height="30" width="30"></a>
+                <a class="nav-item nav-link" href="{% url 'user-profile' %}">Profile <img src="/static/hoosRiding/profile.svg" alt="" height="30" width="30"></a>
+                <a class="nav-item nav-link" href="{% url 'logout' %}">Logout <img src="/static/hoosRiding/logout.svg" alt="" height="30" width="30"></a>
 
 
             </div>
           </div>
+        </div>
       </nav>
     </header>
-
-    <script> $('.ui .item').on('click', function() {
-   $('.ui .item').removeClass('active');
-   $(this).addClass('active');
-}); </script>
 
     <main role="main" class="container">
           <div class="row">
@@ -163,8 +77,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </main>
-
-
 </body>
 
 <footer>

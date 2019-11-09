@@ -40,32 +40,17 @@ class searchView(generic.ListView):
 	# queryset = Posting.objects.filter(location_to='Virginia Beach, VA')
 
 	def get_queryset(self):
+		print("method")
 		location_to = self.request.GET.get('location_to')
-		print(self.request.GET.get('location_to')+"location_to")
 		location_from = self.request.GET.get('location_from')
 		year = self.request.GET.get('date_year')
 		month = self.request.GET.get('date_month')
 		day = self.request.GET.get('date_day')
-
-		s = year+ '-' +month+ '-' +day
-		if location_to=="" and location_from != "" and s!="--":
-			return Posting.objects.filter(location_from=location_from, riding_date__date=s)
-		elif location_to!="" and location_from == "" and s!="--":
-			return Posting.objects.filter(location_to=location_to, riding_date__date=s)
-		elif location_to!="" and location_from != "" and s=="--":
-			return Posting.objects.filter(location_to=location_to, location_from=location_from)
-		elif location_to=="" and location_from == "" and s!="--":
-			return Posting.objects.filter(riding_date__date=s)		
-		elif location_to !="" and location_from == "" and s=="--":
-			print("method goes here")
-			return Posting.objects.filter(location_to=location_to)
-		elif location_to =="" and location_from != "" and s=="--":	
-			return Posting.objects.filter(location_from=location_from)
-		elif location_to =="" and location_from == "" and s=="--":
-			return Posting.objects.filter(location_from=location_from)	
-		else:
-			return Posting.objects.filter(location_to=location_to, location_from=location_from, riding_date__date=s)
-		
+		hour = self.request.GET.get('date_hour')
+		time = self.request.GET.get('date_time_of_day')
+		minute = self.request.GET.get('date_min')
+		s = year + '-' + month + '-' + day
+		return Posting.objects.filter(location_to=location_to, location_from=location_from, riding_date__date=s)
 
 
 def requestToJoinRide(request):
@@ -81,5 +66,4 @@ def requestToJoinRide(request):
         user.save()
 
     return HttpResponseRedirect('/')
-
 

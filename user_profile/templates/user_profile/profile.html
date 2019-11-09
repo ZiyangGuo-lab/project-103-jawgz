@@ -52,12 +52,14 @@
 <!--    Right Side      -->
     <div class="right">
 
+        <!--<div class="ui teal button" data-title="Using click events" data-content="Clicked popups will close if you click away, but not if you click inside the popup">Click Me</div>-->
+
         {% if viewingPassenger %}
 
-        <div class="ui fluid two item menu">
-          <a class="item active">Passenger</a>
-          <a href="{% url 'switchToDriverView' %}" class="item">Driver</a>
-        </div>
+        <table style="width:100%">
+            <td style="width:50%"><button class="ui button fluid active">Passenger</button></td>
+            <td><a href="{% url 'switchToDriverView' %}"><button class="ui fluid button">Driver</button></a></td>
+        </table>
 
         {% for Posting,status in allRides.items %}
             <div class="ui fluid raised centered card">
@@ -101,7 +103,6 @@
                             <ul>
                             {% for rider in request_list %}
                                 <li>{{rider}}</li>
-
                             {% endfor %}
                             </ul>
                         {% else %}
@@ -129,10 +130,10 @@
         {% else %}
 
             <!--view if looking at rides hosting-->
-            <div class="ui fluid two item menu">
-              <a class="item" href="{% url 'switchToPassengerView' %}">Passenger</a>
-              <a class="item active">Driver</a>
-            </div>
+            <table style="width:100%">
+                <td style="width:50%"><a href="{% url 'switchToPassengerView' %}"><button class="ui fluid button">Passenger</button></a></td>
+                <td><button class="ui fluid button active">Driver</button></td>
+            </table>
 
 
             <!--The list of cards-->
