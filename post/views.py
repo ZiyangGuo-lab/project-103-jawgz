@@ -54,7 +54,9 @@ def post(request):
         return render(request, template, context)
 
 def getValidDate(data):
-    s = data.get('date')
+    d = data.get('date')
+    t = data.get('time')
 
-    return s
+
+    return d + " " + t
 

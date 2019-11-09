@@ -5,7 +5,7 @@ from find.models import *
 class postRide(forms.ModelForm):
 	class Meta:
 		model = Posting
-		fields = ("location_to", "location_from","price","num_passengers")
+		fields = ("location_to", "location_from","price","num_passengers", "date")
 		# fields = ("location_to", "location_from","driver_name", "vehicle_model","price")
 
 	def __init__(self, *args, **kwargs):
