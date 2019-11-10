@@ -1,10 +1,12 @@
 from django.db import models
 from datetime import datetime, timedelta
+from django.utils.timezone import make_aware
 # import django_filters
 
 
 def default_datetime():
-    return datetime.now() + timedelta(days=1)
+    return datetime.now() - timedelta(hours=5)
+
 
 
 class Posting(models.Model):
@@ -17,6 +19,10 @@ class Posting(models.Model):
     price = models.IntegerField(default=0)
     driver_id = models.CharField(max_length=200)
     num_passengers = models.IntegerField(default=0)
+
+    riders_requested = models.TextField()
+    riders_riding = models.TextField()
+    posting_id = models.CharField(max_length=200)
 
     def __str__(self):
         return self.driver_name
