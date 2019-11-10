@@ -10,10 +10,17 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
-import os
+
+import os, subprocess, dj_database_url
+import dotenv
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+dotenv_file = os.path.join(BASE_DIR, ".env")
+if os.path.isfile(dotenv_file):
+    dotenv.load_dotenv(dotenv_file)
 
 
 # Quick-start development settings - unsuitable for production
@@ -90,13 +97,26 @@ WSGI_APPLICATION = 'jawgz.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+# DATABASES = {}
+# bashCommand = 'heroku config:get DATABASE_URL -a hoos-riding'
+# output = subprocess.check_output(['bash','-c', bashCommand]).decode("utf-8")
+# DATABASES['default'] = dj_database_url.config(default=output, conn_max_age=600, ssl_require=True)
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+DATABASES = {}
+DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+
+if 'HEROKU' in os.environ:
+    import dj_database_url
+    DATABASES['default'] = dj_database_url.config()
+    import django_heroku
+    django_heroku.settings(locals())
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
 
 
 # Password validation
@@ -159,12 +179,6 @@ STATICFILES_DIRS = (
 # except ImportError:
 #     found = False
 
-
-if 'HEROKU' in os.environ:
-    import dj_database_url
-    DATABASES['default'] =  dj_database_url.config()
-    import django_heroku
-    django_heroku.settings(locals())
 
 # MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 # MEDIA_URL = '/media/'
