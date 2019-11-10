@@ -7,8 +7,19 @@ from django.http import HttpResponseRedirect
 
 # Create your views here.
 def profile(request):
-    id = request.GET.get('user')
-
+    id = request.user
+    user_matches = Rider.objects.filter(username=id)
+    current_user = user_matches[0]
+    #check if modal form has been filled out yet
+    if (request.GET.get('license_plate') is not None):
+        current_user.license_plate = request.GET.get('license_plate')
+        current_user.save()
+    if (request.GET.get('cellphone') is not None):
+        current_user.cellphone = request.GET.get('cellphone')
+        current_user.save()
+    if (request.GET.get('car_type') is not None):
+        current_user.car_type = request.GET.get('car_type')
+        current_user.save()
     allRides = {}
     ridesPassengerIds = str(Rider.objects.filter(username=request.user)[0].rides_passenger).split(",")
     for ride in ridesPassengerIds:
@@ -30,7 +41,8 @@ def profile(request):
 
     print(allRides)
 
-    return render(request, 'user_profile/profile.html', {'title': 'Profile', 'id': id, 'allRides' : allRides, 'viewingPassenger': True})
+    return render(request, 'user_profile/profile.html', {'title': 'Profile', 'id': id, 'current_user': current_user,
+                                                         'allRides': allRides, 'viewingPassenger': True})
 
 
 #method called when driver accepts or declines a new passenger

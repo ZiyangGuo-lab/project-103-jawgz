@@ -9,25 +9,29 @@ from user_profile.models import Rider
 
 # Create your views here.
 
-avalible_cities = {'Charlottesville': 'VA', 'Fairfax': 'VA', 'Richmond': 'VA', 'Danville': 'VA',
-                       'Virginia Beach': 'VA', 'Norfolk': 'VA', 'Alexandria': 'VA',
-                       'Lynchburg': 'VA', 'Charlotte': 'NC', 'Raleigh': 'NC', 'Greensboro': 'NC', 'Newark': 'NJ',
-                       'Jersey City': 'NJ', 'New York City': 'NY'}
-
 def post(request):
     form = postRide(request.POST)
 
     if form.is_valid():
-        print("form is valid")
-
         newPost = Posting()
         newPost.driver_id = request.user
         newPost.driver_name = request.user.first_name + " " + request.user.last_name
-        newPost.location_from = request.POST.get('location_from')
-        newPost.location_to = request.POST.get('location_to')
+
+        #remove country name, search is restricted to USA
+        location_from = request.POST.get('location_from')
+        if(len(location_from) > 5 and location_from[-5:] == ", USA"):
+            location_from = location_from[:-5]
+        newPost.location_from = location_from
+
+        location_to = request.POST.get('location_to')
+        if (len(location_to) > 5 and location_to[-5:] == ", USA"):
+            location_to = location_to[:-5]
+        newPost.location_to = location_to
+
         newPost.price = request.POST.get('price')
-        newPost.vehicle_model = request.POST.get('vehicle_model')
-        newPost.riding_date = getValidDate(request.POST)
+        newPost.riding_date = formatDateTime(request.POST.get('riding_date'), request.POST.get('riding_time'))
+        newPost.extra_info = request.POST.get('extra_info')
+
         newPost.num_passengers = request.POST.get('num_passengers')
         newPost.posting_id = hash(str(datetime.now()) + str(newPost.driver_id) + str(newPost.riding_date) + str(newPost.num_passengers))
         newPost.save()
@@ -48,19 +52,20 @@ def post(request):
     else:
         print("form is invalid")
         print(form.errors)
-        context = {'form': form,
-                    'cities': avalible_cities,
+        context = {'form': form
         }
         template = 'post/post_ride.html'
         return render(request, template, context)
 
-def getValidDate(data):
-    s = data.get('date_year') + '-' + data.get('date_month') + "-" + data.get('date_day') + " "
-    if data.get('date_time_of_day') == 'AM':
-        s += data.get('date_hour')
-    else:
-        s += str(int(data.get('date_hour')) + 12)
+def formatDateTime(date, time):
+    months = ["January","February","March","April","May","June","July","August","September","October","November","December"]
+    date = date.split(" ")
+    formatted = date[2] + '-' + str(months.index(date[0]) + 1) + '-' + (date[1])[:-1] + ' '
 
-    s += ":" + data.get('date_min')
-    return s
+    analogTime = (time.split(" ")[0]).split(":")
+    hour = int(analogTime[0])
+    if time[-2:] == 'PM' and hour < 12:
+        hour += 12
 
+    formatted += str(hour) + ":" + analogTime[1]
+    return formatted

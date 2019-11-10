@@ -1,17 +1,15 @@
-# from django.test import TestCase
-# from user_profile.models import Rider
-#
-# # Create your tests here.
-# class testRideRequesting(TestCase):
-#     sampleRider1 = Rider()
-#     sampleRider2 = Rider()
-#
-#     def setUp(self):
-#         sampleRider1.username = "js8ra"
-#         sampleRider2.username = "gs2ar"
-#         sampleRider1.save()
-#         sampleRider2.save()
-#
-#     # def addRider(self):
-#     #
-#
+from django.test import TestCase
+from user_profile.models import Rider
+from .forms import *
+
+
+class userProfileTest(TestCase):
+
+    def test_valid_form(self):
+        form1 = update_profile_form(data ={
+            "cellphone": "123456789",
+            "car_type": "Test Car",
+            "license_plate": "Test-123"
+        })
+        self.assertTrue(form1.is_valid())
+
