@@ -16,8 +16,18 @@ def post(request):
         newPost = Posting()
         newPost.driver_id = request.user
         newPost.driver_name = request.user.first_name + " " + request.user.last_name
-        newPost.location_from = request.POST.get('location_from')
-        newPost.location_to = request.POST.get('location_to')
+
+        #remove country name, search is restricted to USA
+        location_from = request.POST.get('location_from')
+        if(len(location_from) > 5 and location_from[-5:] == ", USA"):
+            location_from = location_from[:-5]
+        newPost.location_from = location_from
+
+        location_to = request.POST.get('location_to')
+        if (len(location_to) > 5 and location_to[-5:] == ", USA"):
+            location_to = location_to[:-5]
+        newPost.location_to = location_to
+
         newPost.price = request.POST.get('price')
         newPost.riding_date = formatDateTime(request.POST.get('riding_date'), request.POST.get('riding_time'))
         newPost.extra_info = request.POST.get('extra_info')
@@ -54,7 +64,6 @@ def formatDateTime(date, time):
 
     analogTime = (time.split(" ")[0]).split(":")
     hour = int(analogTime[0])
-    print("the timmmmme is", time[-2:])
     if time[-2:] == 'PM' and hour < 12:
         hour += 12
 
