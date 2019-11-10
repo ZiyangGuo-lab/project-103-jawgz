@@ -4,4 +4,3 @@ django-heroku
 social-auth-app-django
 psycopg2-binary
 dj-database-url
-dotenv
