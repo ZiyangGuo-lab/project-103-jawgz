@@ -16,7 +16,7 @@ class ViewTest(TestCase):
 		p3 = Posting.objects.create(driver_name="Ziyang Guo", vehicle_model="Honda", location_to="Jersey City,NJ", location_from="Fairfax,VA",date=dt.now(),riding_date=dt.now(),price=1, driver_id="zg2mt", num_passengers=2)
 		p3.save()
 		endCount = Posting.objects.count()
-		print(find.get_queryset())
+		# print(find.get_queryset())
 
 		self.assertEqual(startCount+3, endCount)
 		self.assertEqual(list(find.get_queryset()), [p1, p2, p3])
@@ -53,12 +53,17 @@ class ViewTest(TestCase):
 		search=searchView()
 		p1 = Posting.objects.create(driver_name="Yuxin Wu", vehicle_model="Honda", location_to="Charlottesville,VA", location_from="Fairfax,VA",date=dt.now(),riding_date=dt.now(),price=20, driver_id="yw7vv", num_passengers=3)
 		p1.save()
-		p2 = Posting.objects.create(driver_name="John Saunders", vehicle_model="Benz", location_to="Jersey City,NJ", location_from="Fairfax,VA",date=dt.now(),riding_date=dt.now(),price=1, driver_id="yw7vv", num_passengers=2)
+		p2 = Posting.objects.create(driver_name="John Saunders", vehicle_model="Benz", location_to="Jersey City,NJ", location_from="Fairfax,VA",date=dt.now(),riding_date="2019-11-25",price=1, driver_id="yw7vv", num_passengers=2)
 		p2.save()
-		p3 = Posting.objects.create(driver_name="Ziyang Guo", vehicle_model="Toyota", location_to="Jersey City,NJ", location_from="CharlottesvilleVA",date=dt.now(),riding_date=dt.now(),price=3, driver_id="zg2mt", num_passengers=2)
+		p3 = Posting.objects.create(driver_name="Ziyang Guo", vehicle_model="Toyota", location_to="Jersey City,NJ", location_from="CharlottesvilleVA",date=dt.now(),riding_date="2019-12-1",price=3, driver_id="zg2mt", num_passengers=2)
 		p3.save()
 		print(search.get_queryset())
 		s = search.get_queryset()
-		s.filter.assert_called_once_with(location_to="Jersey City,NJ")
-		s.filter.assert_called_once_with(location_from="Fairfax,VA")
+		self.assertEqual(s.filter(location_to="Jersey City,NJ",location_from="Fairfax,VA"),p2)
+		self.assertEqual(s.filter(riding_date="2019-12-1"),p3)
+		self.assertEqual(list(s.filter()),[p3,p2,p1])
+		self.assertEqual(s.filter(),p2)
+
+
+	
 
