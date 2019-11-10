@@ -1,13 +1,6 @@
 {% extends "hoosRiding/base.html" %}
 {% block content %}
 
-<div id="myBtnContainer">
-  <button class="btn active mb-3"  style="border-radius: 50%; border: #FF860E"><a href="{% url 'sortByDate' %}">Date</a></button>
-  <button class="btn mb-3"  style="border-radius: 50%; border: #FF860E">Rating</button>
-  <!-- <button class="btn mb-3" style="border-radius: 50%; border: #FF860E"></button> -->
- <button class="btn mb-3" style="border-radius: 50%; border: #FF860E"><a href="{% url 'sortByPrice' %}">price</a></button>
-</div>
-
 <div id = "search">
 <form action="{% url 'search' %}" method="get", value="{{request.GET.q}}">
   <br> <input name="location_to" type="text" placeholder="location_to" value="{{request.GET.q}}" ></br>
@@ -18,6 +11,13 @@
              </tr>
   <br><input type="submit" name="submit" value="Search"/></br>
 </form>
+</div>
+
+<div id="myBtnContainer">
+  <button class="btn active mb-3"  style="border-radius: 50%; border: #FF860E"><a href="{% url 'sortByDate' %}">Date</a></button>
+  <button class="btn mb-3"  style="border-radius: 50%; border: #FF860E">Rating</button>
+  <!-- <button class="btn mb-3" style="border-radius: 50%; border: #FF860E"></button> -->
+ <button class="btn mb-3" style="border-radius: 50%; border: #FF860E"><a href="{% url 'sortByPrice' %}">price</a></button>
 </div>
 
 {% if postings_list %}

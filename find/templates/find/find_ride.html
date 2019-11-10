@@ -7,12 +7,6 @@
       <!--</div>-->
 <!--</div>-->
 
- <div id="myBtnContainer">
-    <button class="btn active mb-3"  style="border-radius: 50%; border: #FF860E"><a href="{% url 'sortByDate' %}">Date</a></button>
-    <button class="btn mb-3"  style="border-radius: 50%; border: #FF860E">Rating</button>
-    <!-- <button class="btn mb-3" style="border-radius: 50%; border: #FF860E"></button> -->
-    <button class="btn mb-3" style="border-radius: 50%; border: #FF860E"><a href="{% url 'sortByPrice' %}">price</a></button>
-  </div>
 
 <div id = "search">
     <form action="{% url 'search' %}" method="get", value="{{request.GET.q}}">
@@ -27,6 +21,12 @@
   </div>
 </div>
 
+<div id="myBtnContainer">
+    <button class="btn active mb-3"  style="border-radius: 50%; border: #FF860E"><a href="{% url 'sortByDate' %}">Date</a></button>
+    <button class="btn mb-3"  style="border-radius: 50%; border: #FF860E">Rating</button>
+    <!-- <button class="btn mb-3" style="border-radius: 50%; border: #FF860E"></button> -->
+    <button class="btn mb-3" style="border-radius: 50%; border: #FF860E"><a href="{% url 'sortByPrice' %}">price</a></button>
+  </div>
 
 {% if postings_list %}
         <div class="col-8">
