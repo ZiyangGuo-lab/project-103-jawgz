@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 
 # Create your views here.
 def profile(request):
-    id = request.GET.get('user')
+    id = request.user
     user_matches = Rider.objects.filter(username=id)
     current_user = user_matches[0]
     #check if modal form has been filled out yet
