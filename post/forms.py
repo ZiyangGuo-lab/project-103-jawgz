@@ -8,4 +8,5 @@ class postRide(forms.ModelForm):
 		fields = ("location_to", "location_from","price","num_passengers")
 
 	def __init__(self, *args, **kwargs):
-		super(postRide,self).__init__(*args, **kwargs)
+		super(postRide, self).__init__(*args, **kwargs)
+
