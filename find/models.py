@@ -1,6 +1,5 @@
 from django.db import models
 from datetime import datetime, timedelta
-from django.utils.timezone import make_aware
 # import django_filters
 
 
