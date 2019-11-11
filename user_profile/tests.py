@@ -79,18 +79,18 @@ class userProfileTest(TestCase):
     def test_access_declined_rides(self):
         "Validates that rides that have been declined appear in 'Passenger'"
 
-        posting1 = Posting.objects.create(driver_name="Yuxin Wu", location_to="Charlottesville,VA",
-                                    location_from="Fairfax,VA", date=dt.now(), riding_date=dt.now(), price=20,
-                                    driver_id="yw7vv", num_passengers=3)
-        posting1.save()
+        posting = Posting.objects.create(driver_name="Yuxin Wu", location_to="Charlottesville,VA",
+                                         location_from="Fairfax,VA", date=dt.now(), riding_date=dt.now(), price=20,
+                                         driver_id="yw7vv", num_passengers=3)
+        posting.save()
         rider1 = Rider.objects.create(username="username1", license_plate="XYZ-1234", car_type="model1",
-                                      cellphone="123-456-7890", rides_passenger="posting1,")
+                                      cellphone="123-456-7890", rides_passenger="posting1")
         rider1.save()
         allRides = {}
 
         ridesPassengerIds = str(Rider.objects.filter(username=rider1)[0].rides_passenger).split(",")
         for ride in ridesPassengerIds:
-            query = Rider.objects.filter(rides_declined="posting1,")
+            query = Rider.objects.filter(rides_passenger="posting1")
             if query.count() > 0:
                 allRides[query[0]] = 'declined'
 
@@ -99,15 +99,15 @@ class userProfileTest(TestCase):
     def test_access_pending_rides(self):
         "Validates that rides that are pending appear in 'Passenger'"
 
-        posting1 = Posting.objects.create(driver_name="Yuxin Wu", location_to="Charlottesville,VA",
-                                    location_from="Fairfax,VA", date=dt.now(), riding_date=dt.now(), price=20,
-                                    driver_id="yw7vv", num_passengers=3)
-        posting1.save()
+        posting = Posting.objects.create(driver_name="Yuxin Wu", location_to="Charlottesville,VA",
+                                         location_from="Fairfax,VA", date=dt.now(), riding_date=dt.now(), price=20,
+                                         driver_id="yw7vv", num_passengers=3)
+        posting.save()
         rider1 = Rider.objects.create(username="username1", license_plate="XYZ-1234", car_type="model1",
-                                      cellphone="123-456-7890", rides_pending="posting1,")
+                                      cellphone="123-456-7890", rides_passenger="posting1")
         rider1.save()
-
         allRides = {}
+
         ridesPassengerIds = str(Rider.objects.filter(username=rider1)[0].rides_passenger).split(",")
         for ride in ridesPassengerIds:
             query = Rider.objects.filter(rides_passenger="posting1")
