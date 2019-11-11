@@ -207,12 +207,3 @@ def formatDateTime(date, time):
 
 	formatted += str(hour) + ":" + analogTime[1]
 	return formatted
-
-
-
-
-
-	
-
-
-
