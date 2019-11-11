@@ -15,11 +15,11 @@ def find(request):
 
 def sortByRidingDate(request):
 	return render(request, 'find/find_ride.html',
-				  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('-riding_date')})
+				  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('riding_date')})
 
 def sortByPrice(request):
 	return render(request, 'find/find_ride.html',
-				  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('-price')})
+				  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('price')})
 
 def search(request):
 
