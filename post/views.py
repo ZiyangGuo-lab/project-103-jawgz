@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 import time
 from datetime import datetime
 from user_profile.models import Rider
+from find.views import find
 
 # Create your views here.
 
@@ -16,7 +17,6 @@ def post(request):
         newPost = Posting()
         newPost.driver_id = request.user
         newPost.driver_name = request.user.first_name + " " + request.user.last_name
-
         #remove country name, search is restricted to USA
         location_from = request.POST.get('location_from')
         if(len(location_from) > 5 and location_from[-5:] == ", USA"):
@@ -41,13 +41,12 @@ def post(request):
         riderposting.save()
 
 
-        # form.save()
-        template = 'find/find_ride.html'
-        context = {
-        'postings_list': Posting.objects.all()
-        }
-
-        return render(request, template,context)
+        # # form.save()
+        # template = 'find/find_ride.html'
+        # context = {
+        # 'postings_list': Posting.objects.all()
+        # }
+        return HttpResponseRedirect('/')
 
     else:
         print("form is invalid")
