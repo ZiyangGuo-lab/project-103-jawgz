@@ -50,12 +50,13 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row mt-3">
         <div id="myBtnContainer">
-          <button class="btn active mb-3"  style="border-radius: 50%; border: #001a33"><a href="{% url 'sortByDate' %}">Date</a></button>
-          <button class="btn mb-3"  style="border-radius: 50%; border: #001a33">Rating</button>
+          <label>Sort By: </label>
+          <button class="mini ui button"  ><a href="{% url 'sortByDate' %}">Date</a></button>
+          <button class="mini ui button"  >Rating</button>
           <!-- <button class="btn mb-3" style="border-radius: 50%; border: #FF860E"></button> -->
-          <button class="btn mb-3" style="border-radius: 50%; border: #001a33"><a href="{% url 'sortByPrice' %}">price</a></button>
+          <button class="mini ui button" ><a href="{% url 'sortByPrice' %}">price</a></button>
         </div>
       </div>
 
