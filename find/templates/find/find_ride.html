@@ -11,10 +11,10 @@
 
 <div class="container">
 
-   <div class="ui rail">
+   <div class="ui rail" style="padding-top: 2%; ">
       <div class="ui sticky">
           <br> <br> <br>
-          <div class="ui raised text container form segment" style="width:85%">
+          <div class="ui raised text container form segment" style="width:85%; ">
 
               <label>Sort By <i class="sort icon"></i></label>
 
@@ -65,7 +65,7 @@
               <label>Search <i class="search icon"></i></label>
                 <form action="{% url 'search' %}" method="post">
                     {% csrf_token %}
-                    <h6>From</h6>
+                    <h6>From: </h6>
                     <div class="ui mini input">
                       <input id="autocomplete2"
                              placeholder="Search..."
@@ -73,7 +73,8 @@
                              name="searchFrom"
                              type="text"/>
                     </div>
-                    <h6>To</h6>
+                    <h6></h6>
+                    <h6>To: </h6>
                   <div class="ui mini input">
                       <input id="autocomplete"
                              placeholder="Search..."
@@ -81,14 +82,14 @@
                              name="searchTo"
                              type="text"/>
                     </div>
-
+                    <h6></h6>
                     <h6>Leaving Date</h6>
                     <div class="ui calendar" id="selectCalendar">
                     <div class="ui mini input left">
                       <input type="text" placeholder="Date" name="riding_date">
                     </div>
                   </div>
-
+                        <h6></h6>
                         <button class="ui primary mini submit button" >Search</button>
 
 
@@ -99,7 +100,18 @@
 
 
     </div>
+
     <div id="context" style="padding-left:33%; width:90%; ">
+
+      <div class="ui icon message">
+  <i class="car icon"></i>
+  <div class="content">
+    <div class="header">
+      Welcome! 
+    </div>
+    <p>Here are the currently available rides.</p>
+  </div>
+</div>
 
     <!--<div class="col-4">-->
 
@@ -204,6 +216,7 @@
   $('#selectCalendar').calendar({
   type: 'date'
 });
+
 </script>
 
 <script>
@@ -269,6 +282,7 @@ function geolocate() {
     });
   }
 }
+
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcJ9C8vhZqeSsNbZ8hxGGeR8F7s351_8Y&libraries=places&callback=initAutocomplete"
         async defer></script>
