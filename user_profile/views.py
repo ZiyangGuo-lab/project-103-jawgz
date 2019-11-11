@@ -25,6 +25,7 @@ def profile(request):
     if (request.GET.get('car_type') is not None):
         current_user.car_type = request.GET.get('car_type')
         current_user.save()
+
     allRides = {}
     ridesPassengerIds = str(Rider.objects.filter(username=request.user)[0].rides_passenger).split(",")
     for ride in ridesPassengerIds:

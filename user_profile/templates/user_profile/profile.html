@@ -12,10 +12,11 @@
 <!-- Style Sheet Import -->
 <link rel="stylesheet" type="text/css" href="{% static 'user_profile/user_profile.css' %}">
 
-<h1>Welcome, {{ user.first_name }}! </h1>
 
-<div class="profile">
+
+<div class="profile" style="padding-left:10%">
 <!--    Left Side       -->
+    
     <div class="left">
         {% if current_user.image %}
             <img class="avatar" src="{{ current_user.image }}">
@@ -103,7 +104,7 @@
 
     </div>
 <!--    Right Side      -->
-    <div class="right">
+    <div class="right" style="padding-right:10%">
 
         {% if viewingPassenger %}
 
