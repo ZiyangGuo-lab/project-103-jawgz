@@ -32,6 +32,7 @@
                   {% if request.path == '/' %}
                   <a class="active item">
                     Posting Date
+                    <i class="sort amount down icon"></i>
                   </a>
                   {% else %}
                   <a class="item" href="/">
@@ -42,6 +43,7 @@
                   {% if 'sortByRidingDate' in request.path %}
                   <a class="active item" href="{% url 'sortByRidingDate' %}">
                     Riding Date
+                    <i class="sort amount down icon"></i>
                   </a>
                   {% else %}
                   <a class="item" href="{% url 'sortByRidingDate' %}">
@@ -52,6 +54,7 @@
                   {% if 'sortByPrice' in request.path %}
                   <a class="active item">
                     Price
+                    <i class="sort amount down icon"></i>
                   </a>
                   {% else %}
                   <a class="item" href="{% url 'sortByPrice' %}">
