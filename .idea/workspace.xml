@@ -5,11 +5,13 @@
     <list default="true" id="97132da6-756e-48aa-b399-e272dc7e35c3" name="Default Changelist" comment="" />
 =======
     <list default="true" id="97132da6-756e-48aa-b399-e272dc7e35c3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/hoosRiding/static/hoosRiding/tab-logo.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
+=======
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hoosRiding/static/hoosRiding/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/hoosRiding/static/hoosRiding/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/login/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/login/views.py" afterDir="false" />
+>>>>>>> caaa7eb129c5c30cfcef5132b1f4b1df47956cc8
     </list>
 >>>>>>> cc60fd05e5650d1d532222c3d73fc8382fc836ba
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
