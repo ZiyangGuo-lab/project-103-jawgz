@@ -11,6 +11,11 @@ def profile(request):
     user_matches = Rider.objects.filter(username=id)
     current_user = user_matches[0]
     #check if modal form has been filled out yet
+    print('image?', request.GET.get('image'))
+    if (request.GET.get('image') is not None):
+        print('theres an image')
+        current_user.image = request.GET.get('license_plate')
+        current_user.save()
     if (request.GET.get('license_plate') is not None):
         current_user.license_plate = request.GET.get('license_plate')
         current_user.save()

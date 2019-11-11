@@ -17,8 +17,11 @@
 <div class="profile">
 <!--    Left Side       -->
     <div class="left">
-
-        <img class="avatar" src="https://www.w3schools.com/howto/img_avatar2.png">
+        {% if current_user.image %}
+            <img class="avatar" src="{{ current_user.image }}">
+        {% else %}
+            <img class="avatar" src="https://www.w3schools.com/howto/img_avatar2.png">
+        {% endif %}
         <br/><br/>
         <div class="star-rank">
 <!--            use for loop to loop thru stars this person has -->
@@ -75,6 +78,9 @@
                         <div class="modal-body">
                             <form action="" method="get">
                                 {% csrf_token %}
+                                <label for="image"><b>Upload Profile Picture</b></label>
+                                <input id="image" type="file" name="image">
+                                <br/>
                                 <label for="cell"><b>Cell Number: </b></label>
                                 <input id="cell" type="text" name="cellphone" placeholder="{{ current_user.cellphone }}" value="{{ current_user.cellphone  }}">
                                 <br/>
