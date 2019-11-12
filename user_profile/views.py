@@ -91,7 +91,12 @@ def respondToDriverRequest(request):
 
 
 def switchToDriverView(request):
-    id = request.GET.get('user')
+    id = request.user
+    print(id)
+    user_matches = Rider.objects.filter(username=id)
+    print(user_matches)
+    current_user = user_matches[0]
+    print(current_user)
     ridesDrivingIds = str(Rider.objects.filter(username=request.user)[0].rides_driven).split(",")
     ridesDriving = []
     for ride in ridesDrivingIds:
@@ -100,4 +105,4 @@ def switchToDriverView(request):
             ridesDriving.append(query[0])
 
     return render(request, 'user_profile/profile.html',
-                  {'title': 'Profile', 'id': id, 'ridesDriving': ridesDriving, 'viewingPassenger': False})
+                  {'title': 'Profile', 'id': id, 'ridesDriving': ridesDriving, 'viewingPassenger': False, 'current_user': current_user})
