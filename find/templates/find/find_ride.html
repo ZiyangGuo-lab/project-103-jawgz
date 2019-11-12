@@ -27,7 +27,7 @@
                   <!--</a>-->
                 <!--</div>-->
 
-              <div class="ui secondary vertical menu">
+             <!--  <div class="ui secondary vertical menu">
 
                   {% if request.path == '/' %}
                   <a class="active item">
@@ -35,6 +35,17 @@
                   </a>
                   {% else %}
                   <a class="item" href="/">
+                    Posting Date
+                  </a>
+                  {% endif %} -->
+                   <div class="ui secondary vertical menu">
+
+                   {% if 'sortByPostingDate' in request.path %}
+                  <a class="active item" href="{% url 'sortByPostingDate' %}">
+                    Posting Date
+                  </a>
+                  {% else %}
+                  <a class="item" href="{% url 'sortByPostingDate' %}">
                     Posting Date
                   </a>
                   {% endif %}
@@ -60,6 +71,15 @@
 
                   {% endif %}
 
+                  {% if request.path == '/' %}
+                  <a class="active item">
+                    View All
+                  </a>
+                  {% else %}
+                  <a class="item" href="/">
+                   View All
+                  </a>
+                  {% endif %}
               </div>
 
               <label>Search <i class="search icon"></i></label>
@@ -93,6 +113,9 @@
 
 
                 </form>
+
+            
+
             </div>
           </div>
       </div>

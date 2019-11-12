@@ -12,19 +12,42 @@ from django.contrib.postgres.search import SearchVector
 flagPrice = False
 flagDate = False
 flagSearch = False
+flagPost = False
 l=[]
 
 def find(request):
 	global flagPrice
 	global flagDate
 	global flagSearch
+	global flagPost
 	global l
 	l=[]
 	flagPrice=False
 	flagDate=False
 	flagSearch=False
+	flagPost=False
 	print("flagSearch", flagSearch)
-	return render(request, 'find/find_ride.html', {'title': 'Profile', 'postings_list' : Posting.objects.all().order_by('-date')})
+	return render(request, 'find/find_ride.html', {'title': 'Profile', 'postings_list' : Posting.objects.all()})
+
+
+def sortByPostingDate(request):
+	global flagSearch
+	global flagPost
+	global l
+	flagPost=True
+
+	if flagSearch:
+		print(l[0])
+		l.sort(key=lambda x: x[3], reverse=True)
+		ans=[]
+		for post in l:
+			ans.append(post[0])
+		# flagSearch = False
+		return render(request, 'find/find_ride.html',
+				  {'title': 'Profile', 'postings_list': ans})
+		
+	return render(request, 'find/find_ride.html',
+				  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('-date')})
 
 
 def sortByRidingDate(request):
@@ -87,7 +110,7 @@ def search(request):
 		for posting in all:
 			# print(posting)
 			if posting.location_to == location_to:
-				a=[posting, posting.riding_date,posting.price]
+				a=[posting, posting.riding_date,posting.price,posting.date]
 				temp.append(a)
 				filtered.append(posting)
 		all = filtered
@@ -101,7 +124,7 @@ def search(request):
 		temp =[]
 		for posting in all:
 			if posting.location_from == location_from:
-				a=[posting, posting.riding_date,posting.price]
+				a=[posting, posting.riding_date,posting.price,posting.date]
 				temp.append(a)
 				filtered.append(posting)
 		all = filtered
