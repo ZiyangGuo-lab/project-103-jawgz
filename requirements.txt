@@ -2,3 +2,5 @@ Django
 gunicorn
 django-heroku
 social-auth-app-django
+django-storages
+boto
