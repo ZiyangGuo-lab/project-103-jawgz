@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -145,11 +146,41 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
+AWS_QUERYSTRING_AUTH = False     # don't add complex authentication-related query parameters for requests
+AWS_ACCESS_KEY_ID = 'AKIA2RS5ARETR3H7ANGQ'     # enter your access key id
+AWS_SECRET_ACCESS_KEY = '3gDeyS7O3CdAU3tc09L+Mpf4YX0LeKUckwoiHnAV'  # enter your secret access key
+AWS_STORAGE_BUCKET_NAME = 'hoosriding'
+AWS_QUERYSTRING_AUTH = False
+S3_URL = 'https://%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+MEDIA_URL = S3_URL + '/media/'
+
+
+# USE_S3 = False
+# AWS_ACCESS_KEY = 'AKIA2RS5ARETR3H7ANGQ'
+# AWS_SECRET_ACCESS_KEY = '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'
+# AWS_STORAGE_BUCKET_NAME = 'hoosriding'
+# AWS_QUERYSTRING_AUTH = False
+# S3_URL = 'https://%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+#
+# # if USE_S3:
+# DEFAULT_FILE_STORAGE = 'project-103-jawgz.s3utils.MediaRootS3BotoStorage'
+# THUMBNAIL_DEFAULT_STORAGE = 'project-103-jawgz.s3utils.MediaRootS3BotoStorage'
+# MEDIA_URL = S3_URL + '/media/'
+
+# MEDIA_ROOT = os.path.join(PROJECT_ROOT, '../..',  'media')
+# STATIC_ROOT = os.path.join(PROJECT_ROOT, '../..', 'static')
+
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'user_profile/media')
+
+
 
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # STATICFILES_STORAGE = 'jawgz.storage.WhiteNoiseStaticFilesStorage'

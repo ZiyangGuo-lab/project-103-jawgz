@@ -13,5 +13,7 @@ class Rider(models.Model):
     rides_pending = models.TextField(default=",")
     rides_declined = models.TextField(default=",")
 
+    image = models.ImageField(upload_to='profile_images', blank=True)
+
     def __str__(self):
         return self.username
