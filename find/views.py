@@ -17,10 +17,13 @@ l=[]
 def find(request):
 	global flagPrice
 	global flagDate
+	global flagSearch
 	global l
 	l=[]
 	flagPrice=False
 	flagDate=False
+	flagSearch=False
+	print("flagSearch", flagSearch)
 	return render(request, 'find/find_ride.html', {'title': 'Profile', 'postings_list' : Posting.objects.all().order_by('-date')})
 
 
@@ -34,7 +37,7 @@ def sortByRidingDate(request):
 		ans=[]
 		for post in l:
 			ans.append(post[0])
-		flagSearch = False
+		# flagSearch = False
 		return render(request, 'find/find_ride.html',
 				  {'title': 'Profile', 'postings_list': ans})
 	return render(request, 'find/find_ride.html',
@@ -45,14 +48,14 @@ def sortByPrice(request):
 	global flagSearch
 	flagPrice = True
 	global l
-
+	print("flagSearch", flagSearch)
 	if flagSearch:
 		print(l[0])
 		l.sort(key=lambda x: x[2])
 		ans=[]
 		for post in l:
 			ans.append(post[0])
-		flagSearch = False
+		# flagSearch = False
 		return render(request, 'find/find_ride.html',
 				  {'title': 'Profile', 'postings_list': ans})
 		
@@ -67,10 +70,10 @@ def search(request):
 	global l
 	if flagPrice:
 		all = Posting.objects.all().order_by('price')
-		flagPrice = False
+		# flagPrice = False
 	elif flagDate:
 		all = Posting.objects.all().order_by('-riding_date')
-		flagDate = False
+		# flagDate = False
 	else:
 		all = Posting.objects.all().order_by('-date')
 	# print(all)
