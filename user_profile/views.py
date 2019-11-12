@@ -4,8 +4,19 @@ from django.contrib.auth.models import User
 from user_profile.models import Rider
 from find.models import Posting
 from django.http import HttpResponseRedirect
+from datetime import datetime as dt
 
 from django.core.files.storage import default_storage
+
+#method called
+def calculate_rating(request): ###
+    id = request.user
+    user_matches = Rider.objects.filter(username=id)
+    current_user = user_matches[0]
+    # check if modal form has been filled out yet
+    rating_list = current_user.ratings_list.split(",")
+    rating = .5 #average of rating_list
+    return rating
 
 # Create your views here.
 def profile(request):
@@ -34,8 +45,11 @@ def profile(request):
 
     print(allRides)
 
+    rating = calculate_rating(request)  ###
+
+    ride_happened = 1 ###
     return render(request, 'user_profile/profile.html', {'title': 'Profile', 'id': id, 'current_user': current_user,
-                                                         'allRides': allRides, 'viewingPassenger': True})
+                                                         'allRides': allRides, 'viewingPassenger': True, 'rating':rating, 'ride_happened':ride_happened})
 
 def handleForm(request):
     id = request.user
@@ -62,6 +76,19 @@ def handleForm(request):
         current_user.car_type = request.POST.get('car_type')
         current_user.save()
     return current_user
+
+
+# def update_rating(request): ###
+#     postingObject = Posting.objects.filter(posting_id=request.GET['id'])[0]
+#     passenger = Rider.objects.filter(username=request.GET['rider'])[0]
+#     if (request.GET['rating']):
+#         postingObject.riders_riding += passenger.username + ","  # add to riders riding
+#         postingObject.num_passengers -= 1
+#         passenger.rides_passenger += request.GET['id'] + ","  # update rider's info to save is riding
+#         passenger.save()
+#     else:
+#         passenger.rides_declined += request.GET['id'] + ","  # update rider's info, ride declined
+#         passenger.save()
 
 #method called when driver accepts or declines a new passenger
 def respondToDriverRequest(request):
@@ -91,7 +118,6 @@ def respondToDriverRequest(request):
     passenger.save()
 
     return switchToDriverView(request)
-
 
 def switchToDriverView(request):
     id = request.user

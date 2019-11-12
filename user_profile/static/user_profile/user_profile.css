@@ -15,6 +15,10 @@
 
 }
 
+.checked {
+  color: orange;
+}
+
 .star {
     width: 30px;
 }
