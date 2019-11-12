@@ -9,58 +9,116 @@ import datetime
 from django.db.models import Q
 from django.contrib.postgres.search import SearchVector
 
+flagPrice = False
+flagDate = False
+flagSearch = False
+l=[]
+
 def find(request):
+	global flagPrice
+	global flagDate
+	global l
+	l=[]
+	flagPrice=False
+	flagDate=False
 	return render(request, 'find/find_ride.html', {'title': 'Profile', 'postings_list' : Posting.objects.all().order_by('-date')})
 
 
 def sortByRidingDate(request):
+	global flagDate
+	flagDate=True
+	global l
+	global flagSearch
+	if flagSearch:
+		l.sort(key=lambda x: x[1], reverse=True)
+		ans=[]
+		for post in l:
+			ans.append(post[0])
+		flagSearch = False
+		return render(request, 'find/find_ride.html',
+				  {'title': 'Profile', 'postings_list': ans})
 	return render(request, 'find/find_ride.html',
-				  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('riding_date')})
+				  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('-riding_date')})
 
 def sortByPrice(request):
+	global flagPrice
+	global flagSearch
+	flagPrice = True
+	global l
+
+	if flagSearch:
+		print(l[0])
+		l.sort(key=lambda x: x[2])
+		ans=[]
+		for post in l:
+			ans.append(post[0])
+		flagSearch = False
+		return render(request, 'find/find_ride.html',
+				  {'title': 'Profile', 'postings_list': ans})
+		
 	return render(request, 'find/find_ride.html',
 				  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('price')})
 
 def search(request):
-
-	all = Posting.objects.all().order_by('-date')
-	print(all)
+	global flagSearch
+	flagSearch = True
+	global flagPrice
+	global flagDate
+	global l
+	if flagPrice:
+		all = Posting.objects.all().order_by('price')
+		flagPrice = False
+	elif flagDate:
+		all = Posting.objects.all().order_by('-riding_date')
+		flagDate = False
+	else:
+		all = Posting.objects.all().order_by('-date')
+	# print(all)
 	location_to = request.POST['searchTo']
-	print("to:", location_to)
+	# print("to:", location_to)
 	if location_to != None and location_to != '':
 		if (len(location_to) > 5 and location_to[-5:] == ", USA"):
 			location_to = location_to[:-5]
-
+		temp=[]	
 		filtered = []
 		for posting in all:
-			print(posting)
+			# print(posting)
 			if posting.location_to == location_to:
+				a=[posting, posting.riding_date,posting.price]
+				temp.append(a)
 				filtered.append(posting)
 		all = filtered
-
+		l=temp
 	location_from = request.POST['searchFrom']
 	if location_from != None and location_from != '':
 		if (len(location_from) > 5 and location_from[-5:] == ", USA"):
 			location_from = location_from[:-5]
 
 		filtered = []
+		temp =[]
 		for posting in all:
 			if posting.location_from == location_from:
+				a=[posting, posting.riding_date,posting.price]
+				temp.append(a)
 				filtered.append(posting)
 		all = filtered
-
+		l=temp
 	riding_date = request.POST['riding_date']
 	if riding_date != None and riding_date != '':
 
 		riding_date = formatDate(riding_date)
-		print("formatted:", riding_date)
+		# print("formatted:", riding_date)
 		filtered = []
+		temp=[]
 		for posting in all:
-			print(len(str(str(posting.riding_date).split(" ")[0])) , len(str(riding_date)))
+			# print(len(str(str(posting.riding_date).split(" ")[0])) , len(str(riding_date)))
 			if str(str(posting.riding_date).split(" ")[0]) == str(riding_date):
 				filtered.append(posting)
+				a=[posting, posting.riding_date,posting.price]
+				temp.append(a)
 		all = filtered
-
+		l = temp
+	print(l)
 	return render(request, 'find/find_ride.html',
 				  {'title': 'Profile', 'postings_list': all})
 		
@@ -118,7 +176,7 @@ class searchView(generic.ListView):
 
 	def get_queryset(self):
 		location_to = self.request.GET.get('location_to')
-		print(self.request.GET.get('location_to')+"location_to")
+		# print(self.request.GET.get('location_to')+"location_to")
 		location_from = self.request.GET.get('location_from')
 		year = self.request.GET.get('date_year')
 		month = self.request.GET.get('date_month')
@@ -134,7 +192,7 @@ class searchView(generic.ListView):
 		elif location_to=="" and location_from == "" and s!="--":
 			return Posting.objects.filter(riding_date__date=s)
 		elif location_to !="" and location_from == "" and s=="--":
-			print("method goes here")
+			# print("method goes here")
 			return Posting.objects.filter(location_to=location_to)
 		elif location_to =="" and location_from != "" and s=="--":
 			return Posting.objects.filter(location_from=location_from)
