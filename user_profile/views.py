@@ -12,29 +12,7 @@ def profile(request):
     id = request.user
     user_matches = Rider.objects.filter(username=id)
     current_user = user_matches[0]
-    #check if modal form has been filled out yet
-    if 'image' in request.FILES:
-        print ('yup, file here! ', request.FILES['image'])
-        current_user.image = request.FILES['image']
-        current_user.save()
-        print(current_user.image)
-        # print('https://hoosriding.s3.amazonaws.com/profile_images/' % current_user.image)
-    # if (request.POST.get('image') is not None):
-    #     print('theres an image')
-    #     image_link = 'https://hoosriding.s3.amazonaws.com/profile_images/' + request.FILES['image']
-    #     print(image_link)
-    #     current_user.image = image_link
-    #     current_user.save()
-    if request.POST.get('license_plate') is not None:
-        current_user.license_plate = request.POST.get('license_plate')
-        current_user.save()
-    if request.POST.get('cellphone') is not None:
-        current_user.cellphone = request.POST.get('cellphone')
-        current_user.save()
-    if request.POST.get('car_type') is not None:
-        current_user.car_type = request.POST.get('car_type')
-        current_user.save()
-
+    handleForm(request)
     allRides = {}
     ridesPassengerIds = str(Rider.objects.filter(username=request.user)[0].rides_passenger).split(",")
     for ride in ridesPassengerIds:
@@ -59,6 +37,31 @@ def profile(request):
     return render(request, 'user_profile/profile.html', {'title': 'Profile', 'id': id, 'current_user': current_user,
                                                          'allRides': allRides, 'viewingPassenger': True})
 
+def handleForm(request):
+    id = request.user
+    user_matches = Rider.objects.filter(username=id)
+    current_user = user_matches[0]
+    #check if modal form has been filled out yet
+    if 'image' in request.FILES:
+        current_user.image = request.FILES['image']
+        current_user.save()
+        # print('https://hoosriding.s3.amazonaws.com/profile_images/' % current_user.image)
+    # if (request.POST.get('image') is not None):
+    #     print('theres an image')
+    #     image_link = 'https://hoosriding.s3.amazonaws.com/profile_images/' + request.FILES['image']
+    #     print(image_link)
+    #     current_user.image = image_link
+    #     current_user.save()
+    if request.POST.get('license_plate') is not None:
+        current_user.license_plate = request.POST.get('license_plate')
+        current_user.save()
+    if request.POST.get('cellphone') is not None:
+        current_user.cellphone = request.POST.get('cellphone')
+        current_user.save()
+    if request.POST.get('car_type') is not None:
+        current_user.car_type = request.POST.get('car_type')
+        current_user.save()
+    return current_user
 
 #method called when driver accepts or declines a new passenger
 def respondToDriverRequest(request):
@@ -92,11 +95,7 @@ def respondToDriverRequest(request):
 
 def switchToDriverView(request):
     id = request.user
-    print(id)
-    user_matches = Rider.objects.filter(username=id)
-    print(user_matches)
-    current_user = user_matches[0]
-    print(current_user)
+    current_user = handleForm(request)
     ridesDrivingIds = str(Rider.objects.filter(username=request.user)[0].rides_driven).split(",")
     ridesDriving = []
     for ride in ridesDrivingIds:
