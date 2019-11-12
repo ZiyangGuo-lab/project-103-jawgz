@@ -18,54 +18,57 @@
 <!--    Left Side       -->
     
     <div class="left">
-        {% if current_user.image %}
-            <img class="avatar" src="{{ current_user.image }}">
-        {% else %}
-            <img class="avatar" src="https://www.w3schools.com/howto/img_avatar2.png">
-        {% endif %}
-        <br/><br/>
-        <div class="star-rank">
-<!--            use for loop to loop thru stars this person has -->
-            <img class="star" src="https://yakimaymca.org/wp-content/uploads/2018/11/Star.png">
-            <img class="star" src="https://yakimaymca.org/wp-content/uploads/2018/11/Star.png">
-            <img class="star" src="https://yakimaymca.org/wp-content/uploads/2018/11/Star.png">
-            <img class="star" src="https://yakimaymca.org/wp-content/uploads/2018/11/Star.png">
-            <img class="star" src="https://yakimaymca.org/wp-content/uploads/2018/11/Star.png">
+        <div class="ui card">
+            <div class="image">
+            {% if current_user.image %}
+                <img  src="https://hoosriding.s3.amazonaws.com/{{current_user.image}}">
+            {% else %}
+                <img src="https://www.w3schools.com/howto/img_avatar2.png">
+            {% endif %}
+            </div>
+            <div class="content">
+                <a class="header"> {{ user.first_name }} {{ user.last_name }}</a>
+                <div class="meta">
+                    <span class="date">{{ user.email }}</span>
+                </div>
+                <div class="description">
+                    <div class="star-rank">
+            <!--            use for loop to loop thru stars this person has -->
+                        <img class="star" src="https://yakimaymca.org/wp-content/uploads/2018/11/Star.png">
+                        <img class="star" src="https://yakimaymca.org/wp-content/uploads/2018/11/Star.png">
+                        <img class="star" src="https://yakimaymca.org/wp-content/uploads/2018/11/Star.png">
+                        <img class="star" src="https://yakimaymca.org/wp-content/uploads/2018/11/Star.png">
+                        <img class="star" src="https://yakimaymca.org/wp-content/uploads/2018/11/Star.png">
 
-<!--            <img class="star" src="https://p7.hiclipart.com/preview/191/610/574/five-pointed-star-outline-symbol-clip-art-star.jpg">-->
+            <!--            <img class="star" src="https://p7.hiclipart.com/preview/191/610/574/five-pointed-star-outline-symbol-clip-art-star.jpg">-->
+                    </div>
+                    <br/>
+                    <b>Cell: </b>
+                        {% if current_user.cellphone %}
+                            {{ current_user.cellphone }}
+                        {% else %}
+                            No phone number provided
+                        {% endif %}
+                        <br/>
+                    <b>Car:</b>
+                        {% if current_user.car_type %}
+                            {{ current_user.car_type }}
+                        {% else %}
+                            No car type provided
+                        {% endif %}
+                        <br/>
+                    <b>License Plate: </b>
+                        {% if current_user.license_plate  %}
+                            {{ current_user.license_plate }}
+                        {% else %}
+                            No license plate provided
+                        {% endif %}
+                </div>
+            </div>
+            <div class="extra content">
+                <button type="button" class="mini ui primary button" data-toggle="modal" data-target="#editProfileModal">Edit Profile</button>
+            </div>
         </div>
-        <br/>
-<!--        Display Profile -->
-        <div>
-            <b>Name: </b>
-            {{ user.first_name }} {{ user.last_name }}
-            <br/>
-            <b>Email: </b>
-            {{ user.email }}
-            <br/>
-            <b>Cell: </b>
-            {% if current_user.cellphone %}
-                {{ current_user.cellphone }}
-            {% else %}
-                No phone number provided
-            {% endif %}
-            <br/>
-            <b>Car:</b>
-            {% if current_user.car_type %}
-                {{ current_user.car_type }}
-            {% else %}
-                No car type provided
-            {% endif %}
-            <br/>
-            <b>License Plate: </b>
-            {% if current_user.license_plate  %}
-                {{ current_user.license_plate }}
-            {% else %}
-                No license plate provided
-            {% endif %}
-            <br/>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editProfileModal">Edit Profile</button>
-
             <!-- Edit Profile Modal -->
             <div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -77,20 +80,24 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="" method="get">
+                            <form class='ui form' action="" method="post" enctype="multipart/form-data">
                                 {% csrf_token %}
-                                <label for="image"><b>Upload Profile Picture</b></label>
-                                <input id="image" type="file" name="image">
-                                <br/>
-                                <label for="cell"><b>Cell Number: </b></label>
-                                <input id="cell" type="text" name="cellphone" placeholder="{{ current_user.cellphone }}" value="{{ current_user.cellphone  }}">
-                                <br/>
-                                <label for="car_type"><b>Car Type: </b></label>
-                                <input id="car_type" type="text" name="car_type" placeholder="{{ current_user.car_type }}" value="{{  current_user.car_type }}">
-                                <br/>
-                                <label for="license_plate"><b>License Plate:</b></label>
-                                <input id="license_plate" type="text" name="license_plate" placeholder="{{ current_user.license_plate }}" value="{{ current_user.license_plate }}">
-                                <br/>
+                                <div class="field">
+                                    <label for="image"><b>Upload Profile Picture</b></label>
+                                    <input id="image" type="file" name="image">
+                                </div>
+                                <div class="field">
+                                    <label for="cell"><b>Cell Number: </b></label>
+                                    <input id="cell" type="text" name="cellphone" placeholder="{{ current_user.cellphone }}" value="{{ current_user.cellphone  }}">
+                                </div>
+                                <div class="field">
+                                    <label for="car_type"><b>Car Type: </b></label>
+                                    <input id="car_type" type="text" name="car_type" placeholder="{{ current_user.car_type }}" value="{{  current_user.car_type }}">
+                                </div>
+                                <div>
+                                    <label for="license_plate"><b>License Plate:</b></label>
+                                    <input id="license_plate" type="text" name="license_plate" placeholder="{{ current_user.license_plate }}" value="{{ current_user.license_plate }}">
+                                </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                     <input type="submit" value="Save" class="btn btn-primary">
@@ -99,7 +106,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
 
     </div>

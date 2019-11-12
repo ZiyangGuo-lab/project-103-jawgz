@@ -5,26 +5,34 @@ from user_profile.models import Rider
 from find.models import Posting
 from django.http import HttpResponseRedirect
 
+from django.core.files.storage import default_storage
+
 # Create your views here.
 def profile(request):
     id = request.user
     user_matches = Rider.objects.filter(username=id)
     current_user = user_matches[0]
     #check if modal form has been filled out yet
-    print('image?', request.GET.get('image'))
-    if (request.GET.get('image') is not None):
-        print('theres an image')
-        image_link = request.GET.get('image')
-        current_user.image = image_link
+    if 'image' in request.FILES:
+        print ('yup, file here! ', request.FILES['image'])
+        current_user.image = request.FILES['image']
         current_user.save()
-    if (request.GET.get('license_plate') is not None):
-        current_user.license_plate = request.GET.get('license_plate')
+        print(current_user.image)
+        # print('https://hoosriding.s3.amazonaws.com/profile_images/' % current_user.image)
+    # if (request.POST.get('image') is not None):
+    #     print('theres an image')
+    #     image_link = 'https://hoosriding.s3.amazonaws.com/profile_images/' + request.FILES['image']
+    #     print(image_link)
+    #     current_user.image = image_link
+    #     current_user.save()
+    if request.POST.get('license_plate') is not None:
+        current_user.license_plate = request.POST.get('license_plate')
         current_user.save()
-    if (request.GET.get('cellphone') is not None):
-        current_user.cellphone = request.GET.get('cellphone')
+    if request.POST.get('cellphone') is not None:
+        current_user.cellphone = request.POST.get('cellphone')
         current_user.save()
-    if (request.GET.get('car_type') is not None):
-        current_user.car_type = request.GET.get('car_type')
+    if request.POST.get('car_type') is not None:
+        current_user.car_type = request.POST.get('car_type')
         current_user.save()
 
     allRides = {}
