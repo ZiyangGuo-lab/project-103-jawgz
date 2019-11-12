@@ -145,3 +145,10 @@ class searchView(generic.ListView):
 
 
 
+def get_image_url(request):
+	print(request.GET['driver_id'])
+	driver_id = request.GET['driver_id']
+	rider_matches = Rider.objects.filter(username=driver_id)
+	if rider_matches[0]:
+		print ('rider: ', rider_matches[0])
+
