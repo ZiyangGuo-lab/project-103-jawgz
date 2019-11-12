@@ -14,7 +14,8 @@ def profile(request):
     print('image?', request.GET.get('image'))
     if (request.GET.get('image') is not None):
         print('theres an image')
-        current_user.image = request.GET.get('license_plate')
+        image_link = request.GET.get('image')
+        current_user.image = image_link
         current_user.save()
     if (request.GET.get('license_plate') is not None):
         current_user.license_plate = request.GET.get('license_plate')
