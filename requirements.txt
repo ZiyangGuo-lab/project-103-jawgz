@@ -4,4 +4,3 @@ django-heroku
 social-auth-app-django
 django-storages
 boto
-storages
