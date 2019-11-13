@@ -14,9 +14,32 @@ def calculate_rating(request): ###
     user_matches = Rider.objects.filter(username=id)
     current_user = user_matches[0]
     # check if modal form has been filled out yet
-    rating_list = current_user.ratings_list.split(",")
-    rating = .5 #average of rating_list
-    return rating
+    rating_array = current_user.ratings_list.split(",")  #average of rating_list
+    total_rating = 0
+    count = 0
+    print('rating array', rating_array)
+    for i in range(0, len(rating_array)):
+        if rating_array[i] != '':
+            count += 1
+            total_rating += int(rating_array[i])
+    current_user.rating = total_rating/count
+    current_user.save()
+    return current_user.rating
+
+def updateRating(request):
+    # need to use driver instead of current_user
+
+    #get current user
+    id = request.user
+    user_matches = Rider.objects.filter(username=id)
+    current_user = user_matches[0]
+
+
+    current_user.ratings_list = current_user.ratings_list + ", " + str(request.GET['rating'])
+    current_user.rating = request.GET['rating']
+    current_user.save()
+    return profile(request)
+
 
 # Create your views here.
 def profile(request):
@@ -78,17 +101,7 @@ def handleForm(request):
     return current_user
 
 
-# def update_rating(request): ###
-#     postingObject = Posting.objects.filter(posting_id=request.GET['id'])[0]
-#     passenger = Rider.objects.filter(username=request.GET['rider'])[0]
-#     if (request.GET['rating']):
-#         postingObject.riders_riding += passenger.username + ","  # add to riders riding
-#         postingObject.num_passengers -= 1
-#         passenger.rides_passenger += request.GET['id'] + ","  # update rider's info to save is riding
-#         passenger.save()
-#     else:
-#         passenger.rides_declined += request.GET['id'] + ","  # update rider's info, ride declined
-#         passenger.save()
+
 
 #method called when driver accepts or declines a new passenger
 def respondToDriverRequest(request):
