@@ -2,7 +2,7 @@
 {% load static %}
 {% load request_ride %}
 {% load split_words %}
-
+{% load user_info_modal %}
 {% block content %}
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
@@ -18,51 +18,57 @@
 <!--    Left Side       -->
     
     <div class="left">
+        <div class="ui card">
+            <div class="image">
+            {% if current_user.image %}
+                <img  src="https://hoosriding.s3.amazonaws.com/{{ current_user.image }}">
+            {% else %}
+                <img src="https://www.w3schools.com/howto/img_avatar2.png">
+            {% endif %}
+            </div>
+            <div class="content">
+                <a class="header"> {{ user.first_name }} {{ user.last_name }}</a>
+                <div class="meta">
+                    <span class="date">{{ user.email }}</span>
+                </div>
+                <div class="description">
+                    <div class="star-rank">
+            <!--            use for loop to loop thru stars this person has -->
+                        <img class="star" src="https://yakimaymca.org/wp-content/uploads/2018/11/Star.png">
+                        <img class="star" src="https://yakimaymca.org/wp-content/uploads/2018/11/Star.png">
+                        <img class="star" src="https://yakimaymca.org/wp-content/uploads/2018/11/Star.png">
+                        <img class="star" src="https://yakimaymca.org/wp-content/uploads/2018/11/Star.png">
+                        <img class="star" src="https://yakimaymca.org/wp-content/uploads/2018/11/Star.png">
 
-        <img class="avatar" src="https://www.w3schools.com/howto/img_avatar2.png">
-        <br/><br/>
-        <div class="star-rank">
-<!--            use for loop to loop thru stars this person has -->
-            <img class="star" src="https://yakimaymca.org/wp-content/uploads/2018/11/Star.png">
-            <img class="star" src="https://yakimaymca.org/wp-content/uploads/2018/11/Star.png">
-            <img class="star" src="https://yakimaymca.org/wp-content/uploads/2018/11/Star.png">
-            <img class="star" src="https://yakimaymca.org/wp-content/uploads/2018/11/Star.png">
-            <img class="star" src="https://yakimaymca.org/wp-content/uploads/2018/11/Star.png">
-
-<!--            <img class="star" src="https://p7.hiclipart.com/preview/191/610/574/five-pointed-star-outline-symbol-clip-art-star.jpg">-->
+            <!--            <img class="star" src="https://p7.hiclipart.com/preview/191/610/574/five-pointed-star-outline-symbol-clip-art-star.jpg">-->
+                    </div>
+                    <br/>
+                    <b>Cell: </b>
+                        {% if current_user.cellphone %}
+                            {{ current_user.cellphone }}
+                        {% else %}
+                            No phone number provided
+                        {% endif %}
+                        <br/>
+                    <b>Car:</b>
+                        {% if current_user.car_type %}
+                            {{ current_user.car_type }}
+                        {% else %}
+                            No car type provided
+                        {% endif %}
+                        <br/>
+                    <b>License Plate: </b>
+                        {% if current_user.license_plate  %}
+                            {{ current_user.license_plate }}
+                        {% else %}
+                            No license plate provided
+                        {% endif %}
+                </div>
+            </div>
+            <div class="extra content">
+                <button type="button" class="mini ui primary button" data-toggle="modal" data-target="#editProfileModal">Edit Profile</button>
+            </div>
         </div>
-        <br/>
-<!--        Display Profile -->
-        <div>
-            <b>Name: </b>
-            {{ user.first_name }} {{ user.last_name }}
-            <br/>
-            <b>Email: </b>
-            {{ user.email }}
-            <br/>
-            <b>Cell: </b>
-            {% if current_user.cellphone %}
-                {{ current_user.cellphone }}
-            {% else %}
-                No phone number provided
-            {% endif %}
-            <br/>
-            <b>Car:</b>
-            {% if current_user.car_type %}
-                {{ current_user.car_type }}
-            {% else %}
-                No car type provided
-            {% endif %}
-            <br/>
-            <b>License Plate: </b>
-            {% if current_user.license_plate  %}
-                {{ current_user.license_plate }}
-            {% else %}
-                No license plate provided
-            {% endif %}
-            <br/>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editProfileModal">Edit Profile</button>
-
             <!-- Edit Profile Modal -->
             <div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -74,17 +80,24 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="" method="get">
+                            <form class='ui form' action="" method="post" enctype="multipart/form-data">
                                 {% csrf_token %}
-                                <label for="cell"><b>Cell Number: </b></label>
-                                <input id="cell" type="text" name="cellphone" placeholder="{{ current_user.cellphone }}" value="{{ current_user.cellphone  }}">
-                                <br/>
-                                <label for="car_type"><b>Car Type: </b></label>
-                                <input id="car_type" type="text" name="car_type" placeholder="{{ current_user.car_type }}" value="{{  current_user.car_type }}">
-                                <br/>
-                                <label for="license_plate"><b>License Plate:</b></label>
-                                <input id="license_plate" type="text" name="license_plate" placeholder="{{ current_user.license_plate }}" value="{{ current_user.license_plate }}">
-                                <br/>
+                                <div class="field">
+                                    <label for="image"><b>Upload Profile Picture</b></label>
+                                    <input id="image" type="file" name="image">
+                                </div>
+                                <div class="field">
+                                    <label for="cell"><b>Cell Number: </b></label>
+                                    <input id="cell" type="text" name="cellphone" placeholder="{{ current_user.cellphone }}" value="{{ current_user.cellphone  }}">
+                                </div>
+                                <div class="field">
+                                    <label for="car_type"><b>Car Type: </b></label>
+                                    <input id="car_type" type="text" name="car_type" placeholder="{{ current_user.car_type }}" value="{{  current_user.car_type }}">
+                                </div>
+                                <div>
+                                    <label for="license_plate"><b>License Plate:</b></label>
+                                    <input id="license_plate" type="text" name="license_plate" placeholder="{{ current_user.license_plate }}" value="{{ current_user.license_plate }}">
+                                </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                     <input type="submit" value="Save" class="btn btn-primary">
@@ -93,7 +106,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
 
     </div>
@@ -118,7 +130,20 @@
                   </table>
                 <div class="meta">{{ Posting.riding_date}} </div>
                 <div class="description">
-                  <p>Asking price: ${{ Posting.price }}</p>
+                    <a class="ui image label simple large dropdown button">
+                        <img src="{% get_user_image Posting.driver_id %}">
+                        <span class="text">{{ Posting.driver_name }}</span>
+                        <div class="menu">
+                            <div class="item"><b>Rating: </b>
+    <!--                            DRIVER RATING GOES HERE!-->
+                            </div>
+                            <div class="item"><b>Email: </b>{{ Posting.driver_id }}@virginia.edu</div>
+                            <div class="item"><b>Cell: </b>{% get_cellphone Posting.driver_id %}</div>
+                            <div class="item"><b>Car: </b>{% get_car Posting.driver_id %}</div>
+                            <div class="item"><b>License Plate: </b>{% get_license_plate Posting.driver_id %}</div>
+                        </div>
+                    </a>
+                    <p>Asking price: ${{ Posting.price }}</p>
                     <p>Spots left: {{ Posting.num_passengers }}</p>
                 </div>
               </div>
@@ -143,17 +168,23 @@
                 </div>
                     <div class="content">
                 <p class="transition ">
-                    Riders on trip
+                    <b>Riders on this trip:</b>
                     {% with Posting.riders_riding|split:"," as request_list %}
                         {% if request_list %}
-                            <ul>
                             {% for rider in request_list %}
-                                <li>{{rider}}</li>
+                            <div class="ui image label simple dropdown button">
+                                <img src="{% get_user_image rider %}">
+                                <span class="text">{% get_name rider %}</span>
+                                <div class="menu">
+                                    <div class="item"><b>Email: </b>{{ rider }}@virginia.edu</div>
+                                    <div class="item"><b>Cell: </b>{% get_cellphone rider %}</div>
+                                </div>
+                            </div>
+                                <br/>
 
                             {% endfor %}
-                            </ul>
                         {% else %}
-                        <p>None</p>
+                        <p>There are currently no other riders.</p>
                         {% endif %}
 
                     {% endwith %}
@@ -207,7 +238,14 @@
                             <h5>New Requests</h5>
                         {% for rider in request_list %}
                             <table style="width:100%">
-                                <td><h6>{{rider}}</h6></td>
+                                <div class="ui image label simple dropdown button">
+                                    <img src="{% get_user_image rider %}">
+                                    <span class="text">{% get_name rider %}</span>
+                                    <div class="menu">
+                                        <div class="item"><b>Email: </b>{{ rider }}@virginia.edu</div>
+                                        <div class="item"><b>Cell: </b>{% get_cellphone rider %}</div>
+                                    </div>
+                                </div>
                                 <td style="text-align: right;">
                                     <a href="{% url 'respondToDriverRequest' %}?id={{Posting.posting_id}}&rider={{rider}}&status=accept"><button class="positive ui button">Accept</button></a>
                                     <a href="{% url 'respondToDriverRequest' %}?id={{Posting.posting_id}}&rider={{rider}}&status=decline"><button class="negative ui button">Decline</button></a>
@@ -226,17 +264,24 @@
                 </div>
                     <div class="content">
                 <p class="transition ">
-                    Riders on trip
+                    <b>Riders on this trip:</b>
                     {% with Posting.riders_riding|split:"," as request_list %}
                         {% if request_list %}
-                            <ul>
+
                             {% for rider in request_list %}
-                                <li>{{rider}}</li>
+                            <div class="ui image label simple dropdown button">
+                                <img src="{% get_user_image rider %}">
+                                <span class="text">{% get_name rider %}</span>
+                                <div class="menu">
+                                    <div class="item"><b>Email: </b>{{ Posting.driver_id }}@virginia.edu</div>
+                                    <div class="item"><b>Cell: </b>{% get_cellphone Posting.driver_id %}</div>
+                                </div>
+                            </div>
 
                             {% endfor %}
-                            </ul>
+
                         {% else %}
-                        <p>None</p>
+                        <p>There are currently no other riders.</p>
                         {% endif %}
 
                     {% endwith %}

@@ -4,14 +4,14 @@
 }
 
 .avatar {
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
-    width: 50%;
 }
 
 .star-rank {
     display: flex;
     flex-direction: row;
-
 }
 
 .star {

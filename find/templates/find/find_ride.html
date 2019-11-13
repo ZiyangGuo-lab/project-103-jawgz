@@ -4,6 +4,7 @@
 {% block content %}
 {% load request_ride %}
 {% load split_words %}
+{% load user_info_modal %}
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
@@ -11,10 +12,10 @@
 
 <div class="container">
 
-   <div class="ui rail">
+   <div class="ui rail" style="padding-top: 2%; ">
       <div class="ui sticky">
           <br> <br> <br>
-          <div class="ui raised text container form segment" style="width:85%">
+          <div class="ui raised text container form segment" style="width:85%; ">
 
               <label>Sort By <i class="sort icon"></i></label>
 
@@ -32,6 +33,7 @@
                   {% if request.path == '/' %}
                   <a class="active item">
                     Posting Date
+                    <i class="sort amount down icon"></i>
                   </a>
                   {% else %}
                   <a class="item" href="/">
@@ -53,6 +55,7 @@
                   {% if 'sortByRidingDate' in request.path %}
                   <a class="active item" href="{% url 'sortByRidingDate' %}">
                     Riding Date
+                    <i class="sort amount down icon"></i>
                   </a>
                   {% else %}
                   <a class="item" href="{% url 'sortByRidingDate' %}">
@@ -63,6 +66,7 @@
                   {% if 'sortByPrice' in request.path %}
                   <a class="active item">
                     Price
+                    <i class="sort amount down icon"></i>
                   </a>
                   {% else %}
                   <a class="item" href="{% url 'sortByPrice' %}">
@@ -85,7 +89,7 @@
               <label>Search <i class="search icon"></i></label>
                 <form action="{% url 'search' %}" method="post">
                     {% csrf_token %}
-                    <h6>From</h6>
+                    <h6>From: </h6>
                     <div class="ui mini input">
                       <input id="autocomplete2"
                              placeholder="Search..."
@@ -93,7 +97,8 @@
                              name="searchFrom"
                              type="text"/>
                     </div>
-                    <h6>To</h6>
+                    <h6></h6>
+                    <h6>To: </h6>
                   <div class="ui mini input">
                       <input id="autocomplete"
                              placeholder="Search..."
@@ -101,14 +106,14 @@
                              name="searchTo"
                              type="text"/>
                     </div>
-
+                    <h6></h6>
                     <h6>Leaving Date</h6>
                     <div class="ui calendar" id="selectCalendar">
                     <div class="ui mini input left">
                       <input type="text" placeholder="Date" name="riding_date">
                     </div>
                   </div>
-
+                        <h6></h6>
                         <button class="ui primary mini submit button" >Search</button>
 
 
@@ -122,7 +127,18 @@
 
 
     </div>
+
     <div id="context" style="padding-left:33%; width:90%; ">
+
+      <div class="ui icon message">
+  <i class="car icon"></i>
+  <div class="content">
+    <div class="header">
+      Welcome! 
+    </div>
+    <p>Here are the currently available rides.</p>
+  </div>
+</div>
 
     <!--<div class="col-4">-->
 
@@ -160,8 +176,20 @@
               </table>
             <div class="meta">{{ Posting.riding_date}} </div>
             <div class="description">
-                <p>Driver: {{ Posting.driver_name }}</p>
-              <p>Asking price: ${{ Posting.price }}</p>
+                <a class="ui image label simple large dropdown button">
+                    <img src="{% get_user_image Posting.driver_id %}">
+                    <span class="text">{{ Posting.driver_name }}</span>
+                    <div class="menu">
+                        <div class="item"><b>Rating: </b>
+<!--                            DRIVER RATING GOES HERE!-->
+                        </div>
+                        <div class="item"><b>Email: </b>{{ Posting.driver_id }}@virginia.edu</div>
+                        <div class="item"><b>Cell: </b>{% get_cellphone Posting.driver_id %}</div>
+                        <div class="item"><b>Car: </b>{% get_car Posting.driver_id %}</div>
+                        <div class="item"><b>License Plate: </b>{% get_license_plate Posting.driver_id %}</div>
+                    </div>
+                </a>
+                <p>Asking price: ${{ Posting.price }}</p>
                 <p>Spots left: {{ Posting.num_passengers }}</p>
             </div>
           </div>
@@ -174,22 +202,27 @@
             </div>
                 <div class="content">
             <p class="transition ">
-                Riders on trip
+                <b>Riders on this trip: </b>
                 {% with Posting.riders_riding|split:"," as request_list %}
                     {% if request_list %}
-                        <ul>
                         {% for rider in request_list %}
-                            <li>{{rider}}</li>
-
+                        <div class="ui image label simple dropdown button">
+                            <img src="{% get_user_image rider %}">
+                            <span class="text">{% get_name rider %}</span>
+                            <div class="menu">
+                                <div class="item"><b>Email: </b>{{ Posting.driver_id }}@virginia.edu</div>
+                                <div class="item"><b>Cell: </b>{% get_cellphone Posting.driver_id %}</div>
+                            </div>
+                        </div>
                         {% endfor %}
-                        </ul>
+
                     {% else %}
-                    <p>None</p>
+                    <p>There are currently no other riders.</p>
                     {% endif %}
 
                 {% endwith %}
 
-                <br>
+                <br/> <br/>
                 <iframe
                       width="500"
                       height="300"
@@ -200,7 +233,8 @@
                 </div>
             </div>
 
-            <div class="extra content">
+            <div class="extra content" style="display: flex; flex-direction: row; justify-content: space-between;">
+                <div>
                 {% if user.username in Posting.riders_riding %}
                  <p style="color:green; display: inline;">accepted</p><i class="green check icon"></i>
                 {% elif user.username in Posting.riders_requested %}
@@ -208,6 +242,7 @@
                 {% else %}
                 <a href="{% url 'joinRide' %}?id={{Posting.posting_id}}"><button class="blue ui button"><i class="exchange icon"></i>Request to join</button></a>
                 {% endif %}
+                </div>
 
               </div>
 
@@ -224,7 +259,6 @@
   .sticky({
     context: '#context'
   });
-
   $('#selectCalendar').calendar({
   type: 'date'
 });
@@ -239,9 +273,7 @@
 // parameter when you first load the API. For example:
 // <script
 // src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
 var placeSearch, autocomplete;
-
 var componentForm = {
   street_number: 'short_name',
   route: 'long_name',
@@ -250,34 +282,27 @@ var componentForm = {
   country: 'long_name',
   postal_code: 'short_name'
 };
-
 function initAutocomplete() {
   // Create the autocomplete object, restricting the search predictions to
   // geographical location types.
   autocomplete = new google.maps.places.Autocomplete(
       document.getElementById('autocomplete'), {types: ['geocode'], componentRestrictions: {country: 'us'}});
-
   autocomplete = new google.maps.places.Autocomplete(
       document.getElementById('autocomplete2'), {types: ['geocode'], componentRestrictions: {country: 'us'}});
-
   // Avoid paying for data that you don't need by restricting the set of
   // place fields that are returned to just the address components.
   autocomplete.setFields(['address_component']);
-
   // When the user selects an address from the drop-down, populate the
   // address fields in the form.
   autocomplete.addListener('place_changed', fillInAddress);
 }
-
 function fillInAddress() {
   // Get the place details from the autocomplete object.
   var place = autocomplete.getPlace();
-
   for (var component in componentForm) {
     document.getElementById(component).value = '';
     document.getElementById(component).disabled = false;
   }
-
   // Get each component of the address from the place details,
   // and then fill-in the corresponding field on the form.
   for (var i = 0; i < place.address_components.length; i++) {
@@ -288,7 +313,6 @@ function fillInAddress() {
     }
   }
 }
-
 // Bias the autocomplete object to the user's geographical location,
 // as supplied by the browser's 'navigator.geolocation' object.
 function geolocate() {
@@ -304,6 +328,7 @@ function geolocate() {
     });
   }
 }
+
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcJ9C8vhZqeSsNbZ8hxGGeR8F7s351_8Y&libraries=places&callback=initAutocomplete"
         async defer></script>

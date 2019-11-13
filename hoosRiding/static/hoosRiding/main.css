@@ -103,3 +103,12 @@ a.article-title:hover {
 .account-heading {
   font-size: 2.5rem;
 }
+
+.star-rank {
+    display: flex;
+    flex-direction: row;
+}
+
+.star {
+    width: 30px;
+}

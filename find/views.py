@@ -86,6 +86,7 @@ def sortByPrice(request):
 				  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('price')})
 
 def search(request):
+
 	global flagSearch
 	flagSearch = True
 	global flagPrice
@@ -226,6 +227,4 @@ class searchView(generic.ListView):
 			return Posting.objects.filter(location_from=location_from)
 		else:
 			return Posting.objects.filter(location_to=location_to, location_from=location_from, riding_date__date=s)
-
-
 

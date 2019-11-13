@@ -2,12 +2,16 @@
 {% load static %}
 {% load request_ride %}
 {% block content %}
+<<<<<<< HEAD
+<div class="container-fluid" style="padding:10%">
+=======
 {% load request_ride %}
 {% load split_words %}
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <script src="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.js"></script>
+>>>>>>> d8c5f5db84ec2d40d7ea0f62d76a229754a0a13a
 
 <div class="container">
 
@@ -195,6 +199,19 @@
     </div>
   
 </div>
+<<<<<<< HEAD
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No postings are available.</p>
+{% endif %}
+</center>
+
+<div>
+    <h1> </h1>
+</div>
+</div>
+=======
 <script>
     $('.ui.accordion').accordion();
     $('.ui.sticky')
@@ -265,6 +282,7 @@ function fillInAddress() {
     }
   }
 }
+>>>>>>> d8c5f5db84ec2d40d7ea0f62d76a229754a0a13a
 
 // Bias the autocomplete object to the user's geographical location,
 // as supplied by the browser's 'navigator.geolocation' object.

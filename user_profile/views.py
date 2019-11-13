@@ -5,22 +5,13 @@ from user_profile.models import Rider
 from find.models import Posting
 from django.http import HttpResponseRedirect
 
+from django.core.files.storage import default_storage
+
 # Create your views here.
 def profile(request):
     id = request.user
-    user_matches = Rider.objects.filter(username=id)
-    current_user = user_matches[0]
-    #check if modal form has been filled out yet
-    if (request.GET.get('license_plate') is not None):
-        current_user.license_plate = request.GET.get('license_plate')
-        current_user.save()
-    if (request.GET.get('cellphone') is not None):
-        current_user.cellphone = request.GET.get('cellphone')
-        current_user.save()
-    if (request.GET.get('car_type') is not None):
-        current_user.car_type = request.GET.get('car_type')
-        current_user.save()
-
+    current_user = handleForm(request)  # get and update current user based on form data
+    print (current_user.name)
     allRides = {}
     ridesPassengerIds = str(Rider.objects.filter(username=request.user)[0].rides_passenger).split(",")
     for ride in ridesPassengerIds:
@@ -40,10 +31,32 @@ def profile(request):
         if query.count() > 0:
             allRides[query[0]] = 'declined'
 
-    print(allRides)
+    # print(allRides)
 
     return render(request, 'user_profile/profile.html', {'title': 'Profile', 'id': id, 'current_user': current_user,
                                                          'allRides': allRides, 'viewingPassenger': True})
+
+def handleForm(request):
+    id = request.user
+    user_matches = Rider.objects.filter(username=id)
+    current_user = user_matches[0]
+    name = request.user.first_name + ' ' + request.user.last_name
+    current_user.name = name;
+    current_user.save()
+    #check if modal form has been filled out yet
+    if 'image' in request.FILES:
+        current_user.image = request.FILES['image']
+        current_user.save()
+    if request.POST.get('license_plate') is not None:
+        current_user.license_plate = request.POST.get('license_plate')
+        current_user.save()
+    if request.POST.get('cellphone') is not None:
+        current_user.cellphone = request.POST.get('cellphone')
+        current_user.save()
+    if request.POST.get('car_type') is not None:
+        current_user.car_type = request.POST.get('car_type')
+        current_user.save()
+    return current_user
 
 
 #method called when driver accepts or declines a new passenger
@@ -70,14 +83,15 @@ def respondToDriverRequest(request):
     #remove from passenger
     pending = passenger.rides_pending
     passenger.rides_pending = pending[:pending.index(request.GET['id'])] + pending[pending.index(request.GET['id']) + len(request.GET['id']):]
-    print("passenger pending: " + passenger.rides_pending)
+    # print("passenger pending: " + passenger.rides_pending)
     passenger.save()
 
     return switchToDriverView(request)
 
 
 def switchToDriverView(request):
-    id = request.GET.get('user')
+    id = request.user
+    current_user = handleForm(request)
     ridesDrivingIds = str(Rider.objects.filter(username=request.user)[0].rides_driven).split(",")
     ridesDriving = []
     for ride in ridesDrivingIds:
@@ -86,4 +100,4 @@ def switchToDriverView(request):
             ridesDriving.append(query[0])
 
     return render(request, 'user_profile/profile.html',
-                  {'title': 'Profile', 'id': id, 'ridesDriving': ridesDriving, 'viewingPassenger': False})
+                  {'title': 'Profile', 'id': id, 'ridesDriving': ridesDriving, 'viewingPassenger': False, 'current_user': current_user})
