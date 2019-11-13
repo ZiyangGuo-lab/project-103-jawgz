@@ -3,3 +3,4 @@ gunicorn
 social-auth-app-django
 django-storages
 boto
+Pillow
