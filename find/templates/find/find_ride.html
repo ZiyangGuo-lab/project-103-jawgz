@@ -4,6 +4,7 @@
 {% block content %}
 {% load request_ride %}
 {% load split_words %}
+{% load user_info_modal %}
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
@@ -152,7 +153,19 @@
               </table>
             <div class="meta">{{ Posting.riding_date}} </div>
             <div class="description">
-                <p>Driver: {{ Posting.driver_name }}</p>
+                <a class="ui image label simple large dropdown button">
+                    <img src="{% get_user_image Posting.driver_id %}">
+                    <span class="text">{{ Posting.driver_name }}</span>
+                    <div class="menu">
+                        <div class="item"><b>Rating: </b>
+<!--                            DRIVER RATING GOES HERE!-->
+                        </div>
+                        <div class="item"><b>Email: </b>{{ Posting.driver_id }}@virginia.edu</div>
+                        <div class="item"><b>Cell: </b>{% get_cellphone Posting.driver_id %}</div>
+                        <div class="item"><b>Car: </b>{% get_car Posting.driver_id %}</div>
+                        <div class="item"><b>License Plate: </b>{% get_license_plate Posting.driver_id %}</div>
+                    </div>
+                </a>
                 <p>Asking price: ${{ Posting.price }}</p>
                 <p>Spots left: {{ Posting.num_passengers }}</p>
             </div>
@@ -166,22 +179,27 @@
             </div>
                 <div class="content">
             <p class="transition ">
-                Riders on trip
+                <b>Riders on this trip: </b>
                 {% with Posting.riders_riding|split:"," as request_list %}
                     {% if request_list %}
-                        <ul>
                         {% for rider in request_list %}
-                            <li>{{rider}}</li>
-
+                        <div class="ui image label simple dropdown button">
+                            <img src="{% get_user_image rider %}">
+                            <span class="text">{% get_name rider %}</span>
+                            <div class="menu">
+                                <div class="item"><b>Email: </b>{{ Posting.driver_id }}@virginia.edu</div>
+                                <div class="item"><b>Cell: </b>{% get_cellphone Posting.driver_id %}</div>
+                            </div>
+                        </div>
                         {% endfor %}
-                        </ul>
+
                     {% else %}
-                    <p>None</p>
+                    <p>There are currently no other riders.</p>
                     {% endif %}
 
                 {% endwith %}
 
-                <br>
+                <br/> <br/>
                 <iframe
                       width="500"
                       height="300"
@@ -202,39 +220,7 @@
                 <a href="{% url 'joinRide' %}?id={{Posting.posting_id}}"><button class="blue ui button"><i class="exchange icon"></i>Request to join</button></a>
                 {% endif %}
                 </div>
-                <div style="float:right;">
 
-                    <button class="ui basic button" type="button" data-toggle="modal" data-target="#driverModal">
-                        <img src="" />
-                        {{ Posting.driver_name }} {{ Posting.driver_id }}
-                    </button>
-
-<!--                    Modal !!! -->
-                    <div class="modal fade" id="driverModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h3 class="modal-title" id="exampleModalLongTitle">Driver Information</h3>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                            <div class="modal-body">
-<!--                                Put user profile card here... but how do we get the damn info!!!! -->
-                                <p><b>Name: </b> {{ Posting.driver_name }} </p>
-                                <p><b>Driver Rating: </b> Driver Rating </p>
-                                <p><b>Driver Email: </b> {{ Posting.driver_id }}@virginia.edu </p>
-                                <p><b>Cellphone: </b> (xxx) xxx-xxxx  </p>
-                                <p><b>Vehicle Model: </b> xxxxx </p>
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                </div>
               </div>
 
         </div>

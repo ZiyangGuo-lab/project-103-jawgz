@@ -24,9 +24,9 @@ def sortByPrice(request):
 def search(request):
 
 	all = Posting.objects.all().order_by('-date')
-	print(all)
+	# print(all)
 	location_to = request.POST['searchTo']
-	print("to:", location_to)
+	# print("to:", location_to)
 	if location_to != None and location_to != '':
 		if (len(location_to) > 5 and location_to[-5:] == ", USA"):
 			location_to = location_to[:-5]
@@ -53,10 +53,10 @@ def search(request):
 	if riding_date != None and riding_date != '':
 
 		riding_date = formatDate(riding_date)
-		print("formatted:", riding_date)
+		# print("formatted:", riding_date)
 		filtered = []
 		for posting in all:
-			print(len(str(str(posting.riding_date).split(" ")[0])) , len(str(riding_date)))
+			# print(len(str(str(posting.riding_date).split(" ")[0])) , len(str(riding_date)))
 			if str(str(posting.riding_date).split(" ")[0]) == str(riding_date):
 				filtered.append(posting)
 		all = filtered
@@ -118,7 +118,7 @@ class searchView(generic.ListView):
 
 	def get_queryset(self):
 		location_to = self.request.GET.get('location_to')
-		print(self.request.GET.get('location_to')+"location_to")
+		# print(self.request.GET.get('location_to')+"location_to")
 		location_from = self.request.GET.get('location_from')
 		year = self.request.GET.get('date_year')
 		month = self.request.GET.get('date_month')
@@ -142,13 +142,4 @@ class searchView(generic.ListView):
 			return Posting.objects.filter(location_from=location_from)
 		else:
 			return Posting.objects.filter(location_to=location_to, location_from=location_from, riding_date__date=s)
-
-
-
-def get_image_url(request):
-	print(request.GET['driver_id'])
-	driver_id = request.GET['driver_id']
-	rider_matches = Rider.objects.filter(username=driver_id)
-	if rider_matches[0]:
-		print ('rider: ', rider_matches[0])
 
