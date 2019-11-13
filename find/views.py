@@ -56,6 +56,8 @@ def sortByRidingDate(request):
 	global l
 	global flagSearch
 	if flagSearch:
+		print(l)
+		print(l[0][1])
 		l.sort(key=lambda x: x[1], reverse=True)
 		ans=[]
 		for post in l:
@@ -92,6 +94,7 @@ def search(request):
 	global flagPrice
 	global flagDate
 	global l
+
 	if flagPrice:
 		all = Posting.objects.all().order_by('price')
 		# flagPrice = False
@@ -110,7 +113,7 @@ def search(request):
 		filtered = []
 		for posting in all:
 			# print(posting)
-			if posting.location_to == location_to:
+			if posting.location_to == location_to and isValid(posting):
 				a=[posting, posting.riding_date,posting.price,posting.date]
 				temp.append(a)
 				filtered.append(posting)
@@ -124,7 +127,7 @@ def search(request):
 		filtered = []
 		temp =[]
 		for posting in all:
-			if posting.location_from == location_from:
+			if posting.location_from == location_from and isValid(posting):
 				a=[posting, posting.riding_date,posting.price,posting.date]
 				temp.append(a)
 				filtered.append(posting)
@@ -139,7 +142,7 @@ def search(request):
 		temp=[]
 		for posting in all:
 			# print(len(str(str(posting.riding_date).split(" ")[0])) , len(str(riding_date)))
-			if str(str(posting.riding_date).split(" ")[0]) == str(riding_date):
+			if str(str(posting.riding_date).split(" ")[0]) == str(riding_date) and isValid(posting):
 				filtered.append(posting)
 				a=[posting, posting.riding_date,posting.price]
 				temp.append(a)
@@ -172,6 +175,10 @@ def formatDate(date):
 	date = date.split(" ")
 	return date[2] + '-' + str(months.index(date[0]) + 1) + '-' + (date[1])[:-1]
 
+def isValid(posting):
+	if posting.location_to!=None and posting.location_from!=None and posting.riding_date!=None and posting.driver_name!=None:
+		return True
+	return False
 
 class findView(generic.ListView):
 	template_name = 'find/find_ride.html'
