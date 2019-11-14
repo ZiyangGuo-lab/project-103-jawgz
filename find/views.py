@@ -27,7 +27,7 @@ def find(request):
 	flagSearch=False
 	flagPost=False
 	print("flagSearch", flagSearch)
-	return render(request, 'find/find_ride.html', {'title': 'Profile', 'postings_list' : Posting.objects.all()})
+	return render(request, 'find/find_ride.html', {'title': 'Profile', 'postings_list' : Posting.objects.all().order_by('-date')})
 
 
 def sortByPostingDate(request):
