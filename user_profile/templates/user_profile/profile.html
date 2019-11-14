@@ -32,7 +32,8 @@
                     <span class="date">{{ user.email }}</span>
                 </div>
                 <div class="description">
-                    <div class="star-rank">
+
+                    <b>Rating: {{ rating }}</b><div class="star-rank">
                         {% if rating < .5 %}
                         <span class="fa fa-star fa-lg"></span>
                         <span class="fa fa-star fa-lg"></span>
@@ -101,14 +102,14 @@
                         <span class="fa fa-star fa-lg" style="color:orange"></span>
                         {% endif %}
                     </div>
-                    <br/>
+
                     <b>Cell: </b>
                     {% if current_user.cellphone %}
                     {{ current_user.cellphone }}
                     {% else %}
                     No phone number provided
                     {% endif %}
-                    <br/>
+
                     <b>Car:</b>
                     {% if current_user.car_type %}
                     {{ current_user.car_type }}
@@ -201,7 +202,7 @@
                         <span class="text">{{ Posting.driver_name }}</span>
                         <div class="menu">
                             <div class="item"><b>Rating: </b>
-    <!--                            DRIVER RATING GOES HERE!-->
+                                {{ Posting.rating }}
                             </div>
                             <div class="item"><b>Email: </b>{{ Posting.driver_id }}@virginia.edu</div>
                             <div class="item"><b>Cell: </b>{% get_cellphone Posting.driver_id %}</div>
@@ -235,16 +236,16 @@
                         <a href="{% url 'updateRating' %}?rating=1&id={{Posting.driver_id}}">
                             <button class="w3-button w3-red" >1</button>
                         </a>
-                    <a href="{% url 'updateRating' %}?rating=2">
+                    <a href="{% url 'updateRating' %}?rating=2&id={{Posting.driver_id}}">
                             <button class="w3-button w3-orange" >2</button>
                         </a>
-                    <a href="{% url 'updateRating' %}?rating=3">
+                    <a href="{% url 'updateRating' %}?rating=3&id={{Posting.driver_id}}">
                             <button class="w3-button w3-yellow" >3</button>
                         </a>
-                    <a href="{% url 'updateRating' %}?rating=4">
+                    <a href="{% url 'updateRating' %}?rating=4&id={{Posting.driver_id}}">
                             <button class="w3-button w3-light-green" >4</button>
                         </a>
-                    <a href="{% url 'updateRating' %}?rating=5">
+                    <a href="{% url 'updateRating' %}?rating=5&id={{Posting.driver_id}}">
                             <button class="w3-button w3-green" >5</button>
                         </a>
                 </table>

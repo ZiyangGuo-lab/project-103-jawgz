@@ -10,11 +10,12 @@ from django.core.files.storage import default_storage
 
 #method called
 def calculate_rating(request): ###
+    # postingObject = Posting.objects.filter(posting_id=request.GET['id'])[0]
+    # current_user = postingObject
     id = request.user
     user_matches = Rider.objects.filter(username=id)
     current_user = user_matches[0]
-    # check if modal form has been filled out yet
-    rating_array = current_user.ratings_list.split(",")  #average of rating_list
+    rating_array = current_user.ratings_list.split(",")  # average of rating_list
     total_rating = 0
     count = 0
     print('rating array', rating_array)
@@ -23,21 +24,53 @@ def calculate_rating(request): ###
             count += 1
             total_rating += int(rating_array[i])
     if count > 0:
-        current_user.rating = total_rating/count
+        current_user.rating = round(total_rating / count, 2)
     else:
         current_user.rating = 0
     current_user.save()
     return current_user.rating
 
+
+    ##################################
+    # id = request.user
+    # user_matches = Rider.objects.filter(username=id)
+    # current_user = user_matches[0]
+    # # check if modal form has been filled out yet
+    # rating_array = current_user.ratings_list.split(",")  #average of rating_list
+    # total_rating = 0
+    # count = 0
+    # print('rating array', rating_array)
+    # for i in range(0, len(rating_array)):
+    #     if rating_array[i] != '':
+    #         count += 1
+    #         total_rating += int(rating_array[i])
+    # if count > 0:
+    #     current_user.rating = round(total_rating/count, 2)
+    # else:
+    #     current_user.rating = 0
+    # current_user.save()
+    # return current_user.rating
+
 def updateRating(request):
-    # need to use driver instead of current_user
+    # postingObject = Posting.objects.filter(driver_id=request.GET['id'])[0]
+    # postingObject
+    # postingObject.ratings_list = postingObject.ratings_list + ", " + str(request.GET['rating'])
+    # postingObject.rating = request.GET['rating']
+    # postingObject.save()
+    # id = request.user
+    # user_matches = Rider.objects.filter(username=id)
+    # current_user = user_matches[0]
 
-    #get current user
-    id = request.user
-    user_matches = Rider.objects.filter(username=id)
+    # finds the user based off the rating and updates their rating
+    # passed in id is the Posting.driver_id which is 'gjl8en' also equal to the username of Rider object
+    user_matches = Rider.objects.filter(username=request.GET['id'])
     current_user = user_matches[0]
+    current_user.ratings_list = current_user.ratings_list + ", " + str(request.GET['rating'])
+    current_user.rating = request.GET['rating']
+    current_user.save()
 
-
+    user_matches = Posting.objects.filter(driver_id=request.GET['id'])
+    current_user = user_matches[0]
     current_user.ratings_list = current_user.ratings_list + ", " + str(request.GET['rating'])
     current_user.rating = request.GET['rating']
     current_user.save()
@@ -69,7 +102,6 @@ def profile(request):
             allRides[query[0]] = 'declined'
 
     # print(allRides)
-
     rating = calculate_rating(request)  ###
 
     ride_happened = 1 ###
