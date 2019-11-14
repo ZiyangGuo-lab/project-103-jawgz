@@ -22,7 +22,10 @@ def calculate_rating(request): ###
         if rating_array[i] != '':
             count += 1
             total_rating += int(rating_array[i])
-    current_user.rating = total_rating/count
+    if count > 0:
+        current_user.rating = total_rating/count
+    else:
+        current_user.rating = 0
     current_user.save()
     return current_user.rating
 
