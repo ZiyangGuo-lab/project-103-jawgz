@@ -4,6 +4,7 @@
 {% block content %}
 {% load request_ride %}
 {% load split_words %}
+{% load user_info_modal %}
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
@@ -27,7 +28,7 @@
                   <!--</a>-->
                 <!--</div>-->
 
-              <div class="ui secondary vertical menu">
+             <!--  <div class="ui secondary vertical menu">
 
                   {% if request.path == '/' %}
                   <a class="active item">
@@ -36,6 +37,17 @@
                   </a>
                   {% else %}
                   <a class="item" href="/">
+                    Posting Date
+                  </a>
+                  {% endif %} -->
+                   <div class="ui secondary vertical menu">
+
+                   {% if 'sortByPostingDate' in request.path %}
+                  <a class="active item" href="{% url 'sortByPostingDate' %}">
+                    Posting Date
+                  </a>
+                  {% else %}
+                  <a class="item" href="{% url 'sortByPostingDate' %}">
                     Posting Date
                   </a>
                   {% endif %}
@@ -63,6 +75,15 @@
 
                   {% endif %}
 
+                  {% if request.path == '/' %}
+                  <a class="active item">
+                    View All
+                  </a>
+                  {% else %}
+                  <a class="item" href="/">
+                   View All
+                  </a>
+                  {% endif %}
               </div>
 
               <label>Search <i class="search icon"></i></label>
@@ -97,6 +118,9 @@
 
 
                 </form>
+
+            
+
             </div>
           </div>
       </div>
@@ -152,8 +176,20 @@
               </table>
             <div class="meta">{{ Posting.riding_date}} </div>
             <div class="description">
-                <p>Driver: {{ Posting.driver_name }}</p>
-              <p>Asking price: ${{ Posting.price }}</p>
+                <a class="ui image label simple large dropdown button">
+                    <img src="{% get_user_image Posting.driver_id %}">
+                    <span class="text">{{ Posting.driver_name }}</span>
+                    <div class="menu">
+                        <div class="item"><b>Rating: </b>
+<!--                            DRIVER RATING GOES HERE!-->
+                        </div>
+                        <div class="item"><b>Email: </b>{{ Posting.driver_id }}@virginia.edu</div>
+                        <div class="item"><b>Cell: </b>{% get_cellphone Posting.driver_id %}</div>
+                        <div class="item"><b>Car: </b>{% get_car Posting.driver_id %}</div>
+                        <div class="item"><b>License Plate: </b>{% get_license_plate Posting.driver_id %}</div>
+                    </div>
+                </a>
+                <p>Asking price: ${{ Posting.price }}</p>
                 <p>Spots left: {{ Posting.num_passengers }}</p>
             </div>
           </div>
@@ -166,22 +202,27 @@
             </div>
                 <div class="content">
             <p class="transition ">
-                Riders on trip
+                <b>Riders on this trip: </b>
                 {% with Posting.riders_riding|split:"," as request_list %}
                     {% if request_list %}
-                        <ul>
                         {% for rider in request_list %}
-                            <li>{{rider}}</li>
-
+                        <div class="ui image label simple dropdown button">
+                            <img src="{% get_user_image rider %}">
+                            <span class="text">{% get_name rider %}</span>
+                            <div class="menu">
+                                <div class="item"><b>Email: </b>{{ Posting.driver_id }}@virginia.edu</div>
+                                <div class="item"><b>Cell: </b>{% get_cellphone Posting.driver_id %}</div>
+                            </div>
+                        </div>
                         {% endfor %}
-                        </ul>
+
                     {% else %}
-                    <p>None</p>
+                    <p>There are currently no other riders.</p>
                     {% endif %}
 
                 {% endwith %}
 
-                <br>
+                <br/> <br/>
                 <iframe
                       width="500"
                       height="300"
@@ -192,7 +233,8 @@
                 </div>
             </div>
 
-            <div class="extra content">
+            <div class="extra content" style="display: flex; flex-direction: row; justify-content: space-between;">
+                <div>
                 {% if user.username in Posting.riders_riding %}
                  <p style="color:green; display: inline;">accepted</p><i class="green check icon"></i>
                 {% elif user.username in Posting.riders_requested %}
@@ -200,6 +242,7 @@
                 {% else %}
                 <a href="{% url 'joinRide' %}?id={{Posting.posting_id}}"><button class="blue ui button"><i class="exchange icon"></i>Request to join</button></a>
                 {% endif %}
+                </div>
 
               </div>
 
