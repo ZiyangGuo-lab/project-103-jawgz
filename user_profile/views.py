@@ -44,9 +44,8 @@ def updateRating(request):
 # Create your views here.
 def profile(request):
     id = request.user
-    user_matches = Rider.objects.filter(username=id)
-    current_user = user_matches[0]
-    handleForm(request)
+    current_user = handleForm(request)  # get and update current user based on form data
+    print (current_user.name)
     allRides = {}
     ridesPassengerIds = str(Rider.objects.filter(username=request.user)[0].rides_passenger).split(",")
     for ride in ridesPassengerIds:
@@ -66,7 +65,7 @@ def profile(request):
         if query.count() > 0:
             allRides[query[0]] = 'declined'
 
-    print(allRides)
+    # print(allRides)
 
     rating = calculate_rating(request)  ###
 
@@ -78,17 +77,13 @@ def handleForm(request):
     id = request.user
     user_matches = Rider.objects.filter(username=id)
     current_user = user_matches[0]
+    name = request.user.first_name + ' ' + request.user.last_name
+    current_user.name = name;
+    current_user.save()
     #check if modal form has been filled out yet
     if 'image' in request.FILES:
         current_user.image = request.FILES['image']
         current_user.save()
-        # print('https://hoosriding.s3.amazonaws.com/profile_images/' % current_user.image)
-    # if (request.POST.get('image') is not None):
-    #     print('theres an image')
-    #     image_link = 'https://hoosriding.s3.amazonaws.com/profile_images/' + request.FILES['image']
-    #     print(image_link)
-    #     current_user.image = image_link
-    #     current_user.save()
     if request.POST.get('license_plate') is not None:
         current_user.license_plate = request.POST.get('license_plate')
         current_user.save()
@@ -127,7 +122,7 @@ def respondToDriverRequest(request):
     #remove from passenger
     pending = passenger.rides_pending
     passenger.rides_pending = pending[:pending.index(request.GET['id'])] + pending[pending.index(request.GET['id']) + len(request.GET['id']):]
-    print("passenger pending: " + passenger.rides_pending)
+    # print("passenger pending: " + passenger.rides_pending)
     passenger.save()
 
     return switchToDriverView(request)

@@ -4,6 +4,7 @@ from django.db import models
 # Create your models here.
 class Rider(models.Model):
     username = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, default='No Name')
     cellphone = models.CharField(max_length=200)
     car_type = models.CharField(max_length=200)
     license_plate = models.CharField(max_length=200)

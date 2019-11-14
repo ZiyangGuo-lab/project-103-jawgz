@@ -2,7 +2,7 @@
 {% load static %}
 {% load request_ride %}
 {% load split_words %}
-
+{% load user_info_modal %}
 {% block content %}
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
@@ -20,9 +20,9 @@
     <div class="left">
         <div class="ui card">
             <div class="image">
-                {% if current_user.image %}
-                <img src="https://hoosriding.s3.amazonaws.com/{{current_user.image}}">
-                {% else %}
+            {% if current_user.image %}
+                <img  src="https://hoosriding.s3.amazonaws.com/{{ current_user.image }}">
+            {% else %}
                 <img src="https://www.w3schools.com/howto/img_avatar2.png">
                 {% endif %}
             </div>
@@ -196,6 +196,19 @@
                 </table>
                 <div class="meta">{{ Posting.riding_date}}</div>
                 <div class="description">
+                    <a class="ui image label simple large dropdown button">
+                        <img src="{% get_user_image Posting.driver_id %}">
+                        <span class="text">{{ Posting.driver_name }}</span>
+                        <div class="menu">
+                            <div class="item"><b>Rating: </b>
+    <!--                            DRIVER RATING GOES HERE!-->
+                            </div>
+                            <div class="item"><b>Email: </b>{{ Posting.driver_id }}@virginia.edu</div>
+                            <div class="item"><b>Cell: </b>{% get_cellphone Posting.driver_id %}</div>
+                            <div class="item"><b>Car: </b>{% get_car Posting.driver_id %}</div>
+                            <div class="item"><b>License Plate: </b>{% get_license_plate Posting.driver_id %}</div>
+                        </div>
+                    </a>
                     <p>Asking price: ${{ Posting.price }}</p>
                     <p>Spots left: {{ Posting.num_passengers }}</p>
                 </div>
@@ -244,20 +257,26 @@
                     <i class="dropdown icon"></i>
                     Details
                 </div>
-                <div class="content">
-                    <p class="transition ">
-                        Riders on trip
-                        {% with Posting.riders_riding|split:"," as request_list %}
+                    <div class="content">
+                <p class="transition ">
+                    <b>Riders on this trip:</b>
+                    {% with Posting.riders_riding|split:"," as request_list %}
                         {% if request_list %}
-                    <ul>
-                        {% for rider in request_list %}
-                        <li>{{rider}}</li>
+                            {% for rider in request_list %}
+                            <div class="ui image label simple dropdown button">
+                                <img src="{% get_user_image rider %}">
+                                <span class="text">{% get_name rider %}</span>
+                                <div class="menu">
+                                    <div class="item"><b>Email: </b>{{ rider }}@virginia.edu</div>
+                                    <div class="item"><b>Cell: </b>{% get_cellphone rider %}</div>
+                                </div>
+                            </div>
+                                <br/>
 
-                        {% endfor %}
-                    </ul>
-                    {% else %}
-                    <p>None</p>
-                    {% endif %}
+                            {% endfor %}
+                        {% else %}
+                        <p>There are currently no other riders.</p>
+                        {% endif %}
 
                     {% endwith %}
 
@@ -304,27 +323,30 @@
                 </div>
             </div>
 
-            <!--If any requests for rides, appear here-->
-            {% with Posting.riders_requested|split:"," as request_list %}
-            {% if request_list %}
-            <div class="extra content">
-                <h5>New Requests</h5>
-                {% for rider in request_list %}
-                <table style="width:100%">
-                    <td><h6>{{rider}}</h6></td>
-                    <td style="text-align: right;">
-                        <a href="{% url 'respondToDriverRequest' %}?id={{Posting.posting_id}}&rider={{rider}}&status=accept">
-                            <button class="positive ui button">Accept</button>
-                        </a>
-                        <a href="{% url 'respondToDriverRequest' %}?id={{Posting.posting_id}}&rider={{rider}}&status=decline">
-                            <button class="negative ui button">Decline</button>
-                        </a>
-                    </td>
-                </table>
-                {% endfor %}
-            </div>
-            {% endif %}
-            {% endwith %}
+                <!--If any requests for rides, appear here-->
+                {% with Posting.riders_requested|split:"," as request_list %}
+                    {% if request_list %}
+                        <div class="extra content">
+                            <h5>New Requests</h5>
+                        {% for rider in request_list %}
+                            <table style="width:100%">
+                                <div class="ui image label simple dropdown button">
+                                    <img src="{% get_user_image rider %}">
+                                    <span class="text">{% get_name rider %}</span>
+                                    <div class="menu">
+                                        <div class="item"><b>Email: </b>{{ rider }}@virginia.edu</div>
+                                        <div class="item"><b>Cell: </b>{% get_cellphone rider %}</div>
+                                    </div>
+                                </div>
+                                <td style="text-align: right;">
+                                    <a href="{% url 'respondToDriverRequest' %}?id={{Posting.posting_id}}&rider={{rider}}&status=accept"><button class="positive ui button">Accept</button></a>
+                                    <a href="{% url 'respondToDriverRequest' %}?id={{Posting.posting_id}}&rider={{rider}}&status=decline"><button class="negative ui button">Decline</button></a>
+                                </td>
+                            </table>
+                        {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
 
             <!--Dropdown of extra info-->
             <div class="ui styled accordion">
@@ -332,20 +354,27 @@
                     <i class="dropdown icon"></i>
                     Details
                 </div>
-                <div class="content">
-                    <p class="transition ">
-                        Riders on trip
-                        {% with Posting.riders_riding|split:"," as request_list %}
+                    <div class="content">
+                <p class="transition ">
+                    <b>Riders on this trip:</b>
+                    {% with Posting.riders_riding|split:"," as request_list %}
                         {% if request_list %}
-                    <ul>
-                        {% for rider in request_list %}
-                        <li>{{rider}}</li>
 
-                        {% endfor %}
-                    </ul>
-                    {% else %}
-                    <p>None</p>
-                    {% endif %}
+                            {% for rider in request_list %}
+                            <div class="ui image label simple dropdown button">
+                                <img src="{% get_user_image rider %}">
+                                <span class="text">{% get_name rider %}</span>
+                                <div class="menu">
+                                    <div class="item"><b>Email: </b>{{ Posting.driver_id }}@virginia.edu</div>
+                                    <div class="item"><b>Cell: </b>{% get_cellphone Posting.driver_id %}</div>
+                                </div>
+                            </div>
+
+                            {% endfor %}
+
+                        {% else %}
+                        <p>There are currently no other riders.</p>
+                        {% endif %}
 
                     {% endwith %}
 
