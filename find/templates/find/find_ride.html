@@ -5,228 +5,256 @@
 {% load request_ride %}
 {% load split_words %}
 {% load user_info_modal %}
+
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <script src="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.js"></script>
 
+</script>
+<!-- <script>
+var state = false;
+
+function handleAction() {
+    if (state == false) {
+
+        state = true;
+
+        return;
+    }
+
+    if (state == true) {
+
+        state = false;
+        return;
+    }
+}
+</script> -->
+<link rel="stylesheet" type="text/css" href="{% static 'hoosRiding/findicon.css' %}">
 <div class="container">
 
- <div class="ui rail" style="padding-top: 2%; ">
-  <div class="ui sticky">
-    <br> <br> <br>
-    <div class="ui raised text container form segment" style="width:85%; ">
+   <div class="ui rail" style="padding-top: 2%; ">
+      <div class="ui sticky">
+          <br> <br> <br>
+          <div class="ui raised text container form segment" style="width:85%; ">
 
-      <label>Sort By <i class="sort icon"></i></label>
-      <div class="ui secondary vertical menu">
+              <label>Sort By <i class="sort icon"></i></label>
 
-       {% if 'sortByPostingDate' in request.path %}
-       <a class="active item" href="{% url 'sortByPostingDate' %}">
-        Posting Date
-      </a>
-      {% else %}
-      <a class="item" href="{% url 'sortByPostingDate' %}">
-        Posting Date
-      </a>
-      {% endif %}
+                   <div class="ui secondary vertical menu">
 
-      {% if 'sortByRidingDate' in request.path %}
-      <a class="active item" href="{% url 'sortByRidingDate' %}">
-        Riding Date
-        <i class="sort amount down icon"></i>
-      </a>
-      {% else %}
-      <a class="item" href="{% url 'sortByRidingDate' %}">
-        Riding Date
-      </a>
-      {% endif %}
+                   {% if 'sortByPostingDate' in request.path %}
+                  <a class="active item" href="{% url 'sortByPostingDate' %}"onclick="handleAction();">
+                    Posting Date
+                    {% if flagDate %}
+                    <i class="sort amount down icon"></i>
+                    {%else%}
+                    <i class="sort amount up icon"></i>
+                    {% endif %}
+                  </a>
+                  {% else %}
+                  <a class="item" href="{% url 'sortByPostingDate' %}">
+                    Posting Date
+                  </a>
+                  {% endif %}
 
-      {% if 'sortByPrice' in request.path %}
-      <a class="active item" href="{% url 'sortByPrice' %}">
-        Price
-        <i class="sort amount down icon"></i>
-      </a>
-      {% else %}
-      <a class="item" href="{% url 'sortByPrice' %}">
-        Price
-      </a>
+                  {% if 'sortByRidingDate' in request.path %}
+                  <a class="active item" href="{% url 'sortByRidingDate' %}">
+                    Riding Date
+                    {% if flagRide %}
+                    <i class="sort amount down icon"></i>
+                    {%else%}
+                    <i class="sort amount up icon"></i>
+                    {% endif %}
+                  </a>
+                  {% else %}
+                  <a class="item" href="{% url 'sortByRidingDate' %}">
+                    Riding Date
+                  </a>
+                  {% endif %}
 
-      {% endif %}
+                  {% if 'sortByPrice' in request.path %}
+                  <a class="active item" href="{% url 'sortByPrice' %}">
+                    Price
+                    {% if flagPrice %}
+                    <i class="sort amount down icon"></i>
+                    {%else%}
+                    <i class="sort amount up icon"></i>
+                    {% endif %}
+                  </a>
+                  {% else %}
+                  <a class="item" href="{% url 'sortByPrice' %}">
+                    Price
+                  </a>
 
-      {% if request.path == '/' %}
-      <a class="active item">
-        View All
-      </a>
-      {% else %}
-      <a class="item" href="/">
-       View All
-     </a>
-     {% endif %}
-   </div>
+                  {% endif %}
 
-   <label>Search <i class="search icon"></i></label>
-   <form action="{% url 'search' %}" method="post">
-    {% csrf_token %}
-    <h6>From: </h6>
-    <div class="ui mini input">
-      <input id="autocomplete2"
-      placeholder="Search..."
-      onFocus="geolocate()"
-      name="searchFrom"
-      type="text"/>
-    </div>
-    <h6></h6>
-    <h6>To: </h6>
-    <div class="ui mini input">
-      <input id="autocomplete"
-      placeholder="Search..."
-      onFocus="geolocate()"
-      name="searchTo"
-      type="text"/>
-    </div>
-    <h6></h6>
-    <h6>Leaving Date</h6>
-    <div class="ui calendar" id="selectCalendar">
-      <div class="ui mini input left">
-        <input type="text" placeholder="Date" name="riding_date">
+                  {% if request.path == '/' %}
+                  <a class="active item">
+                    View All
+                  </a>
+                  {% else %}
+                  <a class="item" href="/">
+                   View All
+                  </a>
+                  {% endif %}
+              </div>
+
+              <label>Search <i class="search icon"></i></label>
+                <form action="{% url 'search' %}" method="post">
+                    {% csrf_token %}
+                    <h6>From: </h6>
+                    <div class="ui mini input">
+                      <input id="autocomplete2"
+                             placeholder="Search..."
+                             onFocus="geolocate()"
+                             name="searchFrom"
+                             type="text"/>
+                    </div>
+                    <h6></h6>
+                    <h6>To: </h6>
+                  <div class="ui mini input">
+                      <input id="autocomplete"
+                             placeholder="Search..."
+                             onFocus="geolocate()"
+                             name="searchTo"
+                             type="text"/>
+                    </div>
+                    <h6></h6>
+                    <h6>Leaving Date</h6>
+                    <div class="ui calendar" id="selectCalendar">
+                    <div class="ui mini input left">
+                      <input type="text" placeholder="Date" name="riding_date">
+                    </div>
+                  </div>
+                        <h6></h6>
+                        <button class="ui primary mini submit button" >Search</button>
+
+
+                </form>
+
+            
+
+            </div>
+          </div>
       </div>
+
+
     </div>
-    <h6></h6>
-    <button class="ui primary mini submit button" >Search</button>
 
+    <div id="context" style="padding-left:33%; width:90%; ">
 
-  </form>
+      <div class="ui icon message">
+  <i class="car icon"></i>
+  <div class="content">
+    <div class="header">
+      Welcome! 
+    </div>
+    <p>Here are the currently available rides.</p>
+  </div>
+</div>
+    {% for Posting in postings_list %}
+        <div class="ui fluid raised centered card">
+          <div class="content">
+              <table style="width:100%;height:100%">
+                  <td><h3>{{ Posting.location_from }} to {{ Posting.location_to }}<i class="car icon"></i></h3></td>
+                  <td style="text-align: right;">
+                      {% calculatetime Posting.date %}
+                  </td>
+              </table>
+            <div class="meta">{{ Posting.riding_date}} </div>
+            <div class="description">
+                <a class="ui image label simple large dropdown button">
+                    <img src="{% get_user_image Posting.driver_id %}">
+                    <span class="text">{{ Posting.driver_name }}</span>
+                    <div class="menu">
+                        <div class="item"><b>Rating: </b>
+<!--                            DRIVER RATING GOES HERE!-->
+                        </div>
+                        <div class="item"><b>Email: </b>{{ Posting.driver_id }}@virginia.edu</div>
+                        <div class="item"><b>Cell: </b>{% get_cellphone Posting.driver_id %}</div>
+                        <div class="item"><b>Car: </b>{% get_car Posting.driver_id %}</div>
+                        <div class="item"><b>License Plate: </b>{% get_license_plate Posting.driver_id %}</div>
+                    </div>
+                </a>
+                <p>Asking price: ${{ Posting.price }}</p>
+                <p>Spots left: {{ Posting.num_passengers }}</p>
+            </div>
+          </div>
 
+            <!--Dropdown of extra info-->
+            <div class="ui styled accordion fluid">
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    Details
+            </div>
+                <div class="content">
+            <p class="transition ">
+                <b>Riders on this trip: </b>
+                {% with Posting.riders_riding|split:"," as request_list %}
+                    {% if request_list %}
+                        {% for rider in request_list %}
+                        <div class="ui image label simple dropdown button">
+                            <img src="{% get_user_image rider %}">
+                            <span class="text">{% get_name rider %}</span>
+                            <div class="menu">
+                                <div class="item"><b>Email: </b>{{ Posting.driver_id }}@virginia.edu</div>
+                                <div class="item"><b>Cell: </b>{% get_cellphone Posting.driver_id %}</div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                    {% else %}
+                    <p>There are currently no other riders.</p>
+                    {% endif %}
+
+                {% endwith %}
+
+                <br/> <br/>
+                <iframe
+                      width="500"
+                      height="300"
+                      frameborder="0" style="border:0"
+                      src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAcJ9C8vhZqeSsNbZ8hxGGeR8F7s351_8Y&origin={{Posting.location_from}}&destination={{Posting.location_to}}" allowfullscreen>
+                    </iframe>
+            </p>
+                </div>
+            </div>
+
+            <div class="extra content" style="display: flex; flex-direction: row; justify-content: space-between;">
+                <div>
+                {% if user.username in Posting.riders_riding %}
+                 <p style="color:green; display: inline;">accepted</p><i class="green check icon"></i>
+                {% elif user.username in Posting.riders_requested %}
+                <button class="blue ui button" disabled><i class="exchange icon"></i>Request Pending</button>
+                {% else %}
+                <a href="{% url 'joinRide' %}?id={{Posting.posting_id}}"><button class="blue ui button"><i class="exchange icon"></i>Request to join</button></a>
+                {% endif %}
+                </div>
+
+              </div>
+
+        </div>
+
+    {%endfor%}
+
+    </div>
   
-
 </div>
-</div>
-</div>
-</div>
-<h6></h6>
-<button class="ui primary mini submit button" >Search</button>
+<script type="text/javascript">
+  $(".toggleMe").click(function() {
+   $(".toggleMe").toggle(); 
+});
+</script>
 
-
-</form>
-
-
-
-</div>
-</div>
-</div>
-
-
-</div>
-
-<div id="context" style="padding-left:33%; width:90%; ">
-
-  <div class="ui icon message">
-    <i class="car icon"></i>
-    <div class="content">
-      <div class="header">
-        Welcome! 
-      </div>
-      <p>Here are the currently available rides.</p>
-    </div>
-  </div>
-  {% for Posting in postings_list %}
-  <div class="ui fluid raised centered card">
-    <div class="content">
-      <table style="width:100%;height:100%">
-        <td><h3>{{ Posting.location_from }} to {{ Posting.location_to }}<i class="car icon"></i></h3></td>
-        <td style="text-align: right;">
-          Posted {% calculatetime Posting.date %}
-        </td>
-      </table>
-      <div class="meta">{{ Posting.riding_date}} </div>
-      <div class="description">
-        <a class="ui image label simple large dropdown button">
-          <img src="{% get_user_image Posting.driver_id %}">
-          <span class="text">{{ Posting.driver_name }}</span>
-          <div class="menu">
-            <div class="item"><b>Rating: </b>
-              <!--                            DRIVER RATING GOES HERE!-->
-            </div>
-            <div class="item"><b>Email: </b>{{ Posting.driver_id }}@virginia.edu</div>
-            <div class="item"><b>Cell: </b>{% get_cellphone Posting.driver_id %}</div>
-            <div class="item"><b>Car: </b>{% get_car Posting.driver_id %}</div>
-            <div class="item"><b>License Plate: </b>{% get_license_plate Posting.driver_id %}</div>
-          </div>
-        </a>
-        <p>Asking price: ${{ Posting.price }}</p>
-        <p>Spots left: {{ Posting.num_passengers }}</p>
-      </div>
-    </div>
-
-    <!--Dropdown of extra info-->
-    <div class="ui styled accordion fluid">
-      <div class="title">
-        <i class="dropdown icon"></i>
-        Details
-      </div>
-      <div class="content">
-        <p class="transition ">
-          <b>Riders on this trip: </b>
-          {% with Posting.riders_riding|split:"," as request_list %}
-          {% if request_list %}
-          {% for rider in request_list %}
-          <div class="ui image label simple dropdown button">
-            <img src="{% get_user_image rider %}">
-            <span class="text">{% get_name rider %}</span>
-            <div class="menu">
-              <div class="item"><b>Email: </b>{{ Posting.driver_id }}@virginia.edu</div>
-              <div class="item"><b>Cell: </b>{% get_cellphone Posting.driver_id %}</div>
-            </div>
-          </div>
-          {% endfor %}
-
-          {% else %}
-          <p>There are currently no other riders.</p>
-          {% endif %}
-
-          {% endwith %}
-
-          <br/> <br/>
-          <iframe
-          width="500"
-          height="300"
-          frameborder="0" style="border:0"
-          src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAcJ9C8vhZqeSsNbZ8hxGGeR8F7s351_8Y&origin={{Posting.location_from}}&destination={{Posting.location_to}}" allowfullscreen>
-        </iframe>
-      </p>
-    </div>
-  </div>
-
-  <div class="extra content" style="display: flex; flex-direction: row; justify-content: space-between;">
-    <div>
-      {% if user.username in Posting.riders_riding %}
-      <p style="color:green; display: inline;">accepted</p><i class="green check icon"></i>
-      {% elif user.username in Posting.riders_requested %}
-      <button class="blue ui button" disabled><i class="exchange icon"></i>Request Pending</button>
-      {% else %}
-      <a href="{% url 'joinRide' %}?id={{Posting.posting_id}}"><button class="blue ui button"><i class="exchange icon"></i>Request to join</button></a>
-      {% endif %}
-    </div>
-
-  </div>
-
-</div>
-
-{%endfor%}
-
-</div>
-
-</div>
 <script>
-  $('.ui.accordion').accordion();
-  $('.ui.sticky')
+    $('.ui.accordion').accordion();
+    $('.ui.sticky')
   .sticky({
     context: '#context'
   });
   $('#selectCalendar').calendar({
-    type: 'date'
-  });
-
+  type: 'date'
+});
 </script>
 
 <script>
@@ -250,9 +278,9 @@ function initAutocomplete() {
   // Create the autocomplete object, restricting the search predictions to
   // geographical location types.
   autocomplete = new google.maps.places.Autocomplete(
-    document.getElementById('autocomplete'), {types: ['geocode'], componentRestrictions: {country: 'us'}});
+      document.getElementById('autocomplete'), {types: ['geocode'], componentRestrictions: {country: 'us'}});
   autocomplete = new google.maps.places.Autocomplete(
-    document.getElementById('autocomplete2'), {types: ['geocode'], componentRestrictions: {country: 'us'}});
+      document.getElementById('autocomplete2'), {types: ['geocode'], componentRestrictions: {country: 'us'}});
   // Avoid paying for data that you don't need by restricting the set of
   // place fields that are returned to just the address components.
   autocomplete.setFields(['address_component']);
@@ -287,14 +315,13 @@ function geolocate() {
         lng: position.coords.longitude
       };
       var circle = new google.maps.Circle(
-        {center: geolocation, radius: position.coords.accuracy});
+          {center: geolocation, radius: position.coords.accuracy});
       autocomplete.setBounds(circle.getBounds());
     });
   }
 }
-
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcJ9C8vhZqeSsNbZ8hxGGeR8F7s351_8Y&libraries=places&callback=initAutocomplete"
-async defer></script>
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcJ9C8vhZqeSsNbZ8hxGGeR8F7s351_8Y&libraries=places&callback=initAutocomplete"
+        async defer></script>
 
 {% endblock content %}

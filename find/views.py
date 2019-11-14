@@ -42,7 +42,7 @@ def sortByPostingDate(request):
 	if flagd:
 		flagd=False
 		if flagSearch:
-			# print(l[0])
+			# printpostings_list(l[0])
 			l.sort(key=lambda x: x[3], reverse=True)
 			ans=[]
 			for post in l:
@@ -52,7 +52,7 @@ def sortByPostingDate(request):
 					  {'title': 'Profile', 'postings_list': ans})
 			
 		return render(request, 'find/find_ride.html',
-					  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('-date')})
+					  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('-date'), 'flagDate': flagd})
 	else:
 		flagd=True
 		if flagSearch:
@@ -66,7 +66,7 @@ def sortByPostingDate(request):
 					  {'title': 'Profile', 'postings_list': ans})
 			
 		return render(request, 'find/find_ride.html',
-					  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('date')})
+					  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('date'), 'flagDate': flagd})
 
 
 def sortByRidingDate(request):
@@ -88,7 +88,7 @@ def sortByRidingDate(request):
 			return render(request, 'find/find_ride.html',
 					  {'title': 'Profile', 'postings_list': ans})
 		return render(request, 'find/find_ride.html',
-					  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('-riding_date')})
+					  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('-riding_date'), 'flagRide': flagr})
 	else:
 		flagr = True
 		if flagSearch:
@@ -102,7 +102,7 @@ def sortByRidingDate(request):
 			return render(request, 'find/find_ride.html',
 					  {'title': 'Profile', 'postings_list': ans})
 	return render(request, 'find/find_ride.html',
-				  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('riding_date')})
+				  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('riding_date'), 'flagRide': flagr})
 
 def sortByPrice(request):
 	global flagp
@@ -124,7 +124,7 @@ def sortByPrice(request):
 					  {'title': 'Profile', 'postings_list': ans})
 			
 		return render(request, 'find/find_ride.html',
-					  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('price')})
+					  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('price'), 'flagPrice': flagp})
 	else:
 		print("flagp", flagp)
 		flagp=True
@@ -138,7 +138,7 @@ def sortByPrice(request):
 					  {'title': 'Profile', 'postings_list': ans})
 			
 		return render(request, 'find/find_ride.html',
-					  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('-price')})
+					  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('-price'), 'flagPrice': flagp})
 
 
 def search(request):
