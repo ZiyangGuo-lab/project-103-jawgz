@@ -11,7 +11,7 @@ from django.core.files.storage import default_storage
 def profile(request):
     id = request.user
     current_user = handleForm(request)  # get and update current user based on form data
-    print (current_user.name)
+    # print (current_user.name)
     allRides = {}
     ridesPassengerIds = str(Rider.objects.filter(username=request.user)[0].rides_passenger).split(",")
     for ride in ridesPassengerIds:

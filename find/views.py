@@ -14,6 +14,9 @@ flagDate = False
 flagSearch = False
 flagPost = False
 l=[]
+flagp=True
+flagr=True
+flagd=True
 
 def find(request):
 	global flagPrice
@@ -26,66 +29,117 @@ def find(request):
 	flagDate=False
 	flagSearch=False
 	flagPost=False
-	print("flagSearch", flagSearch)
+	# print("flagSearch", flagSearch)
 	return render(request, 'find/find_ride.html', {'title': 'Profile', 'postings_list' : Posting.objects.all().order_by('-date')})
 
 
 def sortByPostingDate(request):
+	global flagd
 	global flagSearch
 	global flagPost
 	global l
 	flagPost=True
-
-	if flagSearch:
-		print(l[0])
-		l.sort(key=lambda x: x[3], reverse=True)
-		ans=[]
-		for post in l:
-			ans.append(post[0])
-		# flagSearch = False
+	if flagd:
+		flagd=False
+		if flagSearch:
+			# print(l[0])
+			l.sort(key=lambda x: x[3], reverse=True)
+			ans=[]
+			for post in l:
+				ans.append(post[0])
+			# flagSearch = False
+			return render(request, 'find/find_ride.html',
+					  {'title': 'Profile', 'postings_list': ans})
+			
 		return render(request, 'find/find_ride.html',
-				  {'title': 'Profile', 'postings_list': ans})
-		
-	return render(request, 'find/find_ride.html',
-				  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('-date')})
+					  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('-date')})
+	else:
+		flagd=True
+		if flagSearch:
+			# print(l[0])
+			l.sort(key=lambda x: x[3])
+			ans=[]
+			for post in l:
+				ans.append(post[0])
+			# flagSearch = False
+			return render(request, 'find/find_ride.html',
+					  {'title': 'Profile', 'postings_list': ans})
+			
+		return render(request, 'find/find_ride.html',
+					  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('date')})
 
 
 def sortByRidingDate(request):
+	global flagr
 	global flagDate
 	flagDate=True
 	global l
 	global flagSearch
-	if flagSearch:
-		print(l)
-		print(l[0][1])
-		l.sort(key=lambda x: x[1], reverse=True)
-		ans=[]
-		for post in l:
-			ans.append(post[0])
-		# flagSearch = False
+	if flagr:
+		flagr = False
+		if flagSearch:
+			# print(l)
+			# print(l[0][1])
+			l.sort(key=lambda x: x[1], reverse=True)
+			ans=[]
+			for post in l:
+				ans.append(post[0])
+			# flagSearch = False
+			return render(request, 'find/find_ride.html',
+					  {'title': 'Profile', 'postings_list': ans})
 		return render(request, 'find/find_ride.html',
-				  {'title': 'Profile', 'postings_list': ans})
+					  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('-riding_date')})
+	else:
+		flagr = True
+		if flagSearch:
+		# print(l)
+		# print(l[0][1])
+			l.sort(key=lambda x: x[1])
+			ans=[]
+			for post in l:
+				ans.append(post[0])
+			# flagSearch = False
+			return render(request, 'find/find_ride.html',
+					  {'title': 'Profile', 'postings_list': ans})
 	return render(request, 'find/find_ride.html',
-				  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('-riding_date')})
+				  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('riding_date')})
 
 def sortByPrice(request):
+	global flagp
 	global flagPrice
 	global flagSearch
 	flagPrice = True
 	global l
 	print("flagSearch", flagSearch)
-	if flagSearch:
-		print(l[0])
-		l.sort(key=lambda x: x[2])
-		ans=[]
-		for post in l:
-			ans.append(post[0])
-		# flagSearch = False
+	if flagp:
+		flagp=False
+		print("flagp", flagp)
+		if flagSearch:
+			l.sort(key=lambda x: x[2])
+			ans=[]
+			for post in l:
+				ans.append(post[0])
+			# flagSearch = False
+			return render(request, 'find/find_ride.html',
+					  {'title': 'Profile', 'postings_list': ans})
+			
 		return render(request, 'find/find_ride.html',
-				  {'title': 'Profile', 'postings_list': ans})
-		
-	return render(request, 'find/find_ride.html',
-				  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('price')})
+					  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('price')})
+	else:
+		print("flagp", flagp)
+		flagp=True
+		if flagSearch:
+			l.sort(key=lambda x: x[2], reverse=True)
+			ans=[]
+			for post in l:
+				ans.append(post[0])
+			# flagSearch = False
+			return render(request, 'find/find_ride.html',
+					  {'title': 'Profile', 'postings_list': ans})
+			
+		return render(request, 'find/find_ride.html',
+					  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('-price')})
+
 
 def search(request):
 

@@ -64,7 +64,7 @@
                   {% endif %}
 
                   {% if 'sortByPrice' in request.path %}
-                  <a class="active item">
+                  <a class="active item" href="{% url 'sortByPrice' %}">
                     Price
                     <i class="sort amount down icon"></i>
                   </a>
