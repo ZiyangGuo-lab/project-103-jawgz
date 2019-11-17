@@ -225,7 +225,7 @@
                 {% endif %}
             </div>
 
-            {% has_occurred Posting.posting_id as occurred %}
+            {% has_occurred Posting.riding_date as occurred %}
             {% if occurred %}
             {% is_ratable current_user Posting.posting_id as ratable %}
             {% if ratable %}
