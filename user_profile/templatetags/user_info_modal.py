@@ -81,6 +81,42 @@ def get_car(value):
         print('no user')
         return 'No car information provided.'
 
+@register.simple_tag
+def get_rating(value):
+    print('id: ', value)
+    user_matches = Rider.objects.filter(username=value)
+    if (user_matches.exists()):
+        user = user_matches[0]
+        if (user.rating):
+            # print("ratings list",user.ratings_list)
+            # print("rating", user.rating)
+            return user.rating
+        else:
+            return 'No car information provided.'
+    else:
+        print('no user')
+        return 'No car information provided.'
+
+@register.simple_tag
+def has_occurred(value):
+    # posting = Posting.objects.filter(posting_id=value)
+    return True
+
+@register.simple_tag
+def is_ratable(current_user, posting):
+    posting = Posting.objects.filter(posting_id=posting)[0]
+    print(posting)
+    ratable_list = posting.ratable_by.split(',')
+    print('ratablelist', ratable_list)
+
+    current_user = str(current_user)
+    if current_user in ratable_list:
+        return True
+    else:
+        return False
+
+
+
 
 
 

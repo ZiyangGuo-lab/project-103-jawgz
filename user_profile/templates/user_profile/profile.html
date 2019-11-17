@@ -201,9 +201,7 @@
                         <img src="{% get_user_image Posting.driver_id %}">
                         <span class="text">{{ Posting.driver_name }}</span>
                         <div class="menu">
-                            <div class="item"><b>Rating: </b>
-                                {{ Posting.rating }}
-                            </div>
+                            <div class="item"><b>Rating: </b> {% get_rating Posting.driver_id %}</div>
                             <div class="item"><b>Email: </b>{{ Posting.driver_id }}@virginia.edu</div>
                             <div class="item"><b>Cell: </b>{% get_cellphone Posting.driver_id %}</div>
                             <div class="item"><b>Car: </b>{% get_car Posting.driver_id %}</div>
@@ -227,30 +225,33 @@
                 {% endif %}
             </div>
 
-            <!--where rating option will be-->
-
+            {% has_occurred Posting.posting_id as occurred %}
+            {% if occurred %}
+            {% is_ratable current_user Posting.posting_id as ratable %}
+            {% if ratable %}
             <div class="extra content">
-                Rate Your Ride
+                Rate Your Ride:
                 <table style="width:100%">
                     <td><h6>{{rider}}</h6></td>
-                        <a href="{% url 'updateRating' %}?rating=1&id={{Posting.driver_id}}">
+                        <a href="{% url 'updateRating' %}?rating=1&id={{Posting.driver_id}}&post_id={{Posting.posting_id}}">
                             <button class="w3-button w3-red" >1</button>
                         </a>
-                    <a href="{% url 'updateRating' %}?rating=2&id={{Posting.driver_id}}">
+                    <a href="{% url 'updateRating' %}?rating=2&id={{Posting.driver_id}}&post_id={{Posting.posting_id}}">
                             <button class="w3-button w3-orange" >2</button>
                         </a>
-                    <a href="{% url 'updateRating' %}?rating=3&id={{Posting.driver_id}}">
+                    <a href="{% url 'updateRating' %}?rating=3&id={{Posting.driver_id}}&post_id={{Posting.posting_id}}">
                             <button class="w3-button w3-yellow" >3</button>
                         </a>
-                    <a href="{% url 'updateRating' %}?rating=4&id={{Posting.driver_id}}">
+                    <a href="{% url 'updateRating' %}?rating=4&id={{Posting.driver_id}}&post_id={{Posting.posting_id}}">
                             <button class="w3-button w3-light-green" >4</button>
                         </a>
-                    <a href="{% url 'updateRating' %}?rating=5&id={{Posting.driver_id}}">
+                    <a href="{% url 'updateRating' %}?rating=5&id={{Posting.driver_id}}&post_id={{Posting.posting_id}}">
                             <button class="w3-button w3-green" >5</button>
                         </a>
                 </table>
             </div>
-
+            {% endif %}
+            {% endif %}
 
             <!--Dropdown of extra info-->
             <div class="ui styled accordion">
@@ -282,13 +283,13 @@
                     {% endwith %}
 
                     <br>
-                    <iframe
-                            width="500"
-                            height="300"
-                            frameborder="0" style="border:0"
-                            src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAcJ9C8vhZqeSsNbZ8hxGGeR8F7s351_8Y&origin={{Posting.location_from}}&destination={{Posting.location_to}}"
-                            allowfullscreen>
-                    </iframe>
+<!--                    <iframe-->
+<!--                            width="500"-->
+<!--                            height="300"-->
+<!--                            frameborder="0" style="border:0"-->
+<!--                            src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyAcJ9C8vhZqeSsNbZ8hxGGeR8F7s351_8Y&origin={{Posting.location_from}}&destination={{Posting.location_to}}"-->
+<!--                            allowfullscreen>-->
+<!--                    </iframe>-->
                     </p>
                 </div>
             </div>

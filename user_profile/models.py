@@ -14,7 +14,7 @@ class Rider(models.Model):
     rides_pending = models.TextField(default=",")
     rides_declined = models.TextField(default=",")
 
-    rating = models.IntegerField(default=5)
+    rating = models.FloatField(default=5)
     ratings_list = models.TextField(default=",")
 
     image = models.ImageField(upload_to='profile_images', blank=True)

@@ -180,9 +180,7 @@
                     <img src="{% get_user_image Posting.driver_id %}">
                     <span class="text">{{ Posting.driver_name }}</span>
                     <div class="menu">
-                        <div class="item"><b>Rating: </b>
-<!--                            DRIVER RATING GOES HERE!-->
-                        </div>
+                        <div class="item"><b>Rating: </b> {% get_rating Posting.driver_id %}</div>
                         <div class="item"><b>Email: </b>{{ Posting.driver_id }}@virginia.edu</div>
                         <div class="item"><b>Cell: </b>{% get_cellphone Posting.driver_id %}</div>
                         <div class="item"><b>Car: </b>{% get_car Posting.driver_id %}</div>

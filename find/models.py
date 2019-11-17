@@ -17,8 +17,7 @@ class Posting(models.Model):
     num_passengers = models.IntegerField(default=0)
     extra_info = models.TextField(null=True, blank=True)
 
-    rating = models.IntegerField(default=5)
-    ratings_list = models.TextField(default=",")
+    ratable_by = models.TextField(default=",")
 
     riders_requested = models.TextField()
     riders_riding = models.TextField()
