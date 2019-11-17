@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
-import os
+import os, subprocess, dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -91,7 +91,10 @@ WSGI_APPLICATION = 'jawgz.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
+# DATABASES = {}
+# bashCommand = 'heroku config:get DATABASE_URL -a hoos-riding'
+# output = subprocess.check_output(['bash','-c', bashCommand]).decode("utf-8")
+# DATABASES['default'] = dj_database_url.config(default=output, conn_max_age=600, ssl_require=True)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -132,7 +135,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 
@@ -171,6 +174,8 @@ MEDIA_URL = S3_URL + '/media/'
 #     django_heroku.settings(locals())
 # except ImportError:
 #     found = False
+
+
 
 
 if 'HEROKU' in os.environ:

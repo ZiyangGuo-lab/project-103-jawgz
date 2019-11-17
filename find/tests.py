@@ -31,7 +31,7 @@ class ViewTest(TestCase):
 		p3.save()
 		# print(price.get_queryset())
 		m = price.get_queryset()
-
+		print(m[0])
 		self.assertEqual(m[0], p2)
 		self.assertEqual(list(m), [p2,p3,p1])
 
