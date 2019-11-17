@@ -52,9 +52,6 @@ def updateRating(request):
 
     return profile(request)
 
-# performs arithmetic to see if ride has already occurred
-def alreadyOccured(Posting):
-    return True
 
 # Create your views here.
 def profile(request):
@@ -84,6 +81,7 @@ def profile(request):
     user_matches = Rider.objects.filter(username=id)
     current_user = user_matches[0]
     rating = calculate_rating(current_user)  ###
+
 
     return render(request, 'user_profile/profile.html', {'title': 'Profile', 'id': id, 'current_user': current_user,
                                                          'allRides': allRides, 'viewingPassenger': True, 'rating':rating})
@@ -149,10 +147,16 @@ def switchToDriverView(request):
     current_user = handleForm(request)
     ridesDrivingIds = str(Rider.objects.filter(username=request.user)[0].rides_driven).split(",")
     ridesDriving = []
+
+    id = request.user
+    user_matches = Rider.objects.filter(username=id)
+    current_user = user_matches[0]
+    rating = calculate_rating(current_user)
+
     for ride in ridesDrivingIds:
         query = Posting.objects.filter(posting_id=ride)
         if query.count() > 0:
             ridesDriving.append(query[0])
 
     return render(request, 'user_profile/profile.html',
-                  {'title': 'Profile', 'id': id, 'ridesDriving': ridesDriving, 'viewingPassenger': False, 'current_user': current_user})
+                  {'title': 'Profile', 'id': id, 'ridesDriving': ridesDriving, 'viewingPassenger': False, 'rating':rating, 'current_user': current_user})
