@@ -1,6 +1,7 @@
 from django import template
 from user_profile.models import Rider
 from find.models import Posting
+from datetime import datetime, timezone, timedelta
 import os
 
 register = template.Library()
@@ -80,6 +81,44 @@ def get_car(value):
     else:
         print('no user')
         return 'No car information provided.'
+
+@register.simple_tag
+def get_rating(value):
+    print('id: ', value)
+    user_matches = Rider.objects.filter(username=value)
+    if (user_matches.exists()):
+        user = user_matches[0]
+        if (user.rating):
+            # print("ratings list",user.ratings_list)
+            # print("rating", user.rating)
+            return user.rating
+        else:
+            return 'No car information provided.'
+    else:
+        print('no user')
+        return 'No car information provided.'
+
+@register.simple_tag
+def has_occurred(riding_date):
+
+    difference = (datetime.now(timezone.utc) - timedelta(hours=5)) > riding_date
+    if difference:
+        return True
+    else:
+        return False
+
+@register.simple_tag
+def is_ratable(current_user, posting):
+    posting = Posting.objects.filter(posting_id=posting)[0]
+    ratable_list = posting.ratable_by.split(',')
+
+    current_user = str(current_user)
+    if current_user in ratable_list:
+        return True
+    else:
+        return False
+
+
 
 
 
