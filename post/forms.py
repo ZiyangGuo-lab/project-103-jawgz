@@ -11,3 +11,5 @@ class postRide(forms.ModelForm):
 		super(postRide,self).__init__(*args, **kwargs)
 
 
+
+

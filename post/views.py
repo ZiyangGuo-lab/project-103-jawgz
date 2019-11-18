@@ -30,8 +30,17 @@ def post(request):
 
         newPost.price = request.POST.get('price')
         newPost.riding_date = formatDateTime(request.POST.get('riding_date'), request.POST.get('riding_time'))
+        d = datetime.strptime(newPost.riding_date, "%Y-%m-%d %H:%M")
+        # print(newPost.riding_date)
+        # print(datetime.now())
         newPost.extra_info = request.POST.get('extra_info')
-
+        if d <= datetime.now():
+            print("form is invalid")
+            print(form.errors)
+            context = {'form': form
+            }
+            template = 'post/post_ride.html'
+            return render(request, template, context)
         newPost.num_passengers = request.POST.get('num_passengers')
         newPost.posting_id = hash(str(datetime.now()) + str(newPost.driver_id) + str(newPost.riding_date) + str(newPost.num_passengers))
         newPost.save()
