@@ -5,3 +5,4 @@ social-auth-app-django
 django-storages
 boto
 Pillow
+dj-database-url
