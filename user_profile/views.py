@@ -39,7 +39,9 @@ def updateRating(request):
     current_user = str(user_matches[0])
     posting = Posting.objects.filter(posting_id=request.GET['post_id'])[0]
     ratable = posting.ratable_by
-    posting.ratable_by = ratable[:ratable.index(current_user)] + ratable[ratable.index(current_user) + len(current_user):]
+    # in case the substring is not in list
+    if ratable.find(current_user) > -1:
+        posting.ratable_by = ratable[:ratable.index(current_user)] + ratable[ratable.index(current_user) + len(current_user):]
     posting.save()
 
 
@@ -160,3 +162,55 @@ def switchToDriverView(request):
 
     return render(request, 'user_profile/profile.html',
                   {'title': 'Profile', 'id': id, 'ridesDriving': ridesDriving, 'viewingPassenger': False, 'rating':rating, 'current_user': current_user})
+
+
+def deleteRide(request):
+    # remove ride from any Riders in postings' riders_riding
+    # remove ride from any Riders in postings' riders_requested
+
+    # now remove ride from allRides
+    posting = Posting.objects.filter(posting_id=request.GET['id'])[0]
+    id = request.user
+    user_matches = Rider.objects.filter(username=id)
+    current_user = user_matches[0]
+    username = current_user.username
+
+    # remove rider from posting
+    riding = posting.riders_riding
+    if riding.find(username) > -1:
+        posting.riders_riding = riding[:riding.index(username)] + riding[riding.index(
+            username) + len(username):]
+        posting.num_passengers += 1
+
+    # remove ride from Rider
+    riding = current_user.rides_passenger
+    if riding.find(posting.posting_id) > -1:
+        current_user.rides_passenger = riding[:riding.index(posting.posting_id)] + riding[riding.index(
+            posting.posting_id) + len(posting.posting_id):]
+        current_user.save()
+
+    return profile(request)
+
+def removeMyself(request):
+    posting = Posting.objects.filter(posting_id=request.GET['id'])[0]
+    id = request.user
+    user_matches = Rider.objects.filter(username=id)
+    current_user = user_matches[0]
+    username = current_user.username
+
+    # remove rider from posting's riders_riding and increase number of passengers
+    riding = posting.riders_riding
+    if riding.find(username) > -1:
+        posting.riders_riding = riding[:riding.index(username)] + riding[riding.index(
+            username) + len(username):]
+        posting.num_passengers += 1
+        posting.save()
+
+    # remove ride from Rider's rides_passenger
+    riding = current_user.rides_passenger
+    if riding.find(posting.posting_id) > -1:
+        current_user.rides_passenger = riding[:riding.index(posting.posting_id)] + riding[riding.index(
+            posting.posting_id) + len(posting.posting_id):]
+        current_user.save()
+
+    return profile(request)
