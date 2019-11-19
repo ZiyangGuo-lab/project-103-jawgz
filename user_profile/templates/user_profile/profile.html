@@ -328,6 +328,11 @@
                     <p>Spots left: {{ Posting.num_passengers }}</p>
                 </div>
             </div>
+            <div class="extra content">
+                    <div style="float:right;">
+                                    <a href="{% url 'deleteRide' %}?id={{Posting.posting_id}}"><button class="negative ui button"> Delete Ride </button></a>
+                    </div>
+                </div>
 
                 <!--If any requests for rides, appear here-->
                 {% with Posting.riders_requested|split:"," as request_list %}
@@ -360,6 +365,7 @@
                     <i class="dropdown icon"></i>
                     Details
                 </div>
+
                     <div class="content">
                 <p class="transition ">
                     <b>Riders on this trip:</b>

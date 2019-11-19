@@ -170,26 +170,9 @@ def deleteRide(request):
 
     # now remove ride from allRides
     posting = Posting.objects.filter(posting_id=request.GET['id'])[0]
-    id = request.user
-    user_matches = Rider.objects.filter(username=id)
-    current_user = user_matches[0]
-    username = current_user.username
 
-    # remove rider from posting
-    riding = posting.riders_riding
-    if riding.find(username) > -1:
-        posting.riders_riding = riding[:riding.index(username)] + riding[riding.index(
-            username) + len(username):]
-        posting.num_passengers += 1
 
-    # remove ride from Rider
-    riding = current_user.rides_passenger
-    if riding.find(posting.posting_id) > -1:
-        current_user.rides_passenger = riding[:riding.index(posting.posting_id)] + riding[riding.index(
-            posting.posting_id) + len(posting.posting_id):]
-        current_user.save()
-
-    return profile(request)
+    return switchToDriverView(request)
 
 def removeMyself(request):
     posting = Posting.objects.filter(posting_id=request.GET['id'])[0]
