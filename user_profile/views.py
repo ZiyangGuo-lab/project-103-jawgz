@@ -119,28 +119,34 @@ def respondToDriverRequest(request):
     postingObject = Posting.objects.filter(posting_id=request.GET['id'])[0]
     passenger = Rider.objects.filter(username=request.GET['rider'])[0]
 
-    #if passenger is accepted
-    if(request.GET['status'] == "accept"):
-        postingObject.riders_riding += passenger.username + "," #add to riders riding
-        postingObject.ratable_by += passenger.username + ","
-        print('got here yooo')
-        postingObject.num_passengers -= 1
-        passenger.rides_passenger += request.GET['id'] + "," #update rider's info to save is riding
-        passenger.save()
+    # need to make sure that nothing happens if rider has already deleted
+    if passenger.rides_pending.find(request.GET['id']) != -1:
+        pass_has_not_deleted_ride = True
     else:
-        passenger.rides_declined += request.GET['id'] + "," # update rider's info, ride declined
+        pass_has_not_deleted_ride = False
+    #if passenger is accepted
+
+    if pass_has_not_deleted_ride:
+        if(request.GET['status'] == "accept"):
+            postingObject.riders_riding += passenger.username + "," #add to riders riding
+            postingObject.ratable_by += passenger.username + ","
+            postingObject.num_passengers -= 1
+            passenger.rides_passenger += request.GET['id'] + "," #update rider's info to save is riding
+            passenger.save()
+        else:
+            passenger.rides_declined += request.GET['id'] + "," # update rider's info, ride declined
+            passenger.save()
+
+        requested = postingObject.riders_requested
+        postingObject.riders_requested = requested[:requested.index(passenger.username)] + requested[requested.index(
+            passenger.username) + len(passenger.username):]
+        postingObject.save()
+
+        #remove from passenger
+        pending = passenger.rides_pending
+        passenger.rides_pending = pending[:pending.index(request.GET['id'])] + pending[pending.index(request.GET['id']) + len(request.GET['id']):]
+        # print("passenger pending: " + passenger.rides_pending)
         passenger.save()
-
-    #remove from posting
-    requested = postingObject.riders_requested
-    postingObject.riders_requested = requested[:requested.index(passenger.username)] + requested[requested.index(passenger.username)+len(passenger.username):]
-    postingObject.save()
-
-    #remove from passenger
-    pending = passenger.rides_pending
-    passenger.rides_pending = pending[:pending.index(request.GET['id'])] + pending[pending.index(request.GET['id']) + len(request.GET['id']):]
-    # print("passenger pending: " + passenger.rides_pending)
-    passenger.save()
 
     return switchToDriverView(request)
 
@@ -170,19 +176,22 @@ def deleteRide(request):
     riders_list = posting.riders_riding
     riders_array = riders_list.split(",")
 
+    print('riders-array', riders_array)
+
     for username in riders_array:
-        rider = Rider.objects.filter(username=username)[0]
-        riding = rider.rides_passenger
-        rider.rides_passenger = riding[:riding.index(posting.posting_id)] + riding[riding.index(
-            posting.posting_id) + len(posting.posting_id):]
-        rider.save()
+        if username != '':
+            rider = Rider.objects.filter(username=username)[0]
+            riding = rider.rides_passenger
+            rider.rides_passenger = riding[:riding.index(posting.posting_id)] + riding[riding.index(
+                posting.posting_id) + len(posting.posting_id):]
+            rider.save()
+
+    return switchToDriverView(request)
 
 
     # remove ride from any Riders in postings' riders_requested
 
     # now remove ride from allRides
-
-
 
     return switchToDriverView(request)
 
@@ -193,13 +202,19 @@ def removeMyself(request):
     current_user = user_matches[0]
     username = current_user.username
 
-
     # remove rider from posting's riders_riding and increase number of passengers
     riding = posting.riders_riding
     if riding.find(username) > -1:
         posting.riders_riding = riding[:riding.index(username)] + riding[riding.index(
             username) + len(username):]
         posting.num_passengers += 1
+        posting.save()
+
+    # remove rider from posting's riders_requested
+    requested = posting.riders_requested
+    if requested.find(username) > -1:
+        posting.riders_requested = riding[:riding.index(username)] + riding[riding.index(
+            username) + len(username):]
         posting.save()
 
     # remove ride from Rider's if rides_passenger

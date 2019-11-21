@@ -330,7 +330,7 @@
             </div>
             <div class="extra content">
                     <div style="float:right;">
-                                    <a href="{% url 'deleteRide' %}?id={{Posting.posting_id}}"><button class="negative ui button"> Delete Ride </button></a>
+                                    <a href="{% url 'deleteRide' %}?id={{Posting.posting_id}}"><button onclick="confirmation()" class="negative ui button"> Cancel Ride </button></a>
                     </div>
                 </div>
 
@@ -415,7 +415,7 @@
 
 <script>
     $('.ui.accordion').accordion();
-
 </script>
+
 
 {% endblock %}

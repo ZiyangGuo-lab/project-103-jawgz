@@ -10,5 +10,4 @@ urlpatterns = [
     path('removeMyself', views.removeMyself, name='removeMyself'),
     path('deleteRide', views.deleteRide, name='deleteRide')
 
-
 ]
