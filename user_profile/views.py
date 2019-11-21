@@ -166,10 +166,22 @@ def switchToDriverView(request):
 
 def deleteRide(request):
     # remove ride from any Riders in postings' riders_riding
+    posting = Posting.objects.filter(posting_id=request.GET['id'])[0]
+    riders_list = posting.riders_riding
+    riders_array = riders_list.split(",")
+
+    for username in riders_array:
+        rider = Rider.objects.filter(username=username)[0]
+        riding = rider.rides_passenger
+        rider.rides_passenger = riding[:riding.index(posting.posting_id)] + riding[riding.index(
+            posting.posting_id) + len(posting.posting_id):]
+        rider.save()
+
+
     # remove ride from any Riders in postings' riders_requested
 
     # now remove ride from allRides
-    posting = Posting.objects.filter(posting_id=request.GET['id'])[0]
+
 
 
     return switchToDriverView(request)
@@ -181,6 +193,7 @@ def removeMyself(request):
     current_user = user_matches[0]
     username = current_user.username
 
+
     # remove rider from posting's riders_riding and increase number of passengers
     riding = posting.riders_riding
     if riding.find(username) > -1:
@@ -189,10 +202,24 @@ def removeMyself(request):
         posting.num_passengers += 1
         posting.save()
 
-    # remove ride from Rider's rides_passenger
+    # remove ride from Rider's if rides_passenger
     riding = current_user.rides_passenger
     if riding.find(posting.posting_id) > -1:
         current_user.rides_passenger = riding[:riding.index(posting.posting_id)] + riding[riding.index(
+            posting.posting_id) + len(posting.posting_id):]
+        current_user.save()
+
+    # remove ride from Rider's if rides_pending
+    riding = current_user.rides_pending
+    if riding.find(posting.posting_id) > -1:
+        current_user.rides_pending = riding[:riding.index(posting.posting_id)] + riding[riding.index(
+            posting.posting_id) + len(posting.posting_id):]
+        current_user.save()
+
+    # remove ride from Rider's if rides_declined
+    riding = current_user.rides_declined
+    if riding.find(posting.posting_id) > -1:
+        current_user.rides_declined = riding[:riding.index(posting.posting_id)] + riding[riding.index(
             posting.posting_id) + len(posting.posting_id):]
         current_user.save()
 
