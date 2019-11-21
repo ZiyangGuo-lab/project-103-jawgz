@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 import datetime
 from django.db.models import Q
 from django.contrib.postgres.search import SearchVector
+from django.contrib import messages
 
 flagPrice = False
 flagDate = False
@@ -219,6 +220,7 @@ def requestToJoinRide(request):
         user = Rider.objects.filter(username=str(request.user))[0]
         user.rides_pending += request.GET['id'] + ","
         user.save()
+        messages.success(request, 'Your Request Was Sent!')
 
     return HttpResponseRedirect('/')
 

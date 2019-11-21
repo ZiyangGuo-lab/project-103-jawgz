@@ -10,29 +10,10 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <script src="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.js"></script>
-
-</script>
-<!-- <script>
-var state = false;
-
-function handleAction() {
-    if (state == false) {
-
-        state = true;
-
-        return;
-    }
-
-    if (state == true) {
-
-        state = false;
-        return;
-    }
-}
-</script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link rel="stylesheet" type="text/css" href="{% static 'hoosRiding/findicon.css' %}">
 <div class="container">
-
    <div class="ui rail" style="padding-top: 2%; ">
       <div class="ui sticky">
           <br> <br> <br>
@@ -225,10 +206,20 @@ function handleAction() {
                 {% elif user.username in Posting.riders_requested %}
                 <button class="blue ui button" disabled><i class="exchange icon"></i>Request Pending</button>
                 {% else %}
-                <a href="{% url 'joinRide' %}?id={{Posting.posting_id}}"><button class="blue ui button"><i class="exchange icon"></i>Request to join</button></a>
+                <a href="{% url 'joinRide' %}?id={{Posting.posting_id}}"><button class="blue ui button" id="rebut"><i class="exchange icon"></i>Request to join</button></a>
                 {% endif %}
+                <!-- {% if messages %}
+                {% for message in messages %}
+                <div class="ui success message fluid" id="remsg">
+                  <div class="header">
+                    Your Request Was Sent! 
+                  </div>
+                  <p>You may now see your requested rides in <b>My Rides</b></p>
                 </div>
-
+                {% endfor %}
+                {% endif %} -->
+                </div>
+                
               </div>
 
         </div>
@@ -242,6 +233,21 @@ function handleAction() {
   $(".toggleMe").click(function() {
    $(".toggleMe").toggle(); 
 });
+</script>
+<!-- <script>
+  setTimeout(function(){
+    if($('#remsg').length > 0){
+      $('#remsg').fadeOut(3000);
+    }
+  })
+</script> -->
+<script>
+document.getElementById("rebut").addEventListener("click", showSuccess);
+
+function showSuccess() {
+  swal("Good job!", "You clicked the button!", "success");
+}
+
 </script>
 
 <script>
