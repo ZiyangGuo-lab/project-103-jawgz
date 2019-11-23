@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
-
 from user_profile.models import Rider
 from find.models import Posting
 from django.http import HttpResponseRedirect
 from datetime import datetime as dt
-
 from django.core.files.storage import default_storage
+from django.utils import timezone
+now = timezone.now()
+
 
 #method called
 def calculate_rating(current_user): ###
@@ -57,13 +58,23 @@ def updateRating(request):
 def profile(request):
     current_user = handleForm(request)  # get and update current user based on form data
     # print (current_user.name)
+    
     allRides = {}
+    pastRides={}
+    futureRides={}
+
     ridesPassengerIds = str(Rider.objects.filter(username=request.user)[0].rides_passenger).split(",")
+    
     for ride in ridesPassengerIds:
         query = Posting.objects.filter(posting_id=ride)
+
         if query.count() > 0:
             allRides[query[0]] = 'accepted'
 
+        #     print("query[0]" + str(query[0]))
+        # print("allRides: ")
+        print(allRides)
+        # print(allRides.get(ride))
     ridesPendingIds = str(Rider.objects.filter(username=request.user)[0].rides_pending).split(",")
     for ride in ridesPendingIds:
         query = Posting.objects.filter(posting_id=ride)
@@ -81,10 +92,21 @@ def profile(request):
     user_matches = Rider.objects.filter(username=id)
     current_user = user_matches[0]
     rating = calculate_rating(current_user)  ###
+    
+    #filter past rides
+    for posting,status in allRides.items():
+        # d = datetime.strptime(posting.riding_date, "%Y-%m-%d %H:%M")
+        if posting.riding_date < now:
+            pastRides[posting] = status
+        else:
+            futureRides[posting] = status
+    
+
 
 
     return render(request, 'user_profile/profile.html', {'title': 'Profile', 'id': id, 'current_user': current_user,
-                                                         'allRides': allRides, 'viewingPassenger': True, 'rating':rating})
+ 
+                                                         'allRides': allRides, 'viewingPassenger': True, 'rating':rating, 'future': True, 'pastRides':pastRides, 'futureRides': futureRides})
 
 def handleForm(request):
     id = request.user
@@ -147,6 +169,8 @@ def switchToDriverView(request):
     current_user = handleForm(request)
     ridesDrivingIds = str(Rider.objects.filter(username=request.user)[0].rides_driven).split(",")
     ridesDriving = []
+    pastRides=[]
+    futureRides=[]
 
     id = request.user
     user_matches = Rider.objects.filter(username=id)
@@ -157,6 +181,11 @@ def switchToDriverView(request):
         query = Posting.objects.filter(posting_id=ride)
         if query.count() > 0:
             ridesDriving.append(query[0])
+    for posting in ridesDriving:
+        if posting.riding_date < now:
+            pastRides.append(posting)
+        else:
+            futureRides.append(posting)
 
     return render(request, 'user_profile/profile.html',
-                  {'title': 'Profile', 'id': id, 'ridesDriving': ridesDriving, 'viewingPassenger': False, 'rating':rating, 'current_user': current_user})
+                  {'title': 'Profile', 'id': id, 'ridesDriving': ridesDriving, 'viewingPassenger': False, 'rating':rating, 'current_user': current_user, 'futureRides':futureRides,'pastRides':pastRides})
