@@ -14,17 +14,12 @@
 </script>
 <!-- <script>
 var state = false;
-
 function handleAction() {
     if (state == false) {
-
         state = true;
-
         return;
     }
-
     if (state == true) {
-
         state = false;
         return;
     }
@@ -174,7 +169,7 @@ function handleAction() {
                         <div class="item"><b>License Plate: </b>{% get_license_plate Posting.driver_id %}</div>
                     </div>
                 </a>
-                <p>Asking price: ${{ Posting.price }}</p>
+                <p>Asking price: <i class="dollar sign icon"></i>{{ Posting.price }}</p>
                 <p>Spots left: {{ Posting.num_passengers }}</p>
             </div>
           </div>
@@ -223,7 +218,9 @@ function handleAction() {
                 {% if user.username in Posting.riders_riding %}
                  <p style="color:green; display: inline;">accepted</p><i class="green check icon"></i>
                 {% elif user.username in Posting.riders_requested %}
-                <button class="blue ui button" disabled><i class="exchange icon"></i>Request Pending</button>
+                <div data-tooltip="Requested! View it in My Rides" data-position="top left">
+                  <button class="blue ui button" disabled ><i class="exchange icon"></i>Request Pending</button>
+                </div>
                 {% else %}
                 <a href="{% url 'joinRide' %}?id={{Posting.posting_id}}"><button class="blue ui button"><i class="exchange icon"></i>Request to join</button></a>
                 {% endif %}
@@ -234,9 +231,31 @@ function handleAction() {
         </div>
 
     {%endfor%}
+    <div class="pagination mt-5 centered">
+      {% if postings_list.has_previous %}
+        <a class = "pagination-action" href="?page=1"><i class="angle large double left icon" ></i></a>
+        <a class = "pagination-action" href="?page={{ postings_list.previous_page_number }}"><i class="angle large left icon"></i></a>
+      {% endif %}
+      {% for num in postings_list.paginator.page_range %}
+        {% if postings_list.number == num %}
+          <span class="pagination-number pagination-current"style="padding-left: 2%;padding-right: 2%;font-weight: 800; font-size: 20">{{num}}</span>
+        {% elif num > postings_list.number|add:'-3' and num < postings_list.number|add:'3' %}
+          <a class = "pagination-number" style="padding-left: 2%;padding-right: 2%;font-weight: 800; font-size: 15px" href="?page={{num}}">{{num}}</a> 
+        {% endif %}
+      {%endfor%}
+      {% if postings_list.has_next %}
+        <a class = "pagination-action" href="?page={{ postings_list.next_page_number }}"><i class="angle large right icon"></i></a>
+        <a class = "pagination-action" href="?page={{ postings_list.paginator.num_pages }}"><i class="angle large double right icon"></i></a>
+      {% endif %}
+  <!--     {{postings_list.has_previous}}
+      {{postings_list.number}}
+      {{postings_list.paginator.count}}
+      {{postings_list.paginator.num_pages}}
+      {{postings_list.has_next}} -->
 
     </div>
-  
+    </div>
+
 </div>
 <script type="text/javascript">
   $(".toggleMe").click(function() {
