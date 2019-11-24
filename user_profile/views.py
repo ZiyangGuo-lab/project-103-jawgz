@@ -178,25 +178,25 @@ def deleteRide(request):
     riders_list = posting.riders_riding
     riders_array = riders_list.split(",")
 
-    # for username in riders_array:
-    #     if username != '':
-    #         rider = Rider.objects.filter(username=username)[0]
-    #         riding = rider.rides_passenger
-    #         rider.rides_passenger = riding[:riding.index(posting.posting_id)] + riding[riding.index(
-    #             posting.posting_id) + len(posting.posting_id):]
-    #         rider.save()
-    #
-    # # remove ride from any Riders in postings' riders_requested
-    # riders_list = posting.riders_requested
-    # riders_array = riders_list.split(",")
-    #
-    # for username in riders_array:
-    #     if username != '':
-    #         rider = Rider.objects.filter(username=username)[0]
-    #         riding = rider.rides_pending
-    #         rider.rides_pending = riding[:riding.index(posting.posting_id)] + riding[riding.index(
-    #             posting.posting_id) + len(posting.posting_id):]
-    #         rider.save()
+    for username in riders_array:
+        if username != '':
+            rider = Rider.objects.filter(username=username)[0]
+            riding = rider.rides_passenger
+            rider.rides_passenger = riding[:riding.index(posting.posting_id)] + riding[riding.index(
+                posting.posting_id) + len(posting.posting_id):]
+            rider.save()
+
+    # remove ride from any Riders in postings' riders_requested
+    riders_list = posting.riders_requested
+    riders_array = riders_list.split(",")
+
+    for username in riders_array:
+        if username != '':
+            rider = Rider.objects.filter(username=username)[0]
+            riding = rider.rides_pending
+            rider.rides_pending = riding[:riding.index(posting.posting_id)] + riding[riding.index(
+                posting.posting_id) + len(posting.posting_id):]
+            rider.save()
 
     # remove ride from any Riders in postings' riders_requested
     posting.delete()
