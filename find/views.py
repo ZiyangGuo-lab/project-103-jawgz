@@ -8,6 +8,8 @@ from django.contrib.auth.models import User
 import datetime
 from django.db.models import Q
 from django.contrib.postgres.search import SearchVector
+from django.contrib import messages
+from django.core.paginator import Paginator
 
 flagPrice = False
 flagDate = False
@@ -30,7 +32,11 @@ def find(request):
 	flagSearch=False
 	flagPost=False
 	# print("flagSearch", flagSearch)
-	return render(request, 'find/find_ride.html', {'title': 'Profile', 'postings_list' : Posting.objects.all().order_by('-date')})
+	posts = Posting.objects.all().order_by('-date')
+	paginator = Paginator(posts, 10)
+	page = request.GET.get('page')
+	posts = paginator.get_page(page)
+	return render(request, 'find/find_ride.html', {'title': 'Profile', 'postings_list' : posts})
 
 
 def sortByPostingDate(request):
@@ -50,9 +56,12 @@ def sortByPostingDate(request):
 			# flagSearch = False
 			return render(request, 'find/find_ride.html',
 					  {'title': 'Profile', 'postings_list': ans})
-			
+		posts = Posting.objects.all().order_by('-date')
+		paginator = Paginator(posts, 10)
+		page = request.GET.get('page')
+		posts = paginator.get_page(page)	
 		return render(request, 'find/find_ride.html',
-					  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('-date'), 'flagDate': flagd})
+					  {'title': 'Profile', 'postings_list': posts, 'flagDate': flagd})
 	else:
 		flagd=True
 		if flagSearch:
@@ -64,9 +73,12 @@ def sortByPostingDate(request):
 			# flagSearch = False
 			return render(request, 'find/find_ride.html',
 					  {'title': 'Profile', 'postings_list': ans})
-			
+		posts = Posting.objects.all().order_by('date')
+		paginator = Paginator(posts, 10)
+		page = request.GET.get('page')
+		posts = paginator.get_page(page)	
 		return render(request, 'find/find_ride.html',
-					  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('date'), 'flagDate': flagd})
+					  {'title': 'Profile', 'postings_list': posts, 'flagDate': flagd})
 
 
 def sortByRidingDate(request):
@@ -87,8 +99,12 @@ def sortByRidingDate(request):
 			# flagSearch = False
 			return render(request, 'find/find_ride.html',
 					  {'title': 'Profile', 'postings_list': ans})
+		posts = Posting.objects.all().order_by('-riding_date')
+		paginator = Paginator(posts, 10)
+		page = request.GET.get('page')
+		posts = paginator.get_page(page)
 		return render(request, 'find/find_ride.html',
-					  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('-riding_date'), 'flagRide': flagr})
+					  {'title': 'Profile', 'postings_list': posts, 'flagRide': flagr})
 	else:
 		flagr = True
 		if flagSearch:
@@ -101,8 +117,12 @@ def sortByRidingDate(request):
 			# flagSearch = False
 			return render(request, 'find/find_ride.html',
 					  {'title': 'Profile', 'postings_list': ans})
-	return render(request, 'find/find_ride.html',
-				  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('riding_date'), 'flagRide': flagr})
+		posts = Posting.objects.all().order_by('riding_date')
+		paginator = Paginator(posts, 10)
+		page = request.GET.get('page')
+		posts = paginator.get_page(page)
+		return render(request, 'find/find_ride.html',
+				  {'title': 'Profile', 'postings_list': posts, 'flagRide': flagr})
 
 def sortByPrice(request):
 	global flagp
@@ -123,8 +143,12 @@ def sortByPrice(request):
 			return render(request, 'find/find_ride.html',
 					  {'title': 'Profile', 'postings_list': ans})
 			
+		posts = Posting.objects.all().order_by('price')
+		paginator = Paginator(posts, 10)
+		page = request.GET.get('page')
+		posts = paginator.get_page(page)
 		return render(request, 'find/find_ride.html',
-					  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('price'), 'flagPrice': flagp})
+					  {'title': 'Profile', 'postings_list': posts, 'flagPrice': flagp})
 	else:
 		print("flagp", flagp)
 		flagp=True
@@ -137,8 +161,12 @@ def sortByPrice(request):
 			return render(request, 'find/find_ride.html',
 					  {'title': 'Profile', 'postings_list': ans})
 			
+		posts = Posting.objects.all().order_by('-price')
+		paginator = Paginator(posts, 10)
+		page = request.GET.get('page')
+		posts = paginator.get_page(page)
 		return render(request, 'find/find_ride.html',
-					  {'title': 'Profile', 'postings_list': Posting.objects.all().order_by('-price'), 'flagPrice': flagp})
+					  {'title': 'Profile', 'postings_list': posts, 'flagPrice': flagp})
 
 
 def search(request):
@@ -219,6 +247,7 @@ def requestToJoinRide(request):
         user = Rider.objects.filter(username=str(request.user))[0]
         user.rides_pending += request.GET['id'] + ","
         user.save()
+        messages.success(request, 'Your Request Was Sent!')
 
     return HttpResponseRedirect('/')
 

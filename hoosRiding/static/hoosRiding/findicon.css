@@ -1,0 +1,20 @@
+.pagination{
+	text-align: center;
+	margin-top: 1em;
+}
+.pagination-action {
+	margin: 0 0.1em;
+	display: inline-block;
+	padding: 0.5em;
+}
+
+.pagination-number {
+	size: 2px;
+	color: #1D74FA;
+	padding: 1em 1em;
+	border-radius: 2px;
+}
+
+.pagination-number:hover {
+	color: #002A6C;
+}
