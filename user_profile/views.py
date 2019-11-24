@@ -173,25 +173,34 @@ def switchToDriverView(request):
 def deleteRide(request):
     # remove ride from any Riders in postings' riders_riding
     posting = Posting.objects.filter(posting_id=request.GET['id'])[0]
+
+    # remove ride from any Riders in postings' riders_riding
     riders_list = posting.riders_riding
     riders_array = riders_list.split(",")
 
-    print('riders-array', riders_array)
-
-    for username in riders_array:
-        if username != '':
-            rider = Rider.objects.filter(username=username)[0]
-            riding = rider.rides_passenger
-            rider.rides_passenger = riding[:riding.index(posting.posting_id)] + riding[riding.index(
-                posting.posting_id) + len(posting.posting_id):]
-            rider.save()
-
-    return switchToDriverView(request)
-
+    # for username in riders_array:
+    #     if username != '':
+    #         rider = Rider.objects.filter(username=username)[0]
+    #         riding = rider.rides_passenger
+    #         rider.rides_passenger = riding[:riding.index(posting.posting_id)] + riding[riding.index(
+    #             posting.posting_id) + len(posting.posting_id):]
+    #         rider.save()
+    #
+    # # remove ride from any Riders in postings' riders_requested
+    # riders_list = posting.riders_requested
+    # riders_array = riders_list.split(",")
+    #
+    # for username in riders_array:
+    #     if username != '':
+    #         rider = Rider.objects.filter(username=username)[0]
+    #         riding = rider.rides_pending
+    #         rider.rides_pending = riding[:riding.index(posting.posting_id)] + riding[riding.index(
+    #             posting.posting_id) + len(posting.posting_id):]
+    #         rider.save()
 
     # remove ride from any Riders in postings' riders_requested
+    posting.delete()
 
-    # now remove ride from allRides
 
     return switchToDriverView(request)
 
@@ -213,7 +222,7 @@ def removeMyself(request):
     # remove rider from posting's riders_requested
     requested = posting.riders_requested
     if requested.find(username) > -1:
-        posting.riders_requested = riding[:riding.index(username)] + riding[riding.index(
+        posting.riders_requested = requested[:requested.index(username)] + requested[requested.index(
             username) + len(username):]
         posting.save()
 
