@@ -10,11 +10,25 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <script src="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+
+</script>
+<!-- <script>
+var state = false;
+function handleAction() {
+    if (state == false) {
+        state = true;
+        return;
+    }
+    if (state == true) {
+        state = false;
+        return;
+    }
+}
+</script> -->
 <link rel="stylesheet" type="text/css" href="{% static 'hoosRiding/findicon.css' %}">
 <div class="container">
-   <div class="ui rail " style="padding-top: 2%; ">
+
+   <div class="ui rail" style="padding-top: 2%; ">
       <div class="ui sticky">
           <br> <br> <br>
           <div class="ui raised text container form segment" style="width:85%; ">
@@ -155,7 +169,7 @@
                         <div class="item"><b>License Plate: </b>{% get_license_plate Posting.driver_id %}</div>
                     </div>
                 </a>
-                <p>Asking price: ${{ Posting.price }}</p>
+                <p>Asking price: <i class="dollar sign icon"></i>{{ Posting.price }}</p>
                 <p>Spots left: {{ Posting.num_passengers }}</p>
             </div>
           </div>
@@ -200,70 +214,54 @@
             </div>
 
             <div class="extra content" style="display: flex; flex-direction: row; justify-content: space-between;">
-              <div>
+                <div>
                 {% if user.username in Posting.riders_riding %}
-                <p style="color:green; display: inline;">accepted</p><i class="green check icon"></i>
+                 <p style="color:green; display: inline;">accepted</p><i class="green check icon"></i>
                 {% elif user.username in Posting.riders_requested %}
                 <div data-tooltip="Requested! View it in My Rides" data-position="top left">
                   <button class="blue ui button" disabled ><i class="exchange icon"></i>Request Pending</button>
                 </div>
-                
-
                 {% else %}
-                <a href="{% url 'joinRide' %}?id={{Posting.posting_id}}"><button class="blue ui button" id="rebut"><i class="exchange icon"></i>Request to join</button></a>
-         <!--        <div class="ui custom popup top left transition hidden">
-  I'm not on the same level as the button, but i can still be found.
-</div> -->
+                <a href="{% url 'joinRide' %}?id={{Posting.posting_id}}"><button class="blue ui button"><i class="exchange icon"></i>Request to join</button></a>
                 {% endif %}
-                <!-- {% if messages %}
-                {% for message in messages %}
-                <div class="ui success message fluid" id="remsg">
-                  <div class="header">
-                    Your Request Was Sent! 
-                  </div>
-                  <p>You may now see your requested rides in <b>My Rides</b></p>
                 </div>
-                {% endfor %}
-                {% endif %} -->
-              </div>
-                
+
               </div>
 
         </div>
 
     {%endfor%}
+    <div class="pagination mt-5 centered">
+      {% if postings_list.has_previous %}
+        <a class = "pagination-action" href="?page=1"><i class="angle large double left icon" ></i></a>
+        <a class = "pagination-action" href="?page={{ postings_list.previous_page_number }}"><i class="angle large left icon"></i></a>
+      {% endif %}
+      {% for num in postings_list.paginator.page_range %}
+        {% if postings_list.number == num %}
+          <span class="pagination-number pagination-current"style="padding-left: 2%;padding-right: 2%;font-weight: 800; font-size: 20">{{num}}</span>
+        {% elif num > postings_list.number|add:'-3' and num < postings_list.number|add:'3' %}
+          <a class = "pagination-number" style="padding-left: 2%;padding-right: 2%;font-weight: 800; font-size: 15px" href="?page={{num}}">{{num}}</a> 
+        {% endif %}
+      {%endfor%}
+      {% if postings_list.has_next %}
+        <a class = "pagination-action" href="?page={{ postings_list.next_page_number }}"><i class="angle large right icon"></i></a>
+        <a class = "pagination-action" href="?page={{ postings_list.paginator.num_pages }}"><i class="angle large double right icon"></i></a>
+      {% endif %}
+  <!--     {{postings_list.has_previous}}
+      {{postings_list.number}}
+      {{postings_list.paginator.count}}
+      {{postings_list.paginator.num_pages}}
+      {{postings_list.has_next}} -->
 
     </div>
-  
+    </div>
+
 </div>
 <script type="text/javascript">
   $(".toggleMe").click(function() {
    $(".toggleMe").toggle(); 
 });
 </script>
-
-<!-- <script>
-  setTimeout(function(){
-    if($('#remsg').length > 0){
-      $('#remsg').fadeOut(3000);
-    }
-  })
-</script> -->
-
-<!-- <script>
-document.getElementById("rebut").addEventListener("click", showSuccess);
-
-function showSuccess() {
-  swal("Good job!", "You clicked the button!", "success");
-//   $('.example .custom.button')
-//   .popup({
-//     popup : $('.custom.popup'),
-//     on    : 'click'
-//   })
-// ;
-}
-
-</script> -->
 
 <script>
     $('.ui.accordion').accordion();
