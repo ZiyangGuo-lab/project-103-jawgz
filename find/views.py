@@ -9,6 +9,7 @@ import datetime
 from django.db.models import Q
 from django.contrib.postgres.search import SearchVector
 from django.contrib import messages
+from django.core.paginator import Paginator
 
 flagPrice = False
 flagDate = False
@@ -31,6 +32,10 @@ def find(request):
 	flagSearch=False
 	flagPost=False
 	# print("flagSearch", flagSearch)
+	posts = Posting.objects.all()
+	paginator = Paginator(posts, 10)
+	page = request.GET.get('page')
+	posts = paginator.get_page(page)
 	return render(request, 'find/find_ride.html', {'title': 'Profile', 'postings_list' : Posting.objects.all().order_by('-date')})
 
 
