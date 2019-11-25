@@ -176,7 +176,7 @@
 
     </div>
     <!--    Right Side      -->
-    <div class="right" style="padding-right:10%; width: 75%">
+    <div class="right" style="padding-right:10%; width: 75%; padding-left: 1%">
 
         {% if viewingPassenger %}
 
@@ -185,7 +185,7 @@
             <a href="{% url 'switchToDriverView' %}" class="item">Driver</a>
         </div>
 <!-- Future rides passenger-->
-        <p>Future Rides</p>
+        <div class="ui mini green icon message"><i class="car icon"></i>Future Rides</div>
         {% for Posting,status in futureRides.items %}
         <div class="ui fluid raised centered card">
             <div class="content">
@@ -298,7 +298,7 @@
 
         {% endfor %}
 <!-- past rides -->
-        <p>Past Rides</p>
+        <div class="ui mini yellow icon message"><i class="car icon"></i>Past Rides</div>
         {% for Posting,status in pastRides.items %}
         <div class="ui fluid raised centered card">
             <div class="content">
