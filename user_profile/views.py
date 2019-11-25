@@ -6,11 +6,12 @@ from django.http import HttpResponseRedirect
 from datetime import datetime as dt
 from django.core.files.storage import default_storage
 from django.utils import timezone
+
 now = timezone.now()
 
 
-#method called
-def calculate_rating(current_user): ###
+# method called
+def calculate_rating(current_user):  ###
     rating_array = current_user.ratings_list.split(",")  # average of rating_list
     total_rating = 0
     count = 0
@@ -33,6 +34,7 @@ def calculate_rating(current_user): ###
 
     return current_user.rating
 
+
 def updateRating(request):
     # if posting "ratable by" contains rider's username, then don't update rating
     id = request.user
@@ -40,11 +42,9 @@ def updateRating(request):
     current_user = str(user_matches[0])
     posting = Posting.objects.filter(posting_id=request.GET['post_id'])[0]
     ratable = posting.ratable_by
-    # in case the substring is not in list
-    if ratable.find(current_user) > -1:
-        posting.ratable_by = ratable[:ratable.index(current_user)] + ratable[ratable.index(current_user) + len(current_user):]
+    posting.ratable_by = ratable[:ratable.index(current_user)] + ratable[
+                                                                 ratable.index(current_user) + len(current_user):]
     posting.save()
-
 
     # id is the driver_id and this fins the rider with the same id and updates rating
     rider_to_rate = Rider.objects.filter(username=request.GET['id'])
@@ -62,8 +62,8 @@ def profile(request):
     # print (current_user.name)
 
     allRides = {}
-    pastRides={}
-    futureRides={}
+    pastRides = {}
+    futureRides = {}
 
     ridesPassengerIds = str(Rider.objects.filter(username=request.user)[0].rides_passenger).split(",")
 
@@ -95,20 +95,20 @@ def profile(request):
     current_user = user_matches[0]
     rating = calculate_rating(current_user)  ###
 
-    #filter past rides
-    for posting,status in allRides.items():
+    # filter past rides
+    for posting, status in allRides.items():
         # d = datetime.strptime(posting.riding_date, "%Y-%m-%d %H:%M")
         if posting.riding_date < now:
             pastRides[posting] = status
         else:
             futureRides[posting] = status
 
-
-
-
     return render(request, 'user_profile/profile.html', {'title': 'Profile', 'id': id, 'current_user': current_user,
 
-                                                         'allRides': allRides, 'viewingPassenger': True, 'rating':rating, 'future': True, 'pastRides':pastRides, 'futureRides': futureRides})
+                                                         'allRides': allRides, 'viewingPassenger': True,
+                                                         'rating': rating, 'future': True, 'pastRides': pastRides,
+                                                         'futureRides': futureRides})
+
 
 def handleForm(request):
     id = request.user
@@ -117,7 +117,7 @@ def handleForm(request):
     name = request.user.first_name + ' ' + request.user.last_name
     current_user.name = name;
     current_user.save()
-    #check if modal form has been filled out yet
+    # check if modal form has been filled out yet
     if 'image' in request.FILES:
         current_user.image = request.FILES['image']
         current_user.save()
@@ -133,52 +133,47 @@ def handleForm(request):
     return current_user
 
 
-
-
-#method called when driver accepts or declines a new passenger
+# method called when driver accepts or declines a new passenger
 def respondToDriverRequest(request):
-
     postingObject = Posting.objects.filter(posting_id=request.GET['id'])[0]
     passenger = Rider.objects.filter(username=request.GET['rider'])[0]
 
-    # need to make sure that nothing happens if rider has already deleted
-    if passenger.rides_pending.find(request.GET['id']) != -1:
-        pass_has_not_deleted_ride = True
+    # if passenger is accepted
+    if (request.GET['status'] == "accept"):
+        postingObject.riders_riding += passenger.username + ","  # add to riders riding
+        postingObject.ratable_by += passenger.username + ","
+        print('got here yooo')
+        postingObject.num_passengers -= 1
+        passenger.rides_passenger += request.GET['id'] + ","  # update rider's info to save is riding
+        passenger.save()
     else:
-        pass_has_not_deleted_ride = False
-    #if passenger is accepted
-
-    if pass_has_not_deleted_ride:
-        if(request.GET['status'] == "accept"):
-            postingObject.riders_riding += passenger.username + "," #add to riders riding
-            postingObject.ratable_by += passenger.username + ","
-            postingObject.num_passengers -= 1
-            passenger.rides_passenger += request.GET['id'] + "," #update rider's info to save is riding
-            passenger.save()
-        else:
-            passenger.rides_declined += request.GET['id'] + "," # update rider's info, ride declined
-            passenger.save()
-
-        requested = postingObject.riders_requested
-        postingObject.riders_requested = requested[:requested.index(passenger.username)] + requested[requested.index(
-            passenger.username) + len(passenger.username):]
-        postingObject.save()
-
-        #remove from passenger
-        pending = passenger.rides_pending
-        passenger.rides_pending = pending[:pending.index(request.GET['id'])] + pending[pending.index(request.GET['id']) + len(request.GET['id']):]
-        # print("passenger pending: " + passenger.rides_pending)
+        passenger.rides_declined += request.GET['id'] + ","  # update rider's info, ride declined
         passenger.save()
 
+    # remove from posting
+    requested = postingObject.riders_requested
+    postingObject.riders_requested = requested[:requested.index(passenger.username)] + requested[requested.index(
+        passenger.username) + len(passenger.username):]
+    postingObject.save()
+
+    # remove from passenger
+    pending = passenger.rides_pending
+    passenger.rides_pending = pending[:pending.index(request.GET['id'])] + pending[
+                                                                           pending.index(request.GET['id']) + len(
+                                                                               request.GET['id']):]
+    # print("passenger pending: " + passenger.rides_pending)
+    passenger.save()
+
     return switchToDriverView(request)
+
 
 def switchToDriverView(request):
     id = request.user
     current_user = handleForm(request)
     ridesDrivingIds = str(Rider.objects.filter(username=request.user)[0].rides_driven).split(",")
     ridesDriving = []
-    pastRides=[]
-    futureRides=[]
+    pastRides = []
+    futureRides = []
 
     id = request.user
     user_matches = Rider.objects.filter(username=id)
@@ -196,8 +191,8 @@ def switchToDriverView(request):
             futureRides.append(posting)
 
     return render(request, 'user_profile/profile.html',
-                  {'title': 'Profile', 'id': id, 'ridesDriving': ridesDriving, 'viewingPassenger': False, 'rating':rating, 'current_user': current_user})
-
+                  {'title': 'Profile', 'id': id, 'ridesDriving': ridesDriving, 'viewingPassenger': False,
+                   'rating': rating, 'current_user': current_user, 'futureRides': futureRides, 'pastRides': pastRides})
 
 def deleteRide(request):
     # remove ride from any Riders in postings' riders_riding
