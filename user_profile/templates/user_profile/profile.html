@@ -231,6 +231,9 @@
                 {% else %}
                 <p style="color:red; display: inline;">declined</p><i class="red ban icon"></i>
                 {% endif %}
+                <div style="float:right;">
+                                <a href="{% url 'removeMyself' %}?id={{Posting.posting_id}}&rider={{rider}}"><button class="negative ui button"> Remove Myself </button></a>
+                </div>
             </div>
 
             {% has_occurred Posting.riding_date as occurred %}
