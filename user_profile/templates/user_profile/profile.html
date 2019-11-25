@@ -527,7 +527,7 @@
 
   <!--The list of cards-->
         <div class="ui mini yellow icon message"><i class="car icon"></i>Past Rides</div>
-        {% if not futureRides %}
+        {% if not pastRides %}
             <p> You have not yet hosted any rides. Post a new ride <a href="{% url 'post-ride' %}">here</a>. </p>
         {% endif %}
         {% for Posting in pastRides %}
