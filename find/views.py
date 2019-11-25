@@ -54,6 +54,9 @@ def sortByPostingDate(request):
 			for post in l:
 				ans.append(post[0])
 			# flagSearch = False
+			paginator = Paginator(ans, 10)
+			page = request.GET.get('page')
+			ans = paginator.get_page(page)
 			return render(request, 'find/find_ride.html',
 					  {'title': 'Profile', 'postings_list': ans})
 		posts = Posting.objects.all().order_by('-date')
@@ -71,6 +74,9 @@ def sortByPostingDate(request):
 			for post in l:
 				ans.append(post[0])
 			# flagSearch = False
+			paginator = Paginator(ans, 10)
+			page = request.GET.get('page')
+			ans = paginator.get_page(page)
 			return render(request, 'find/find_ride.html',
 					  {'title': 'Profile', 'postings_list': ans})
 		posts = Posting.objects.all().order_by('date')
@@ -97,6 +103,9 @@ def sortByRidingDate(request):
 			for post in l:
 				ans.append(post[0])
 			# flagSearch = False
+			paginator = Paginator(ans, 10)
+			page = request.GET.get('page')
+			ans = paginator.get_page(page)
 			return render(request, 'find/find_ride.html',
 					  {'title': 'Profile', 'postings_list': ans})
 		posts = Posting.objects.all().order_by('-riding_date')
@@ -115,6 +124,9 @@ def sortByRidingDate(request):
 			for post in l:
 				ans.append(post[0])
 			# flagSearch = False
+			paginator = Paginator(ans, 10)
+			page = request.GET.get('page')
+			ans = paginator.get_page(page)
 			return render(request, 'find/find_ride.html',
 					  {'title': 'Profile', 'postings_list': ans})
 		posts = Posting.objects.all().order_by('riding_date')
@@ -140,6 +152,9 @@ def sortByPrice(request):
 			for post in l:
 				ans.append(post[0])
 			# flagSearch = False
+			paginator = Paginator(ans, 10)
+			page = request.GET.get('page')
+			ans = paginator.get_page(page)
 			return render(request, 'find/find_ride.html',
 					  {'title': 'Profile', 'postings_list': ans})
 			
@@ -158,6 +173,9 @@ def sortByPrice(request):
 			for post in l:
 				ans.append(post[0])
 			# flagSearch = False
+			paginator = Paginator(ans, 10)
+			page = request.GET.get('page')
+			ans = paginator.get_page(page)
 			return render(request, 'find/find_ride.html',
 					  {'title': 'Profile', 'postings_list': ans})
 			
@@ -231,6 +249,9 @@ def search(request):
 		all = filtered
 		l = temp
 	print(l)
+	paginator = Paginator(all, 10)
+	page = request.GET.get('page')
+	all = paginator.get_page(page)
 	return render(request, 'find/find_ride.html',
 				  {'title': 'Profile', 'postings_list': all})
 		
