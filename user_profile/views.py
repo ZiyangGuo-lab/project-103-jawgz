@@ -226,7 +226,7 @@ def deleteRide(request):
     posting.delete()
 
 
-    return switchToDriverView(request)
+    return HttpResponseRedirect("/profile/switchToDriverView")
 
 def removeMyself(request):
     posting = Posting.objects.filter(posting_id=request.GET['id'])[0]
@@ -271,4 +271,4 @@ def removeMyself(request):
             posting.posting_id) + len(posting.posting_id):]
         current_user.save()
 
-    return profile(request)
+    return HttpResponseRedirect("/profile")
