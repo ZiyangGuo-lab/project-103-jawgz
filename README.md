@@ -5,6 +5,7 @@ Talk about purpose of the app here.
 ## Usage
 
 Here is how to do it on local host. `link here`
+
 Here is how to use it on Heroku. `link here`
 
 ## Features
@@ -23,12 +24,14 @@ Request to join a ride
 ### Post A Ride
 
 Fill out the form, there is form validation
-Can't post from a date in the past
-use Google Places API to verify cities
-Submit --> takes you back to find a ride page
-*what does this do*
 
-### Profile
+Can't post from a date in the past
+
+use Google Places API to verify cities
+
+Submit --> takes you back to find a ride page
+
+### My Rides
 
 you can do lots on your profile page
 
@@ -45,7 +48,7 @@ You see your status on those rides --> accepted, declined or pending
 Rate your ride --> if you were accepted on a ride, and the date has already passed, you are able to rate your driver.
 This rating will update the profile of the driver.
 
-#### DriverView
+#### Driver View
 
 You can see future and past rides
 you can see incoming requests for riders and either accept or decline them
