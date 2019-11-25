@@ -192,7 +192,7 @@
 <!-- Future rides passenger-->
         <div class="ui mini green icon message"><i class="car icon"></i>Future Rides</div>
         {% if not futureRides %}
-            <p> You are not signed up for any rides. Find your ride <a href="{% url 'find-ride' %}">here</a>. </p>
+            <p> You are not signed up for any rides. Find your ride <a href="{% url 'post-ride' %}">here</a>. </p>
         {% endif %}
         {% for Posting,status in futureRides.items %}
         <div class="ui fluid raised centered card">
@@ -231,6 +231,9 @@
                 {% else %}
                 <p style="color:red; display: inline;">declined</p><i class="red ban icon"></i>
                 {% endif %}
+                <div style="float:right;">
+                                <a href="{% url 'removeMyself' %}?id={{Posting.posting_id}}&rider={{rider}}"><button class="negative ui button"> Remove Myself </button></a>
+                </div>
             </div>
 
             {% has_occurred Posting.riding_date as occurred %}
@@ -347,6 +350,10 @@
                 {% else %}
                 <p style="color:red; display: inline;">declined</p><i class="red ban icon"></i>
                 {% endif %}
+                <div style="float:right;">
+                                <a href="{% url 'removeMyself' %}?id={{Posting.posting_id}}&rider={{rider}}"><button class="negative ui button"> Remove Myself </button></a>
+                </div>
+
             </div>
 
             {% has_occurred Posting.riding_date as occurred %}
@@ -415,6 +422,7 @@
                             allowfullscreen>
                     </iframe>
                     </p>
+
                 </div>
             </div>
 
@@ -434,9 +442,10 @@
 
 <!-- Future rides -->
         <!--The list of cards-->
+
         <div class="ui mini green icon message"><i class="car icon"></i>Future Rides</div>
         {% if not futureRides %}
-            <p> You are not hosting any rides in the future. Post a new ride <a href="{% url 'post-ride' %}">here</a>. </p>
+            <p> You have not yet hosted any rides. Post a new ride <a href="{% url 'post-ride' %}">here</a>. </p>
         {% endif %}
         {% for Posting in futureRides %}
         <div class="ui fluid raised centered card">
@@ -453,6 +462,11 @@
                     <p>Spots left: {{ Posting.num_passengers }}</p>
                 </div>
             </div>
+            <div class="extra content">
+                    <div style="float:right;">
+                                    <a href="{% url 'deleteRide' %}?id={{Posting.posting_id}}"><button onclick="confirmation()" class="negative ui button"> Cancel Ride </button></a>
+                    </div>
+                </div>
 
                 <!--If any requests for rides, appear here-->
                 {% with Posting.riders_requested|split:"," as request_list %}
@@ -485,6 +499,7 @@
                     <i class="dropdown icon"></i>
                     Details
                 </div>
+
                     <div class="content">
                 <p class="transition ">
                     <b>Riders on this trip:</b>
@@ -526,6 +541,7 @@
         <!-- Past Ride -->
 
   <!--The list of cards-->
+        {% if pastRides %}
         <div class="ui mini yellow icon message"><i class="car icon"></i>Past Rides</div>
         {% if not pastRides %}
             <p> You have not yet hosted any rides. Post a new ride <a href="{% url 'post-ride' %}">here</a>. </p>
@@ -625,7 +641,7 @@
 
 <script>
     $('.ui.accordion').accordion();
-
 </script>
+
 
 {% endblock %}
