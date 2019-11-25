@@ -105,8 +105,8 @@ def profile(request):
 
 
     return render(request, 'user_profile/profile.html', {'title': 'Profile', 'id': id, 'current_user': current_user,
- 
-                                                         'allRides': allRides, 'viewingPassenger': True, 'rating':rating, 'future': True, 'pastRides':pastRides, 'futureRides': futureRides})
+                                                         'allRides': allRides, 'viewingPassenger': True, 'rating':rating,
+                                                         'future': True, 'pastRides':pastRides, 'futureRides': futureRides})
 
 def handleForm(request):
     id = request.user
