@@ -2,3 +2,7 @@ Django
 gunicorn
 django-heroku
 social-auth-app-django
+django-storages
+boto
+Pillow
+dj-database-url

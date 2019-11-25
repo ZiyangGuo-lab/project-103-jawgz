@@ -1,31 +1,30 @@
-
 {% load static %}
-{% block content %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
 
-<div style="padding-top: 10%; width:96%">
+<!DOCTYPE html>
+<html>
+<head>
 
-  <ul style="list-style-type:none; text-align: center;">
-    <li>
-    <img style="height: 200px;" src= "{% static 'hoosRiding/tab-logo.png' %}">
-    </li>
-    <li>
-      <h3>Find your ride with Hoos Riding</h3>
-    </li>
-    <li>
-      <div class="btn white darken-4 col s10 m4">
-     <a href="{% url 'social:begin' 'google-oauth2' %}" style="text-transform:none">
+  <meta charset="utf-8">
+  <title>Hoos Riding Login</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{% static 'hoosRiding/login2.css' %}">
+  <link rel="shortcut icon" type="image/png" href="{% static 'hoosRiding/tab-logo.png' %}"/>
+</head>
+<body>
+
+<div class="container">
+  <span class="text1">Find Your Ride At</span>
+  <span class="text2">Hoos Riding</span>
+
+  <div class="btn btn-outline-light btn-lg">
+          <a href="{% url 'social:begin' 'google-oauth2' %}" style="text-transform:none">
          <div style="display:inline-block">
-             <img style="padding-top:7px; padding-right:4px" width="20px" alt="Google &quot;G&quot; Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
+             <img style="padding-top:0px; padding-right:4px" width="24px" alt="Google &quot;G&quot; Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
          </div>
-       Login with Google
-     </a>
+              Login with Google
+              </a>
 
-</div></li>
-  </ul>
-
+        </div>
 </div>
-
 </body>
-
-{% endblock content %}
+</html>
