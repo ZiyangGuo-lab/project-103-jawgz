@@ -541,7 +541,6 @@
         <!-- Past Ride -->
 
   <!--The list of cards-->
-        {% if pastRides %}
         <div class="ui mini yellow icon message"><i class="car icon"></i>Past Rides</div>
         {% if not pastRides %}
             <p> You have not yet hosted any rides. Post a new ride <a href="{% url 'post-ride' %}">here</a>. </p>
@@ -630,10 +629,9 @@
             </div>
 
         </div>
-        {%endfor%}
+        {% endfor %}
 
         {% endif %}
-
 
     </div>
 
