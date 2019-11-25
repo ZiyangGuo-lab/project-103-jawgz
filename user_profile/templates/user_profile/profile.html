@@ -190,15 +190,9 @@
             <a href="{% url 'switchToDriverView' %}" class="item">Driver</a>
         </div>
 <!-- Future rides passenger-->
-        {% if futureRides %}
         <div class="ui mini green icon message"><i class="car icon"></i>Future Rides</div>
-        {% else %}
-        <div class="ui mini negative message">
-            <div class="header">
-                You have no future rides
-            </div>
-            <p>Come back again after requesting rides
-            </p></div>
+        {% if not futureRides %}
+            <p> You are not signed up for any rides. Find your ride <a href="{% url 'post-ride' %}">here</a>. </p>
         {% endif %}
         {% for Posting,status in futureRides.items %}
         <div class="ui fluid raised centered card">
@@ -315,13 +309,9 @@
 
         {% endfor %}
 <!-- past rides -->
-        {% if pastRides %}
         <div class="ui mini yellow icon message"><i class="car icon"></i>Past Rides</div>
-        {% else %}
-        <div class="ui mini negative message">
-            <div class="header">
-                You have no past rides
-            </div></div>
+        {% if not pastRides %}
+            <p> You do not have any past rides. Find your ride <a href="{% url 'find-ride' %}">here</a>. </p>
         {% endif %}
         {% for Posting,status in pastRides.items %}
         <div class="ui fluid raised centered card">
@@ -452,15 +442,10 @@
 
 <!-- Future rides -->
         <!--The list of cards-->
-        {% if futureRides %}
+
         <div class="ui mini green icon message"><i class="car icon"></i>Future Rides</div>
-        {% else %}
-        <div class="ui mini negative message">
-            <div class="header">
-                You are not hosting any future rides
-            </div>
-            <p>Come back again after hosting rides
-            </p></div>
+        {% if not futureRides %}
+            <p> You have not yet hosted any rides. Post a new ride <a href="{% url 'post-ride' %}">here</a>. </p>
         {% endif %}
         {% for Posting in futureRides %}
         <div class="ui fluid raised centered card">
@@ -556,13 +541,9 @@
         <!-- Past Ride -->
 
   <!--The list of cards-->
-        {% if pastRides %}
         <div class="ui mini yellow icon message"><i class="car icon"></i>Past Rides</div>
-        {% else %}
-        <div class="ui mini negative message">
-            <div class="header">
-                You have not hosted any rides
-            </div></div>
+        {% if not pastRides %}
+            <p> You have not yet hosted any rides. Post a new ride <a href="{% url 'post-ride' %}">here</a>. </p>
         {% endif %}
         {% for Posting in pastRides %}
         <div class="ui fluid raised centered card">
@@ -648,10 +629,9 @@
             </div>
 
         </div>
-        {%endfor%}
+        {% endfor %}
 
         {% endif %}
-
 
     </div>
 
