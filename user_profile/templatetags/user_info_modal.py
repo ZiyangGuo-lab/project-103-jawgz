@@ -93,10 +93,10 @@ def get_rating(value):
             # print("rating", user.rating)
             return user.rating
         else:
-            return 'No car information provided.'
+            return 'No rating information available.'
     else:
         print('no user')
-        return 'No car information provided.'
+        return 'No rating information available.'
 
 @register.simple_tag
 def has_occurred(riding_date):

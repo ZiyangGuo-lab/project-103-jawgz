@@ -30,98 +30,103 @@
                 <div class="meta">
                     <span class="date">{{ user.email }}</span>
                 </div>
-                <div class="description">
-
-                    <b>Rating: {{ rating }}</b><div class="star-rank">
-                        {% if rating < .5 %}
-                        <span class="fa fa-star fa-lg"></span>
-                        <span class="fa fa-star fa-lg"></span>
-                        <span class="fa fa-star fa-lg"></span>
-                        <span class="fa fa-star fa-lg"></span>
-                        <span class="fa fa-star fa-lg"></span>
-                        {% elif rating >= .5 and rating < 1 %}
-                        <span class="fa fa-star-half-o fa-lg" style="color:orange"></span>
-                        <span class="fa fa-star fa-lg"></span>
-                        <span class="fa fa-star fa-lg"></span>
-                        <span class="fa fa-star fa-lg"></span>
-                        <span class="fa fa-star fa-lg"></span>
-                        {% elif rating >= 1 and rating < 1.5 %}
-                        <span class="fa fa-star fa-lg" style="color:orange"></span>
-                        <span class="fa fa-star fa-lg"></span>
-                        <span class="fa fa-star fa-lg"></span>
-                        <span class="fa fa-star fa-lg"></span>
-                        <span class="fa fa-star fa-lg"></span>
-                        {% elif rating >= 1.5 and rating < 2 %}
-                        <span class="fa fa-star fa-lg" style="color:orange"></span>
-                        <span class="fa fa-star-half-o fa-lg" style="color:orange"></span>
-                        <span class="fa fa-star fa-lg"></span>
-                        <span class="fa fa-star fa-lg"></span>
-                        <span class="fa fa-star fa-lg"></span>
-                        {% elif rating >= 2 and rating < 2.5 %}
-                        <span class="fa fa-star fa-lg" style="color:orange"></span>
-                        <span class="fa fa-star fa-lg" style="color:orange"></span>
-                        <span class="fa fa-star fa-lg"></span>
-                        <span class="fa fa-star fa-lg"></span>
-                        <span class="fa fa-star fa-lg"></span>
-                        {% elif rating >= 2.5 and rating < 3 %}
-                        <span class="fa fa-star fa-lg" style="color:orange"></span>
-                        <span class="fa fa-star fa-lg" style="color:orange"></span>
-                        <span class="fa fa-star-half-o fa-lg" style="color:orange"></span>
-                        <span class="fa fa-star fa-lg"></span>
-                        <span class="fa fa-star fa-lg"></span>
-                        {% elif rating >= 3 and rating < 3.5 %}
-                        <span class="fa fa-star fa-lg" style="color:orange"></span>
-                        <span class="fa fa-star fa-lg" style="color:orange"></span>
-                        <span class="fa fa-star fa-lg" style="color:orange"></span>
-                        <span class="fa fa-star fa-lg"></span>
-                        <span class="fa fa-star fa-lg"></span>
-                        {% elif rating >= 3.5 and rating < 4 %}
-                        <span class="fa fa-star fa-lg" style="color:orange"></span>
-                        <span class="fa fa-star fa-lg" style="color:orange"></span>
-                        <span class="fa fa-star fa-lg" style="color:orange"></span>
-                        <span class="fa fa-star-half-o fa-lg" style="color:orange"></span>
-                        <span class="fa fa-star fa-lg"></span>
-                        {% elif rating >= 4 and rating < 4.5 %}
-                        <span class="fa fa-star fa-lg" style="color:orange"></span>
-                        <span class="fa fa-star fa-lg" style="color:orange"></span>
-                        <span class="fa fa-star fa-lg" style="color:orange"></span>
-                        <span class="fa fa-star fa-lg" style="color:orange"></span>
-                        <span class="fa fa-star fa-lg"></span>
-                        {% elif rating >= 4.5 and rating < 5 %}
-                        <span class="fa fa-star fa-lg" style="color:orange"></span>
-                        <span class="fa fa-star fa-lg" style="color:orange"></span>
-                        <span class="fa fa-star fa-lg" style="color:orange"></span>
-                        <span class="fa fa-star fa-lg" style="color:orange"></span>
-                        <span class="fa fa-star-half-o fa-lg" style="color:orange"></span>
+                <div class="description" style="display: flex; flex-direction:column;">
+                    <div>
+                        <b>Rating: {{ rating }}</b><div class="star-rank">
+                            {% if rating < .5 %}
+                            <span class="fa fa-star fa-lg"></span>
+                            <span class="fa fa-star fa-lg"></span>
+                            <span class="fa fa-star fa-lg"></span>
+                            <span class="fa fa-star fa-lg"></span>
+                            <span class="fa fa-star fa-lg"></span>
+                            {% elif rating >= .5 and rating < 1 %}
+                            <span class="fa fa-star-half-o fa-lg" style="color:orange"></span>
+                            <span class="fa fa-star fa-lg"></span>
+                            <span class="fa fa-star fa-lg"></span>
+                            <span class="fa fa-star fa-lg"></span>
+                            <span class="fa fa-star fa-lg"></span>
+                            {% elif rating >= 1 and rating < 1.5 %}
+                            <span class="fa fa-star fa-lg" style="color:orange"></span>
+                            <span class="fa fa-star fa-lg"></span>
+                            <span class="fa fa-star fa-lg"></span>
+                            <span class="fa fa-star fa-lg"></span>
+                            <span class="fa fa-star fa-lg"></span>
+                            {% elif rating >= 1.5 and rating < 2 %}
+                            <span class="fa fa-star fa-lg" style="color:orange"></span>
+                            <span class="fa fa-star-half-o fa-lg" style="color:orange"></span>
+                            <span class="fa fa-star fa-lg"></span>
+                            <span class="fa fa-star fa-lg"></span>
+                            <span class="fa fa-star fa-lg"></span>
+                            {% elif rating >= 2 and rating < 2.5 %}
+                            <span class="fa fa-star fa-lg" style="color:orange"></span>
+                            <span class="fa fa-star fa-lg" style="color:orange"></span>
+                            <span class="fa fa-star fa-lg"></span>
+                            <span class="fa fa-star fa-lg"></span>
+                            <span class="fa fa-star fa-lg"></span>
+                            {% elif rating >= 2.5 and rating < 3 %}
+                            <span class="fa fa-star fa-lg" style="color:orange"></span>
+                            <span class="fa fa-star fa-lg" style="color:orange"></span>
+                            <span class="fa fa-star-half-o fa-lg" style="color:orange"></span>
+                            <span class="fa fa-star fa-lg"></span>
+                            <span class="fa fa-star fa-lg"></span>
+                            {% elif rating >= 3 and rating < 3.5 %}
+                            <span class="fa fa-star fa-lg" style="color:orange"></span>
+                            <span class="fa fa-star fa-lg" style="color:orange"></span>
+                            <span class="fa fa-star fa-lg" style="color:orange"></span>
+                            <span class="fa fa-star fa-lg"></span>
+                            <span class="fa fa-star fa-lg"></span>
+                            {% elif rating >= 3.5 and rating < 4 %}
+                            <span class="fa fa-star fa-lg" style="color:orange"></span>
+                            <span class="fa fa-star fa-lg" style="color:orange"></span>
+                            <span class="fa fa-star fa-lg" style="color:orange"></span>
+                            <span class="fa fa-star-half-o fa-lg" style="color:orange"></span>
+                            <span class="fa fa-star fa-lg"></span>
+                            {% elif rating >= 4 and rating < 4.5 %}
+                            <span class="fa fa-star fa-lg" style="color:orange"></span>
+                            <span class="fa fa-star fa-lg" style="color:orange"></span>
+                            <span class="fa fa-star fa-lg" style="color:orange"></span>
+                            <span class="fa fa-star fa-lg" style="color:orange"></span>
+                            <span class="fa fa-star fa-lg"></span>
+                            {% elif rating >= 4.5 and rating < 5 %}
+                            <span class="fa fa-star fa-lg" style="color:orange"></span>
+                            <span class="fa fa-star fa-lg" style="color:orange"></span>
+                            <span class="fa fa-star fa-lg" style="color:orange"></span>
+                            <span class="fa fa-star fa-lg" style="color:orange"></span>
+                            <span class="fa fa-star-half-o fa-lg" style="color:orange"></span>
+                            {% else %}
+                            <span class="fa fa-star fa-lg" style="color:orange"></span>
+                            <span class="fa fa-star fa-lg" style="color:orange"></span>
+                            <span class="fa fa-star fa-lg" style="color:orange"></span>
+                            <span class="fa fa-star fa-lg" style="color:orange"></span>
+                            <span class="fa fa-star fa-lg" style="color:orange"></span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div>
+                        <b>Cell: </b>
+                        {% if current_user.cellphone %}
+                        {{ current_user.cellphone }}
                         {% else %}
-                        <span class="fa fa-star fa-lg" style="color:orange"></span>
-                        <span class="fa fa-star fa-lg" style="color:orange"></span>
-                        <span class="fa fa-star fa-lg" style="color:orange"></span>
-                        <span class="fa fa-star fa-lg" style="color:orange"></span>
-                        <span class="fa fa-star fa-lg" style="color:orange"></span>
+                        No phone number provided
                         {% endif %}
                     </div>
-
-                    <b>Cell: </b>
-                    {% if current_user.cellphone %}
-                    {{ current_user.cellphone }}
-                    {% else %}
-                    No phone number provided
-                    {% endif %}
-
-                    <b>Car:</b>
-                    {% if current_user.car_type %}
-                    {{ current_user.car_type }}
-                    {% else %}
-                    No car type provided
-                    {% endif %}
-                    <br/>
-                    <b>License Plate: </b>
-                    {% if current_user.license_plate %}
-                    {{ current_user.license_plate }}
-                    {% else %}
-                    No license plate provided
-                    {% endif %}
+                    <div>
+                        <b>Car:</b>
+                        {% if current_user.car_type %}
+                        {{ current_user.car_type }}
+                        {% else %}
+                        No car type provided
+                        {% endif %}
+                        <br/>
+                    </div>
+                    <div>
+                        <b>License Plate: </b>
+                        {% if current_user.license_plate %}
+                        {{ current_user.license_plate }}
+                        {% else %}
+                        No license plate provided
+                        {% endif %}
+                    </div>
                 </div>
             </div>
             <div class="extra content">
