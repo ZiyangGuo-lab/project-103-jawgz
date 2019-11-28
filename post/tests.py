@@ -133,6 +133,7 @@ class postRideTest(TestCase):
 		postings_list = Posting.objects.all()
 		self.assertEqual(len(postings_list), 2)
 
+
 	def test_posting_is_saved_correctly2(self):
 		" Once two forms are saved, number of postings increases by one if one form is invalid."
 		form1 = postRide(data={

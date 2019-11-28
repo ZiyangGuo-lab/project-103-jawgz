@@ -37,7 +37,7 @@ def post(request):
         if d <= datetime.now():
             print("form is invalid")
             print(form.errors)
-            context = {'form': form
+            context = {'form': form, 'invalid': True
             }
             template = 'post/post_ride.html'
             return render(request, template, context)
