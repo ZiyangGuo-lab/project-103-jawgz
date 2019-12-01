@@ -37,10 +37,11 @@
                 <div class="ui calendar" id="selectCalendar">
                     <div class="ui input left icon">
                       <i class="calendar icon"></i>
-                      <input type="text" placeholder="Day" name="riding_date" required=True>
+                      <input type="text" placeholder="Day" name="riding_date"  required=True>
                     </div>
                   </div>
             </div>
+            
             <div class="field">
                 <label>Time</label>
             <div class="ui calendar" id="selectTime">
@@ -51,6 +52,10 @@
                   </div>
             </div>
         </div>
+
+         {% if invalid %}
+              <p align = left><font color = "red"> Can't select past dates </font></p>
+         {% endif %}
 
             <div class="two fields">
                 <div class="field">
@@ -77,9 +82,9 @@
 
         <button class="ui primary large submit button" >Post</button>
 
-
         </div>
 
+          
 </form>
 </div>
 
