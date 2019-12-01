@@ -9,7 +9,7 @@ urlpatterns = [
     path('switchToPassengerView', views.profile, name='switchToPassengerView'),
     path('updateRating', views.updateRating, name='updateRating'),
     path('removeMyself', views.removeMyself, name='removeMyself'),
-    path('deleteRide', views.deleteRide, name='deleteRide')
+    path('deleteRide', views.deleteRide, name='deleteRide'),
 
     path('driver-view', views.switchToDriverView, name='switchToDriverView'),
     path('passenger-view', views.profile, name='switchToPassengerView'),
