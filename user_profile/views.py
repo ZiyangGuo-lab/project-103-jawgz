@@ -9,9 +9,8 @@ from django.utils import timezone
 
 now = timezone.now()
 
-
 # method called
-def calculate_rating(current_user):  ###
+def calculate_rating(current_user):
     rating_array = current_user.ratings_list.split(",")  # average of rating_list
     total_rating = 0
     count = 0
@@ -26,11 +25,6 @@ def calculate_rating(current_user):  ###
     else:
         current_user.rating = 0
     current_user.save()
-
-    # user_matches = Posting.objects.filter(driver_id=id)
-    # current_user = user_matches[0]
-    # current_user.rating = new_rating
-    # current_user.save()
 
     return current_user.rating
 
@@ -58,9 +52,6 @@ def updateRating(request):
 
 # Create your views here.
 def profile(request):
-    current_user = handleForm(request)  # get and update current user based on form data
-    # print (current_user.name)
-
     allRides = {}
     pastRides = {}
     futureRides = {}
@@ -72,11 +63,6 @@ def profile(request):
 
         if query.count() > 0:
             allRides[query[0]] = 'accepted'
-
-        #     print("query[0]" + str(query[0]))
-        # print("allRides: ")
-        print(allRides)
-        # print(allRides.get(ride))
     ridesPendingIds = str(Rider.objects.filter(username=request.user)[0].rides_pending).split(",")
     for ride in ridesPendingIds:
         query = Posting.objects.filter(posting_id=ride)
@@ -93,7 +79,7 @@ def profile(request):
     id = request.user
     user_matches = Rider.objects.filter(username=id)
     current_user = user_matches[0]
-    rating = calculate_rating(current_user)  ###
+    rating = calculate_rating(current_user)
 
     # filter past rides
     for posting, status in allRides.items():
@@ -115,7 +101,7 @@ def handleForm(request):
     user_matches = Rider.objects.filter(username=id)
     current_user = user_matches[0]
     name = request.user.first_name + ' ' + request.user.last_name
-    current_user.name = name;
+    current_user.name = name
     current_user.save()
     # check if modal form has been filled out yet
     if 'image' in request.FILES:
@@ -132,7 +118,6 @@ def handleForm(request):
         current_user.save()
     return current_user
 
-
 # method called when driver accepts or declines a new passenger
 def respondToDriverRequest(request):
     postingObject = Posting.objects.filter(posting_id=request.GET['id'])[0]
@@ -142,7 +127,6 @@ def respondToDriverRequest(request):
     if (request.GET['status'] == "accept"):
         postingObject.riders_riding += passenger.username + ","  # add to riders riding
         postingObject.ratable_by += passenger.username + ","
-        print('got here yooo')
         postingObject.num_passengers -= 1
         passenger.rides_passenger += request.GET['id'] + ","  # update rider's info to save is riding
         passenger.save()
@@ -164,7 +148,7 @@ def respondToDriverRequest(request):
     # print("passenger pending: " + passenger.rides_pending)
     passenger.save()
 
-    return switchToDriverView(request)
+    return HttpResponseRedirect("/profile/driver-view")
 
 
 def switchToDriverView(request):
@@ -270,5 +254,31 @@ def removeMyself(request):
         current_user.rides_declined = riding[:riding.index(posting.posting_id)] + riding[riding.index(
             posting.posting_id) + len(posting.posting_id):]
         current_user.save()
+
+    return HttpResponseRedirect("/profile")
+
+
+def rateDriver(request):
+    rating = request.GET["rating"]
+    user = request.user
+    rideId = request.GET["ride"]
+    driver = request.GET['driver']
+    # print("rating a ride\nrating:",rating,"\nuser:",user,"\nride id",rideId)
+
+    # if posting "ratable by" contains rider's username, then don't update rating
+    id = request.user
+    user_matches = Rider.objects.filter(username=id)
+    current_user = str(user_matches[0])
+    posting = Posting.objects.filter(posting_id=rideId)[0]
+    ratable = posting.ratable_by
+    posting.ratable_by = ratable[:ratable.index(current_user)] + ratable[ratable.index(current_user) + len(current_user):]
+    posting.save()
+
+    # id is the driver_id and this fins the rider with the same id and updates rating
+    rider_to_rate = Rider.objects.filter(username=driver)
+    rider_to_rate = rider_to_rate[0]
+    rider_to_rate.ratings_list = rider_to_rate.ratings_list + ", " + str(rating)
+    rider_to_rate.rating = calculate_rating(rider_to_rate)
+    rider_to_rate.save()
 
     return HttpResponseRedirect("/profile")
