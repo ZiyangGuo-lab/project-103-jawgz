@@ -182,7 +182,7 @@ class postRideTest(TestCase):
 		p3.save()
 		m = price.get_queryset()
 		# 4th in list is p1 which has the highest price
-		self.assertEqual(m[3], p1)
+		self.assertEqual(m[2], p1)
 
 
 # def test_formatDateTime(self):
