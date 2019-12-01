@@ -68,4 +68,4 @@ will then update the profile of the driver. A rider can only rate a ride one tim
 
 In Driver view, a user is also able to see both past and future rides. In Future Rides, drivers see all incoming rider
 requests. They are able to either accept or decline riders. As they accept riders, the number of available seats on the
-ride adjust accordingly. Drivers are also able to delete active rides, but not rides from the past. 
+ride adjust accordingly. Drivers are also able to delete active rides, but not rides from the past.
