@@ -1,7 +1,5 @@
 from django.db import models
 from datetime import datetime, timedelta
-# import django_filters
-
 
 def default_datetime():
     return datetime.now() - timedelta(hours=5)

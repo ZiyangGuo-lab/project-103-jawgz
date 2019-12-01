@@ -49,8 +49,6 @@ def post(request):
         return HttpResponseRedirect('/')
 
     else:
-        print("form is invalid")
-        print(form.errors)
         context = {'form': form
         }
         template = 'post/post_ride.html'
