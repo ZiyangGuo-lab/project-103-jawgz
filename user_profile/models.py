@@ -1,11 +1,12 @@
 from django.db import models
 # from django.contrib.postgres.fields import ArrayField
+from phone_field import PhoneField
 
 # Create your models here.
 class Rider(models.Model):
     username = models.CharField(max_length=200)
     name = models.CharField(max_length=200, default='No Name')
-    cellphone = models.CharField(max_length=200)
+    cellphone = PhoneField(blank=True, help_text='Contact phone number')
     car_type = models.CharField(max_length=200)
     license_plate = models.CharField(max_length=200)
     rides_driven = models.TextField()#need to use this when upgrade to postgres --> ArrayField(models.CharField(max_length=20, blank=True),size=20)

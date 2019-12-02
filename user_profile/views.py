@@ -52,6 +52,7 @@ def updateRating(request):
 
 # Create your views here.
 def profile(request):
+    handleForm(request)
     allRides = {}
     pastRides = {}
     futureRides = {}
@@ -90,7 +91,6 @@ def profile(request):
             futureRides[posting] = status
 
     return render(request, 'user_profile/profile.html', {'title': 'Profile', 'id': id, 'current_user': current_user,
-
                                                          'allRides': allRides, 'viewingPassenger': True,
                                                          'rating': rating, 'future': True, 'pastRides': pastRides,
                                                          'futureRides': futureRides})
