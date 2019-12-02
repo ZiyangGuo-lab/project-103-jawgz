@@ -52,6 +52,10 @@ def updateRating(request):
 
 # Create your views here.
 def profile(request):
+    id = request.user
+    user_matches = Rider.objects.filter(username=id)
+    if len(user_matches) == 0:
+        return HttpResponseRedirect("/")
     handleForm(request)
     allRides = {}
     pastRides = {}

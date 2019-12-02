@@ -86,7 +86,7 @@ def get_rating(value):
 
 @register.simple_tag
 def has_occurred(riding_date):
-    return (datetime.now(timezone.utc) - timedelta(hours=5)) > riding_date
+    return (datetime.now(timezone.utc)) > riding_date
 
 @register.simple_tag
 def is_ratable(current_user, posting):
