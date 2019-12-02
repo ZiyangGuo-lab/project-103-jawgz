@@ -7,7 +7,7 @@ their homes and Charlottesville. Users can host rides as well as request a seat 
 
 This web application is hosted using Heroku. To access this app, please visit this link: `https://project-103-jawgz.herokuapp.com/`.
 
-For grading purposes, please log in through admin to access the admin site at this link: `https://project-103-jawgz.herokuapp.com/admin`. The username and password are both `admin`. From the admin site, click `Visit Site` in the top right corner. This will log you in as `Admin User` and enable you to view, post, join rides, and edit the applicable admin profile information.
+For grading purposes, please log in through admin to access the site at this link: `https://project-103-jawgz.herokuapp.com/admin`. The username and password are both `admin`. From the admin site, click `Visit Site` in the top right corner. This will log you in as `Admin User` and enable you to view, post, join rides, and edit the applicable admin profile information.
 
 ## Features
 
