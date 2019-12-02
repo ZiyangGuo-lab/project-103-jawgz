@@ -6,3 +6,4 @@ django-storages
 boto
 Pillow
 dj-database-url
+django-phone-field

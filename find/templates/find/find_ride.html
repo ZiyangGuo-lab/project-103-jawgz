@@ -36,6 +36,15 @@ function handleAction() {
               <label>Sort By <i class="sort icon"></i></label>
 
                    <div class="ui secondary vertical menu">
+                  {% if request.path == '/' %}
+                  <a class="active item">
+                    View All
+                  </a>
+                  {% else %}
+                  <a class="item" href="/">
+                   View All
+                  </a>
+                  {% endif %}
 
                    {% if 'sortByPostingDate' in request.path %}
                   <a class="active item" href="{% url 'sortByPostingDate' %}"onclick="handleAction();">
@@ -83,15 +92,6 @@ function handleAction() {
 
                   {% endif %}
 
-                  {% if request.path == '/' %}
-                  <a class="active item">
-                    View All
-                  </a>
-                  {% else %}
-                  <a class="item" href="/">
-                   View All
-                  </a>
-                  {% endif %}
               </div>
 
               <label>Search <i class="search icon"></i></label>
@@ -122,7 +122,7 @@ function handleAction() {
                     </div>
                   </div>
                         <h6></h6>
-                        <button class="ui primary mini submit button" >Search</button>
+                        <button class="ui secondary mini submit button" >Search</button>
 
 
                 </form>
