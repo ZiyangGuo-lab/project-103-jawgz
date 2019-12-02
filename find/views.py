@@ -39,7 +39,7 @@ def find(request):
 	page = request.GET.get('page')
 	posts = paginator.get_page(page)
 
-	return render(request, 'find/find_ride.html', {'title': 'Profile', 'postings_list' : getRelevantRides()})
+	return render(request, 'find/find_ride.html', {'title': 'Profile', 'postings_list' : posts})
 
 
 def sortByPostingDate(request):
