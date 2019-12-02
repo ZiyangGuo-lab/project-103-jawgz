@@ -133,6 +133,7 @@ class postRideTest(TestCase):
 		postings_list = Posting.objects.all()
 		self.assertEqual(len(postings_list), 2)
 
+
 	def test_posting_is_saved_correctly2(self):
 		" Once two forms are saved, number of postings increases by one if one form is invalid."
 		form1 = postRide(data={
@@ -181,7 +182,7 @@ class postRideTest(TestCase):
 		p3.save()
 		m = price.get_queryset()
 		# 4th in list is p1 which has the highest price
-		self.assertEqual(m[3], p1)
+		self.assertEqual(m[2], p1)
 
 
 # def test_formatDateTime(self):
