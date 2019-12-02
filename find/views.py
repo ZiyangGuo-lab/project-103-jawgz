@@ -11,6 +11,8 @@ from django.contrib.postgres.search import SearchVector
 from django.contrib import messages
 from django.core.paginator import Paginator
 
+from datetime import datetime, timezone, timedelta
+
 flagPrice = False
 flagDate = False
 flagSearch = False
@@ -32,11 +34,12 @@ def find(request):
 	flagSearch=False
 	flagPost=False
 	# print("flagSearch", flagSearch)
-	posts = Posting.objects.all().order_by('-date')
+	posts = getRelevantRides().order_by('-date')
 	paginator = Paginator(posts, 10)
 	page = request.GET.get('page')
 	posts = paginator.get_page(page)
-	return render(request, 'find/find_ride.html', {'title': 'Profile', 'postings_list' : posts})
+
+	return render(request, 'find/find_ride.html', {'title': 'Profile', 'postings_list' : getRelevantRides()})
 
 
 def sortByPostingDate(request):
@@ -59,7 +62,7 @@ def sortByPostingDate(request):
 			ans = paginator.get_page(page)
 			return render(request, 'find/find_ride.html',
 					  {'title': 'Profile', 'postings_list': ans})
-		posts = Posting.objects.all().order_by('-date')
+		posts = getRelevantRides().order_by('-date')
 		paginator = Paginator(posts, 10)
 		page = request.GET.get('page')
 		posts = paginator.get_page(page)	
@@ -79,7 +82,7 @@ def sortByPostingDate(request):
 			ans = paginator.get_page(page)
 			return render(request, 'find/find_ride.html',
 					  {'title': 'Profile', 'postings_list': ans})
-		posts = Posting.objects.all().order_by('date')
+		posts = getRelevantRides().order_by('date')
 		paginator = Paginator(posts, 10)
 		page = request.GET.get('page')
 		posts = paginator.get_page(page)	
@@ -108,17 +111,14 @@ def sortByRidingDate(request):
 			ans = paginator.get_page(page)
 			return render(request, 'find/find_ride.html',
 					  {'title': 'Profile', 'postings_list': ans})
-		posts = Posting.objects.all().order_by('-riding_date')
+		posts = getRelevantRides().order_by('-riding_date')
 		paginator = Paginator(posts, 10)
 		page = request.GET.get('page')
 		posts = paginator.get_page(page)
-		return render(request, 'find/find_ride.html',
-					  {'title': 'Profile', 'postings_list': posts, 'flagRide': flagr})
+		return render(request, 'find/find_ride.html', {'title': 'Profile', 'postings_list': posts, 'flagRide': flagr})
 	else:
 		flagr = True
 		if flagSearch:
-		# print(l)
-		# print(l[0][1])
 			l.sort(key=lambda x: x[1])
 			ans=[]
 			for post in l:
@@ -129,7 +129,7 @@ def sortByRidingDate(request):
 			ans = paginator.get_page(page)
 			return render(request, 'find/find_ride.html',
 					  {'title': 'Profile', 'postings_list': ans})
-		posts = Posting.objects.all().order_by('riding_date')
+		posts = getRelevantRides().order_by('riding_date')
 		paginator = Paginator(posts, 10)
 		page = request.GET.get('page')
 		posts = paginator.get_page(page)
@@ -158,7 +158,7 @@ def sortByPrice(request):
 			return render(request, 'find/find_ride.html',
 					  {'title': 'Profile', 'postings_list': ans})
 			
-		posts = Posting.objects.all().order_by('price')
+		posts = getRelevantRides().order_by('price')
 		paginator = Paginator(posts, 10)
 		page = request.GET.get('page')
 		posts = paginator.get_page(page)
@@ -179,7 +179,7 @@ def sortByPrice(request):
 			return render(request, 'find/find_ride.html',
 					  {'title': 'Profile', 'postings_list': ans})
 			
-		posts = Posting.objects.all().order_by('-price')
+		posts = getRelevantRides().order_by('-price')
 		paginator = Paginator(posts, 10)
 		page = request.GET.get('page')
 		posts = paginator.get_page(page)
@@ -196,23 +196,20 @@ def search(request):
 	global l
 
 	if flagPrice:
-		all = Posting.objects.all().order_by('price')
+		all = getRelevantRides().order_by('price')
 		# flagPrice = False
 	elif flagDate:
-		all = Posting.objects.all().order_by('-riding_date')
+		all = getRelevantRides().order_by('-riding_date')
 		# flagDate = False
 	else:
-		all = Posting.objects.all().order_by('-date')
-	# print(all)
+		all = getRelevantRides().order_by('-date')
 	location_to = request.POST['searchTo']
-	# print("to:", location_to)
 	if location_to != None and location_to != '':
 		if (len(location_to) > 5 and location_to[-5:] == ", USA"):
 			location_to = location_to[:-5]
 		temp=[]	
 		filtered = []
 		for posting in all:
-			# print(posting)
 			if posting.location_to == location_to and isValid(posting):
 				a=[posting, posting.riding_date,posting.price,posting.date]
 				temp.append(a)
@@ -237,18 +234,15 @@ def search(request):
 	if riding_date != None and riding_date != '':
 
 		riding_date = formatDate(riding_date)
-		# print("formatted:", riding_date)
 		filtered = []
 		temp=[]
 		for posting in all:
-			# print(len(str(str(posting.riding_date).split(" ")[0])) , len(str(riding_date)))
 			if str(str(posting.riding_date).split(" ")[0]) == str(riding_date) and isValid(posting):
 				filtered.append(posting)
 				a=[posting, posting.riding_date,posting.price]
 				temp.append(a)
 		all = filtered
 		l = temp
-	print(l)
 	paginator = Paginator(all, 10)
 	page = request.GET.get('page')
 	all = paginator.get_page(page)
@@ -288,7 +282,7 @@ class findView(generic.ListView):
 	template_name = 'find/find_ride.html'
 	context_object_name = 'postings_list'
 	def get_queryset(self):
-		return Posting.objects.all()
+		return getRelevantRides()
 
 class dateView(generic.ListView):
     template_name = 'find/find_ride_date.html'
@@ -296,14 +290,14 @@ class dateView(generic.ListView):
 
     def get_queryset(self):
     	# print("find ride")
-    	return Posting.objects.all().order_by('-riding_date')
+    	return getRelevantRides().order_by('-riding_date')
 
 class priceView(generic.ListView):
     template_name = 'find/find_ride_price.html'
     context_object_name = 'postings_list'
 
     def get_queryset(self):
-    	return Posting.objects.all().order_by('price')
+    	return getRelevantRides().order_by('price')
 
 
 class searchView(generic.ListView):
@@ -338,4 +332,9 @@ class searchView(generic.ListView):
 			return Posting.objects.filter(location_from=location_from)
 		else:
 			return Posting.objects.filter(location_to=location_to, location_from=location_from, riding_date__date=s)
+#return the rides that still have spots left and date still hasn't happended
+def getRelevantRides():
+
+	return Posting.objects.filter(num_passengers__gte=1, riding_date__gte=(datetime.now(timezone.utc) - timedelta(hours=5)))
+
 

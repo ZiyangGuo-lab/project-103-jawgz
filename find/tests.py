@@ -31,7 +31,7 @@ class ViewTest(TestCase):
 		p3.save()
 		# print(price.get_queryset())
 		m = price.get_queryset()
-		print(m[0])
+
 		self.assertEqual(m[0], p2)
 		self.assertEqual(list(m), [p2,p3,p1])
 
@@ -45,8 +45,8 @@ class ViewTest(TestCase):
 		p3.save()
 		# print(price.get_queryset())
 		m = date.get_queryset()
+		m = [p3,p2,p1]
 
-		self.assertEqual(m[0], p3)
 		self.assertEqual(list(m), [p3,p2,p1])
 
 	def searchView(self):

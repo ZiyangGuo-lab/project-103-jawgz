@@ -148,8 +148,6 @@ function handleAction() {
   </div>
 </div>
 
-
-
     {% for Posting in postings_list %}
         <div class="ui fluid raised centered card">
           <div class="content">
@@ -161,20 +159,34 @@ function handleAction() {
               </table>
             <div class="meta">{{ Posting.riding_date}} </div>
             <div class="description">
-                <a class="ui image label simple large dropdown button">
-                    <img src="{% get_user_image Posting.driver_id %}">
-                    <span class="text">{{ Posting.driver_name }}</span>
-                    <div class="menu">
-                        <div class="item"><b>Rating: </b> {% get_rating Posting.driver_id %}</div>
-                        <div class="item"><b>Email: </b>{{ Posting.driver_id }}@virginia.edu</div>
-                        <div class="item"><b>Cell: </b>{% get_cellphone Posting.driver_id %}</div>
-                        <div class="item"><b>Car: </b>{% get_car Posting.driver_id %}</div>
-                        <div class="item"><b>License Plate: </b>{% get_license_plate Posting.driver_id %}</div>
-                    </div>
-                </a>
-                <p>Asking price: <i class="dollar sign icon"></i>{{ Posting.price }}</p>
-                <p>Spots left: {{ Posting.num_passengers }}</p>
-            </div>
+                    <table style="width:100%">
+                        <td>
+                            <a class="ui image label simple large dropdown button">
+                                <img src="{% get_user_image Posting.driver_id %}">
+                                <span class="text">{{ Posting.driver_name }}</span>
+                                <div class="menu">
+                                    <div class="item"><b>Rating: </b> {% get_rating Posting.driver_id %}</div>
+                                    <div class="item"><b>Email: </b>{{ Posting.driver_id }}@virginia.edu</div>
+                                    <div class="item"><b>Cell: </b>{% get_cellphone Posting.driver_id %}</div>
+                                    <div class="item"><b>Car: </b>{% get_car Posting.driver_id %}</div>
+                                    <div class="item"><b>License Plate: </b>{% get_license_plate Posting.driver_id %}</div>
+                                </div>
+                            </a>
+
+                            <p>Spots left: {{ Posting.num_passengers }}</p>
+                        </td>
+
+                        <td>
+                            <div class="ui statistic" style="float:right">
+
+                              <div class="value">
+                                  <p style="display:inline-block; font-size:30px;">$</p>{{ Posting.price }}
+                              </div>
+                            </div>
+                        </td>
+                    </table>
+
+                </div>
           </div>
 
             <!--Dropdown of extra info-->
@@ -206,6 +218,7 @@ function handleAction() {
                 {% endwith %}
 
                 <br/> <br/>
+                    <!--Google Maps Display-->
                 <iframe
                       width="500"
                       height="300"
